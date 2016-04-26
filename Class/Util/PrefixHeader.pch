@@ -1,0 +1,49 @@
+//
+//  PrefixHeader.pch
+//  guoping
+//
+//  Created by zhisu on 15/9/2.
+//  Copyright (c) 2015年 zhisu. All rights reserved.
+//
+
+#ifndef guoping_PrefixHeader_pch
+#define guoping_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+
+#if __OBJC__
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "CONST.h"
+#import "MyUtil.h"
+#import "AFHTTPClientV2.h"
+#import "XMLReader.h"
+#import "MJRefresh.h"//刷新
+#import "MBProgressHUD.h"//网络状况提示
+#import "FMDB.h"//数据库
+#import "CacheManager.h"//缓存
+
+#define ScreenWidth    [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight   [UIScreen mainScreen].bounds.size.height
+
+
+//正则表达式
+#define kRegex @"^(0|[1-9][0-9]*)$"
+#define kPassRefex  @"^[0-9a-zA-Z]{6,20}"
+
+
+#define alert(msg) [[[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil] show];
+
+
+
+
+
+#endif
+
+
+
+#endif
