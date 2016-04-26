@@ -26,6 +26,12 @@
     
     NSString *strRET;
     
+    int currPageIndex;
+    NSString *currPagestr;
+    NSString *date;
+    NSString *EntId;
+
+
 }
 
 
@@ -57,6 +63,18 @@
     
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
+    EntId= [df objectForKey:@"GUID"];
+    
+    
+    NSString *Date = [NSString stringWithFormat:@"%d",1];
+    date = Date;
+    
+    NSString *page = [NSString stringWithFormat:@"%d",0];
+    
+    currPagestr = page;
+
     
     [self download];
     [self createNav];
@@ -190,21 +208,20 @@
         
         if (cell == nil) {
             
-            cell = [[GoodsMngDetCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            cell = [[MemberDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             
             
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
         }
         
-        GoodsMngDetModel *cellModel = self.dataArray[indexPath.row];
+        MemberModel *cellModel = self.dataArray[indexPath.row];
         
         cell.cellModel = cellModel;
         
         
-        //cell.userInteractionEnabled = NO;
+        cell.userInteractionEnabled = NO;
         
-        cell.RetailPrice.delegate = self;
         return cell;
         
     }else
@@ -215,54 +232,17 @@
             
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellstateID];
             
+#pragma mark_________________________________________________________
             
+            UILabel *staffName = [MyUtil createLabelFrame:CGRectMake(10, 15, 80, 20) title:@"会员姓名" textAlignment:NSTextAlignmentLeft];
+            staffName.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
+            staffName.font = [UIFont systemFontOfSize:16];
+            [cell addSubview:staffName];
             
-            UILabel *GoodsAction = [MyUtil createLabelFrame:CGRectMake(10, 15, 80, 20) title:@"上架" textAlignment:NSTextAlignmentLeft];
-            GoodsAction.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
-            GoodsAction.font = [UIFont systemFontOfSize:16];
-            [cell addSubview:GoodsAction];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             
             
-            UISwitch *mySwitch = [[UISwitch alloc]initWithFrame:CGRectMake(ScreenWidth/1.25, 9, 30, 30)];
-            
-            //mySwitch.backgroundColor = [UIColor grayColor];
-            
-            mySwitch.onTintColor = [UIColor colorWithRed:73.0/255.0 green:160.0/255.0 blue:61.0/255.0 alpha:1];
-            
-            [mySwitch addTarget:self action:@selector(MyAction:) forControlEvents:UIControlEventTouchUpInside];
-            
-            
-            
-            //判断状态，修改上下架
-            NSNumber  *floatNumber = [NSNumber numberWithFloat:1];
-            
-            if ([_Forbidden isKindOfClass:[NSNull class]]) {
-                
-                
-                
-                
-            }else
-            {
-                if ([_Forbidden isEqualToNumber:floatNumber] == YES ) {
-                    
-                    
-                    mySwitch.on = NO;
-                    
-                    
-                } else {
-                    
-                    mySwitch.on = YES;
-                    
-                    
-                }
-                
-            }
-            
-            
-            
-            [cell addSubview:mySwitch];
             
             
             //线条
@@ -293,74 +273,6 @@
     
     
 }
-//发送到服务端
--(void)MyAction:(id)sender
-{
-    UISwitch *mySwitch = (UISwitch *)sender;
-    
-    if (mySwitch.isOn) {
-        
-        NSLog(@"上架");
-        
-        NSString *str = [NSString stringWithFormat:@UpdateGoodsStateByIdUrl];
-        NSDictionary * params = @{@"id":_GUID,@"state":@"2",@"code":@"gy7412589630"};
-        
-        [AFHTTPClientV2 requestWithBaseURLStr:str
-                                       params:params
-                                   httpMethod:kHTTPReqMethodTypePOST
-                                     userInfo:nil
-                                      success:^(AFHTTPClientV2 *request, id responseObject)
-         {
-             NSLog(@"%@",responseObject);
-             NSLog(@"%@", NSStringFromClass([responseObject class]));
-             
-             NSString * str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-             NSLog(@"%@", str);
-             
-         }
-                                      failure:^(AFHTTPClientV2 *request, NSError *error)
-         {
-             NSLog(@"%@",error);
-         }];
-        
-    }else
-    {
-        
-        
-        
-        NSString *str = [NSString stringWithFormat:@UpdateGoodsStateByIdUrl];
-        NSDictionary * params = @{@"id":_GUID,@"state":@"1",@"code":@"gy7412589630"};
-        
-        [AFHTTPClientV2 requestWithBaseURLStr:str
-                                       params:params
-                                   httpMethod:kHTTPReqMethodTypePOST
-                                     userInfo:nil
-                                      success:^(AFHTTPClientV2 *request, id responseObject)
-         {
-             NSLog(@"%@",responseObject);
-             NSLog(@"%@", NSStringFromClass([responseObject class]));
-             
-             NSString * str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-             NSLog(@"%@", str);
-             
-         }
-                                      failure:^(AFHTTPClientV2 *request, NSError *error)
-         {
-             NSLog(@"%@",error);
-         }];
-        
-        NSLog(@"下架");
-        
-        
-        
-        
-    }
-    
-    
-    
-}
-
-
 
 
 
@@ -379,14 +291,17 @@
 
 #pragma mark --下载
 
+
+#pragma mark --下载(有两个参数没有取值)
+
 -(void)download
 {
-    NSLog(@"%@",_GUID);
+    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
+    _storeId = @"0d6a1411d71b4643bdc5c13c1e8af117";
     
+    NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
     
-    NSString *str = [NSString stringWithFormat:@GetGoodsInfoByIdUrl];
-    
-    NSDictionary * params = @{@"id":_GUID,@"code":@"gy7412589630"};
+    NSDictionary * params = @{@"entId":EntId,@"storeId":_storeId,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
     
     [AFHTTPClientV2 requestWithBaseURLStr:str
                                    params:params
@@ -394,6 +309,11 @@
                                  userInfo:nil
                                   success:^(AFHTTPClientV2 *request, id responseObject)
      {
+         
+         //保存下载的数据用于缓存
+         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
+         
+         
          NSError *error = nil;
          
          //xml解析
@@ -417,34 +337,32 @@
              
              NSLog(@"%@",dic);
              
-             
-             [self.dataArray removeAllObjects];
              //第二次分离
              if ([dic isKindOfClass:[NSDictionary class]]) {
                  
                  
                  NSDictionary *subDict1 = [dic objectForKey:@"Value"];
                  
-                 NSDictionary *subDict2 = [subDict1 objectForKey:@"Data"];
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
                  
                  
+                 [_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
                  
-                 NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:subDict2];
-                 
-                 NSLog(@"%@",sssDict);
-                 
-                 
-                 
-                 GoodsMngDetModel *model = [[[GoodsMngDetModel alloc]init]initWithDictionary:sssDict];
-                 
-                 
-                 [self.dataArray addObject:model];
-                 NSLog(@"======%ld",self.dataArray.count);
-                 
-                 
-                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     NSLog(@"%@",sssDict);
+                     
+                     MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     [self.dataArray addObject:model];
+                     NSLog(@"======%ld",self.dataArray.count);
+                 }
+                 [_tableview reloadData];
+
              }
-             [_tableview reloadData];
          }
          
          
@@ -459,170 +377,9 @@
 
 
 
-#pragma mark -- uitextview 代理 修改售价
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    
-    [self resignFirstResponder];
-}
-
--(void)editorAction:(UIButton *)sender
-{
-    
-    
-    
-    BtnAction = YES;
-    
-    
-    //自动选择店铺
-    if ([_tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-        
-        
-        NSInteger selectedIndex = 0;
-        NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-        [_tableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [_tableview.delegate tableView:_tableview didSelectRowAtIndexPath:selectedIndexPath];
-        
-        
-    }
-    
-    
-    
-    
-    
-}
 
 
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    
-    xiugai = YES;
-    
-    
-    //自动选择店铺
-    if ([_tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-        
-        
-        NSInteger selectedIndex = 0;
-        NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-        [_tableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [_tableview.delegate tableView:_tableview didSelectRowAtIndexPath:selectedIndexPath];
-        
-        
-    }
-    
-    
-    if ([text isEqualToString:@"\n"]) {
-        
-        
-        
-        
-        BtnAction = NO;
-        
-        
-        //自动选择店铺
-        if ([_tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-            
-            
-            NSInteger selectedIndex = 0;
-            NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-            [_tableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-            [_tableview.delegate tableView:_tableview didSelectRowAtIndexPath:selectedIndexPath];
-            
-            
-        }
-        
-        //过滤非法字符
-        NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@"[]{}（#%-*+=_）\\|~(＜＞$%^&*)_+ "];
-        
-        strRET = [[strRET componentsSeparatedByCharactersInSet: doNotWant]componentsJoinedByString:@""];
-        
-        
-        //保存数据，上传服务器
-        
-        
-        NSString *str = [NSString stringWithFormat:@UpdateGoodsPriceByIdUrl];
-        
-        NSDictionary * params = @{@"id":_GUID,@"retailPrice":strRET,@"code":@"gy7412589630"};
-        
-        [AFHTTPClientV2 requestWithBaseURLStr:str
-                                       params:params
-                                   httpMethod:kHTTPReqMethodTypePOST
-                                     userInfo:nil
-                                      success:^(AFHTTPClientV2 *request, id responseObject)
-         {
-             NSError *error = nil;
-             
-             //xml解析
-             NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
-             
-             NSLog(@"%@",dict);
-             //第一次分离
-             if ([dict isKindOfClass:[NSDictionary class]]) {
-                 
-                 NSDictionary *subDict = [dict objectForKey:@"string"];
-                 NSString *str = [subDict objectForKey:@"text"];
-                 NSLog(@"%@",str);
-                 
-                 
-                 //字符串转化成data
-                 NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
-                 
-                 NSError *error;
-                 
-                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
-                 
-                 NSLog(@"%@",dic);
-                 
-                 //第二次分离
-                 if ([dic isKindOfClass:[NSDictionary class]]) {
-                     
-                     
-                     
-                     NSDictionary *subDict1 = [dic objectForKey:@"Result"];
-                     
-                     
-                     NSString *sre = [NSString stringWithFormat:@"%@",subDict1];
-                     int str = [sre intValue];
-                     
-                     if ( str == 1) {
-                         
-                         
-                         NSLog(@"成功");
-                         
-                         
-                         [self download];
-                         
-                         
-                         
-                         
-                     }else
-                     {
-                         
-                         NSLog(@"成功");
-                     }
-                     
-                 }
-                 
-                 
-                 
-             }
-             
-             
-             
-             
-         }
-                                      failure:^(AFHTTPClientV2 *request, NSError *error)
-         {
-             NSLog(@"%@",error);
-         }];
-        
-        
-        return NO;
-    }
-    return YES;
-}
 
 ////正则表达式的判断
 //- (BOOL) regexFlagWith:(NSString *)regex withParameter:(NSString *)parameter{

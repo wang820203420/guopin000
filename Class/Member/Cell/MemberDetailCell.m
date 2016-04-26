@@ -123,61 +123,141 @@
     
     self.staffName.text = _cellModel.StaffName;
     self.sex.text = _cellModel.Sex;
-    self.SaleState.text= _cellModel.SaleState;
-    self.UnitName.text = _cellModel.UnitName;
-    self.UnitName1.text = [NSString stringWithFormat:@"元/%@",_cellModel.UnitName];
+    self.mobile.text = _cellModel.Mobile;
+    self.memberId.text = _cellModel.MemberId;
+    self.cardType.text = _cellModel.CardTypeName;
+    self.amount.text = [NSString stringWithFormat:@"%@", _cellModel.Amount];
+    self.points.text= [NSString stringWithFormat:@"%@", _cellModel.Points];
+    self.sourceID.text = _cellModel.SourceID;
+    self.createTime.text = _cellModel.CreateTime;
+    self.createUser.text = _cellModel.CreateUser;
     
-    self.CurrentInventory.text = [NSString stringWithFormat:@"%.2f",_cellModel.CurrentInventory.doubleValue];
-    
-    self.RetailPrice.text = [NSString stringWithFormat:@"%.2f",_cellModel.RetailPrice.doubleValue];
-    
-    
-    
-    
-    
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
-    
-    //动态计算出宽度
-    CGSize size1 = [self.CurrentInventory.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
-    
-    
-    CGRect frame1 = self.CurrentInventory.frame;
-    frame1.size.width = size1.width;
-    frame1.origin.x =ScreenWidth/1.09-size1.width;
-    
-    self.CurrentInventory.frame = frame1;
-    
-    
-    CGRect frame4 = self.UnitName.frame;
-    //frame4.size.width = size1.width;
-    frame4.origin.x =ScreenWidth/1.09;
-    
-    self.UnitName.frame = frame4;
-    
-    
-    
-    //销售的
-    
-    NSDictionary *attribute1 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
-    
-    //动态计算出宽度
-    CGSize size2 = [self.RetailPrice.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute1 context:nil].size;
-    
-    
-    CGRect frame2 = self.RetailPrice.frame;
-    frame2.size.width = size2.width+20;
-    frame2.origin.x =ScreenWidth/1.2-size2.width;
-    self.RetailPrice.frame = frame2;
-    
-    
-    CGRect frame3 = self.UnitName1.frame;
-    //frame3.size.width = size1.width;
-    frame3.origin.x =ScreenWidth/1.18;
-    self.UnitName1.frame = frame3;
+    [self calculatePosition];
     
     
 }
 
+
+- (void)calculatePosition
+{
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+    
+    //会员姓名
+    
+    
+    //动态计算出宽度
+    CGSize size = [self.staffName.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame = self.staffName.frame;
+    frame.size.width = size.width;
+    frame.origin.x =ScreenWidth/1.05-size.width;
+    self.staffName.frame = frame;
+    
+    //性别
+    
+    
+    CGSize size1 = [self.sex.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame1 = self.sex.frame;
+    frame1.size.width = size1.width;
+    frame1.origin.x =ScreenWidth/1.05-size1.width;
+    self.sex.frame = frame1;
+    
+    //手机号
+    
+    
+    CGSize size2 = [self.mobile.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame2 = self.mobile.frame;
+    frame2.size.width = size2.width;
+    frame2.origin.x =ScreenWidth/1.05-size2.width;
+    self.mobile.frame = frame2;
+    
+    //会员卡号
+    
+    
+    CGSize size3 = [self.memberId.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame3 = self.memberId.frame;
+    frame3.size.width = size3.width;
+    frame3.origin.x =ScreenWidth/1.05-size3.width;
+    self.memberId.frame = frame3;
+    
+    //会员类型
+    
+    
+    
+    CGSize size4 = [self.cardType.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame4 = self.cardType.frame;
+    frame4.size.width = size4.width;
+    frame4.origin.x =ScreenWidth/1.05-size4.width;
+    self.cardType.frame = frame4;
+    
+    //账户余额
+    
+    
+    
+    CGSize size5 = [self.amount.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame5 = self.amount.frame;
+    frame5.size.width = size5.width;
+    frame5.origin.x =ScreenWidth/1.05-size5.width;
+    self.amount.frame = frame5;
+    
+    //账户积分
+    
+    
+    
+    CGSize size6 = [self.points.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame6 = self.points.frame;
+    frame6.size.width = size6.width;
+    frame6.origin.x =ScreenWidth/1.05-size6.width;
+    self.points.frame = frame6;
+    
+    //办卡地点
+    
+    
+    CGSize size7 = [self.sourceID.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame7 = self.sourceID.frame;
+    frame7.size.width = size7.width;
+    frame7.origin.x =ScreenWidth/1.05-size7.width;
+    self.sourceID.frame = frame7;
+    
+    //办卡时间
+    
+    
+    CGSize size8 = [self.createTime.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame8 = self.createTime.frame;
+    frame8.size.width = size8.width;
+    frame8.origin.x =ScreenWidth/1.05-size8.width;
+    self.createTime.frame = frame8;
+    
+    //办理人
+    
+    
+    CGSize size9 = [self.createUser.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    
+    CGRect frame9 = self.createUser.frame;
+    frame9.size.width = size9.width;
+    frame9.origin.x =ScreenWidth/1.05-size9.width;
+    self.createUser.frame = frame9;
+    
+
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

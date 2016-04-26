@@ -39,11 +39,10 @@
     //菊花
     MBProgressHUD *HUD;
     
-    NSString *EntID;
-    NSString *cardType;
+    
     NSString *date;//今日、本周、本月
     NSString *bgyl;//店铺名
-    NSString *storeID;//店铺id
+    
     
     //日期
     UILabel *Today;
@@ -87,7 +86,7 @@
     
     
     NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
-    EntID= [df objectForKey:@"GUID"];
+    _EntID= [df objectForKey:@"GUID"];
     
     
     NSString *Date = [NSString stringWithFormat:@"%d",1];
@@ -438,13 +437,13 @@
 
 -(void)download
 {
-    cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-    storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
+    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
+    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
     
     [self juhua];
     NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
     
-    NSDictionary * params = @{@"entId":EntID,@"storeId":storeID,@"cardType":cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
+    NSDictionary * params = @{@"entId":_EntID,@"storeId":_storeID,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
     
     [AFHTTPClientV2 requestWithBaseURLStr:str
                                    params:params
@@ -522,17 +521,17 @@
 -(void)downloadMore
 {
     
-    NSLog(@"%@",storeID);
+    NSLog(@"%@",_storeID);
     NSLog(@"%@",currPagestr);
     
-    cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-    storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
+    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
+    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
 
     
     [self juhua];
     NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
     
-    NSDictionary * params = @{@"entId":EntID,@"storeId":storeID,@"cardType":cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
+    NSDictionary * params = @{@"entId":_EntID,@"storeId":_storeID,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
     
     [AFHTTPClientV2 requestWithBaseURLStr:str
                                    params:params
