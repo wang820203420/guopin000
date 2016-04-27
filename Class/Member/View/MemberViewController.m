@@ -312,7 +312,7 @@
     NSArray *images = @[@"24x14_xiala@2x",@"24x14_xiala@2x"];
     
     
-    NSArray *titles = @[bgyl,_cardType];
+    NSArray *titles = @[bgyl,@"全部卡型"];
     
     CGFloat width = ScreenWidth/2;
     
@@ -716,26 +716,66 @@
         
         return cell;
         
-    }else if (tableView == _TwoPopViewTableView){
+    }else{
         
-        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+//        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+//    
+//        if (cell == nil) {
+//            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+//            
+//        }
+//        
+//        
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+
+        
+//        CardModel *cellModel = self.CardDataArray[indexPath.row];
+//        
+//        cell.cellModel = cellModel;
+        
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+        
+        
         if (cell == nil) {
-            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+            
+            
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            
+            
+            if (indexPath.row == 0) {
+                Today= [MyUtil createLabelFrame:CGRectMake(10, 5, 30, 30) title:@"今日" textAlignment:NSTextAlignmentLeft];
+                
+                Today.font = [UIFont systemFontOfSize:15];
+                [cell addSubview:Today];
+                
+            }else if (indexPath.row == 1)
+            {
+                
+                Week= [MyUtil createLabelFrame:CGRectMake(10, 5, 30, 30) title:@"本周" textAlignment:NSTextAlignmentLeft];
+                
+                Week.font = [UIFont systemFontOfSize:15];
+                [cell addSubview:Week];
+                
+                
+            }else
+            {
+                
+                Month= [MyUtil createLabelFrame:CGRectMake(10, 5, 30, 30) title:@"本月" textAlignment:NSTextAlignmentLeft];
+                
+                Month.font = [UIFont systemFontOfSize:15];
+                [cell addSubview:Month];
+                
+            }
+            
+            
             
         }
         
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        CardModel *cellModel = self.CardDataArray[indexPath.row];
-        
-        cell.cellModel = cellModel;
-        
-        
         return cell;
-        
-    }else{
-        return nil;
+    
     }
     
     
@@ -1022,6 +1062,17 @@
                              [self changes];
                              
                          }
+                         if (_chgtn.tag == 11) {
+                             
+                             NSInteger selectedIndex = 0;
+                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+                             [_TwoPopViewTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                             [_TwoPopViewTableView.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
+                             
+                             [self changes];
+                             
+                         }
+
                      }
                      
                  }
