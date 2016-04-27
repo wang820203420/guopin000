@@ -55,6 +55,8 @@
 		912D977F1CCE627400356D68 /* MemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D977E1CCE627400356D68 /* MemberCell.m */; };
 		912D97821CCE639900356D68 /* MemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D97811CCE639900356D68 /* MemberModel.m */; };
 		912D97851CCF0D2500356D68 /* MemberDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D97841CCF0D2500356D68 /* MemberDetailCell.m */; };
+		912D97881CCFCB4100356D68 /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D97871CCFCB4100356D68 /* CardModel.m */; };
+		912D978B1CD061BA00356D68 /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D978A1CD061BA00356D68 /* CardCell.m */; };
 		914243061BD5DD1F00A80BB1 /* ToGoosdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 914243051BD5DD1F00A80BB1 /* ToGoosdModel.m */; };
 		9142430A1BD5E02300A80BB1 /* ToGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 914243091BD5E02300A80BB1 /* ToGoodsCell.m */; };
 		914243111BD5E64C00A80BB1 /* GoodsMngModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 914243101BD5E64C00A80BB1 /* GoodsMngModel.m */; };
@@ -337,6 +339,10 @@
 		912D97811CCE639900356D68 /* MemberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberModel.m; sourceTree = "<group>"; };
 		912D97831CCF0D2500356D68 /* MemberDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberDetailCell.h; sourceTree = "<group>"; };
 		912D97841CCF0D2500356D68 /* MemberDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberDetailCell.m; sourceTree = "<group>"; };
+		912D97861CCFCB4100356D68 /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
+		912D97871CCFCB4100356D68 /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
+		912D97891CD061BA00356D68 /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
+		912D978A1CD061BA00356D68 /* CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCell.m; sourceTree = "<group>"; };
 		914243041BD5DD1F00A80BB1 /* ToGoosdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToGoosdModel.h; sourceTree = "<group>"; };
 		914243051BD5DD1F00A80BB1 /* ToGoosdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToGoosdModel.m; sourceTree = "<group>"; };
 		914243081BD5E02300A80BB1 /* ToGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToGoodsCell.h; sourceTree = "<group>"; };
@@ -1216,6 +1222,8 @@
 		9195E69C1B969FCD0089DB7F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				912D97891CD061BA00356D68 /* CardCell.h */,
+				912D978A1CD061BA00356D68 /* CardCell.m */,
 				912D977D1CCE627400356D68 /* MemberCell.h */,
 				912D977E1CCE627400356D68 /* MemberCell.m */,
 				912D97831CCF0D2500356D68 /* MemberDetailCell.h */,
@@ -1227,6 +1235,8 @@
 		9195E69D1B969FCD0089DB7F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				912D97861CCFCB4100356D68 /* CardModel.h */,
+				912D97871CCFCB4100356D68 /* CardModel.m */,
 				912D97801CCE639900356D68 /* MemberModel.h */,
 				912D97811CCE639900356D68 /* MemberModel.m */,
 			);
@@ -1865,6 +1875,7 @@
 				911485BA1BAAC74800640ABD /* StockDetailsViewController.m in Sources */,
 				9195E6581B9695F30089DB7F /* ViewController.m in Sources */,
 				911D4A001BE8B059005E3D62 /* FMResultSet.m in Sources */,
+				912D97881CCFCB4100356D68 /* CardModel.m in Sources */,
 				911485CE1BAC05D300640ABD /* LossSouchViewController.m in Sources */,
 				915B09441C3CE24C00D57CC2 /* SBJson4Writer.m in Sources */,
 				911485DF1BAC18C500640ABD /* RankingViewController.m in Sources */,
@@ -1977,6 +1988,7 @@
 				91E0DD801BD220FA0033B3B2 /* SalesInformationModel.m in Sources */,
 				915B09471C3DFA1900D57CC2 /* ProvincesModel.m in Sources */,
 				911485B41BAABE1400640ABD /* StockViewController.m in Sources */,
+				912D978B1CD061BA00356D68 /* CardCell.m in Sources */,
 				9142436F1BD7827500A80BB1 /* ToGoodsCreatUserCell.m in Sources */,
 				915B06151C34D63200D57CC2 /* GoodsClassViewController.m in Sources */,
 				914243561BD633CF00A80BB1 /* MJRefreshGifHeader.m in Sources */,

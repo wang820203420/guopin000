@@ -11,7 +11,12 @@
 #import "ChangeBtn.h"
 #import "MemberDetailViewController.h"//会员详情
 #import "MemberCell.h"//会员
+#import "Cardcell.h"
 #import "MemberModel.h"
+#import "CardModel.h"
+
+#import "AllStoreCell.h"//popView显示数据
+#import "AllStoreModel.h"
 
 @interface MemberViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -19,11 +24,13 @@
     
     UITableView *_tableView;
     UITableView *_popViewTableview;
+    UITableView *_TwoPopViewTableView;
     
     UIView *_TopHeaderView;
     UIView *_view;//弹出的透明遮罩
     
     UIButton *_chgtn;//点击弹出选择view
+    UIButton *_btnq;
     
     
     ChangeBtn *_btnTag;
@@ -32,6 +39,8 @@
     ChangeBtn *_selectedButton;//颜色赋给btn
     NSUInteger  _selectedIndex;//下标
     
+    
+    UISearchBar *_souch;//查找
     
     //没有网络的背景图
     UIView *NotSigview;
@@ -42,7 +51,7 @@
     
     NSString *date;//今日、本周、本月
     NSString *bgyl;//店铺名
-    
+    NSString *typeName;//会员卡（类型名汉字）
     
     //日期
     UILabel *Today;
@@ -57,6 +66,11 @@
 }
 
 @property(nonatomic,retain)NSMutableArray *dataArray;
+
+@property(nonatomic,retain)NSMutableArray *StoreDataArray;
+
+@property(nonatomic,retain)NSMutableArray *CardDataArray;
+
 
 
 @end
@@ -74,6 +88,30 @@
     }
     
     return _dataArray;
+    
+}
+
+-(NSMutableArray *)StoreDataArray
+{
+    if (_StoreDataArray == nil) {
+        
+        self.StoreDataArray = [NSMutableArray array];
+        
+    }
+    
+    return _StoreDataArray;
+    
+}
+
+-(NSMutableArray *)CardDataArray
+{
+    if (_CardDataArray == nil) {
+        
+        self.CardDataArray = [NSMutableArray array];
+        
+    }
+    
+    return _CardDataArray;
     
 }
 
@@ -98,11 +136,15 @@
     
     [self sharedClient];
     
-    [self download];
+    [self downloadCard];
+    [self downloadStore];
+    
+    
+    //[self download];
     [self createNav];
     [self createTableview];
     [self createPoPviewTableview];
-    [self createScan];
+
     
     _selectedButton = [ChangeBtn buttonWithType:UIButtonTypeSystem];
     
@@ -190,10 +232,11 @@
     [self.view addSubview:_tableView];
     
     
-    _TopHeaderView= [[UIView alloc]initWithFrame:CGRectMake(0, 20, ScreenWidth, 60)];
+    _TopHeaderView= [[UIView alloc]initWithFrame:CGRectMake(0, 20, ScreenWidth, 45)];
     
     
     _TopHeaderView.backgroundColor = [UIColor whiteColor];
+
     
     
     
@@ -213,14 +256,34 @@
 {
     
     _view= [[UIView alloc]init];
-    _view.frame = CGRectMake(0,155, ScreenWidth, 0);
+    _view.frame = CGRectMake(0,110, ScreenWidth, 0);
     _view.backgroundColor = [[UIColor grayColor]colorWithAlphaComponent:0.4];
     _view.clipsToBounds = YES;//截断
     [self.view  addSubview:_view];
     
     
     
+    _popViewTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 250) style:UITableViewStylePlain];
+    
+    _popViewTableview.delegate = self;
+    _popViewTableview.dataSource = self;
+    
+    [_view addSubview:_popViewTableview];
+    
+    
+    
+    
+    _TwoPopViewTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth,250) style:UITableViewStylePlain];
+    
+    _TwoPopViewTableView.delegate = self;
+    _TwoPopViewTableView.dataSource = self;
+    [_view addSubview:_TwoPopViewTableView];
+
+    
+    
+    
 }
+
 
 #pragma mark--scan
 -(void)createScan
@@ -228,42 +291,193 @@
     
     
     
-    UIButton *Souchbtn = [MyUtil createBtnFrame:CGRectMake(10, 7, ScreenWidth/1.06, 36) image:@"sousuokuang@2x" selectedImage:nil target:self action:@selector(openSouchAction:)];
-    
-    [_TopHeaderView addSubview:Souchbtn];
-    
-    
-    
-    
-    
-    
     //上层线条
     
-    UIImageView *TopLine = [MyUtil createIamgeViewFrame:CGRectMake(0, 50, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+    UIImageView *TopLine = [MyUtil createIamgeViewFrame:CGRectMake(0, 0, ScreenWidth, 0.5) imageName:@"375x1@2x"];
     [_TopHeaderView addSubview:TopLine];
     
+    //中间的线条
+    UIButton  *Linebtn = [MyUtil createBtnFrame:CGRectMake(ScreenWidth/2.01, 10, 0.5, 25) image:nil selectedImage:nil target:nil action:nil];
+    
+    Linebtn.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:199.0/255.0 blue:204.0/255.0 alpha:1];
+    
+    [_TopHeaderView addSubview:Linebtn];
+    
+    //下面的线条
+    UIImageView *LowLine = [MyUtil createIamgeViewFrame:CGRectMake(0, 45, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+    [_TopHeaderView addSubview:LowLine];
     
     
     
+    NSArray *images = @[@"24x14_xiala@2x",@"24x14_xiala@2x"];
     
+    
+    NSArray *titles = @[bgyl,_cardType];
+    
+    CGFloat width = ScreenWidth/2;
+    
+    for (int i= 0; i<2; i++) {
+        
+        CGRect frame = CGRectMake((width*(i%2)+ScreenWidth/12.5), 10, ScreenWidth/3, 30);
+        
+        _chgtn =[ChangeBtn buttonWithType:UIButtonTypeCustom];
+        
+        
+        _chgtn.frame = frame;
+        [_chgtn setTitle:titles[i] forState:UIControlStateNormal];
+        
+        _chgtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        
+        
+        
+        [_chgtn addTarget:self action:@selector(OpenView:) forControlEvents:UIControlEventTouchUpInside];
+        [_TopHeaderView addSubview:_chgtn];
+        
+        _selectedIndex = 0;
+        
+        [_chgtn setTitleColor:[UIColor colorWithRed:73.0/255.0 green:150.0/255.0 blue:61.0/255.0 alpha:1] forState:UIControlStateSelected];
+        [_chgtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        
+        [_chgtn setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+        
+        _chgtn.tag = 10+i;
+        
+    }
     
     
 }
 
 
--(void)openSouchAction:(UIButton *)sender
+
+-(void)OpenView:(ChangeBtn *)btn
 {
     
+    //显示的时候禁用tableview滚动
+    _tableView.scrollEnabled = NO;
+    //        _selectedButton.selected = NO;
+    //
+    //    btn.selected = YES;
+    //
+    switch (btn.tag-10) {
+        case 0:
+        {
+            
+            
+            
+            _TwoPopViewTableView.hidden = YES;
+            _popViewTableview.hidden = NO;
+            NSLog(@"%ld",btn.tag);
+            
+        }
+            break;
+            
+        case 1:
+        {
+            _popViewTableview.hidden = YES;
+            _TwoPopViewTableView.hidden = NO;
+            NSLog(@"%ld",btn.tag);
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
-//    
-//    SearchViewController *mngCtrl = [[SearchViewController alloc]init];
-//    
-//    [self.navigationController pushViewController:mngCtrl animated:YES];
+    _btnTag = btn;
+    
+    
+    [self changes];
+    
+    
+    if (_chgtn.tag == 10) {
+        
+        _btnq= [[UIButton alloc]init];
+        
+        _btnq = _chgtn;
+        
+    }
     
     
 }
 
 
+-(void)changes
+{
+    
+    _selectedButton.selected = NO;
+    
+    _btnTag.selected = YES;
+    
+    
+    
+    CGRect frame = _view.frame;
+    
+    //判断现在点击的btn ，如果上个btn显示就把它收起来
+    if (_lastBtn && _lastBtn != _btnTag) {
+        if (_isShow) {
+            frame.size.height -= ScreenHeight;
+            _view.frame = frame;
+            //判断最后一个btn是否收起 如果收起就变灰色的箭头
+            [_lastBtn setImage:[UIImage imageNamed:@"shoplist_down_icon_jax"] forState:UIControlStateNormal];
+            _isShow = NO;
+        }
+    }
+    //设置动画时间
+    CGFloat duration = 0.35f;
+    if (!_isShow) {
+        duration = 0.65f;
+        //显示的时候禁用tableview滚动
+        //_tableView.scrollEnabled = NO;
+    }
+    
+    _isShow ?(frame.size.height -= ScreenHeight) :(frame.size.height += ScreenHeight);
+    
+    //如果显示就变绿，没有显示就变灰
+    if (!_isShow) {
+        [_btnTag setImage:[UIImage imageNamed:@"24x14_famhui@2x"] forState:UIControlStateNormal];
+    }else {
+        [_btnTag setImage:[UIImage imageNamed:@"24x14_xiala@2x"] forState:UIControlStateNormal];
+        
+        _tableView.scrollEnabled = YES;
+    }
+    
+    //引用计数加1
+    __weak typeof (_view) weakView = _view;
+    
+    //缩回动画
+    [UIView animateWithDuration:duration animations:^{
+        weakView.frame = frame;
+        
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+    
+    //动画执行完成后，就不显示
+    _isShow = !_isShow;
+    _lastBtn = _btnTag;
+    
+    _selectedButton =_btnTag;
+    
+    
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    
+    
+    if (_isShow) {
+        [self changes];
+        
+        
+        //显示的时候启用tableview滚动
+        _tableView.scrollEnabled = YES;
+    }
+    
+    
+}
 
 
 
@@ -284,19 +498,32 @@
     if (tableView == _tableView) {
         
         return self.dataArray.count;
+    }else if (tableView == _popViewTableview)
+    {
+        return self.StoreDataArray.count;
+        
+    }else if (tableView == _TwoPopViewTableView)
+    {
+        
+        return self.CardDataArray.count+1;
     }else
     {
         return 1;
     }
-    
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0;
-    
-    
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 0;
+//    
+//    
+//}
+//
+//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [_souch  resignFirstResponder];
+//}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -309,40 +536,7 @@
     }
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (tableView == _tableView) {
-        UIView *bgView = [[UIView alloc]init];
-        bgView.frame = CGRectMake(0, 0, ScreenWidth, 35);
-        bgView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1];
-        
-        UILabel *label = [MyUtil createLabelFrame:CGRectMake(10, 5, 70, 30) title:@"所有商品" textAlignment:NSTextAlignmentLeft];
-        label.font = [UIFont systemFontOfSize:14];
-        label.textColor = [UIColor colorWithRed:165.0/255.0 green:165.0/255.0 blue:165.0/255.0 alpha:1];
-        
-        [bgView addSubview:label];
-        
-        //线条
-        CGRect  Lowframe = CGRectMake(0, 35, ScreenWidth, 0.5);
-        UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
-        [bgView addSubview:Lowimage];
-        
-        //线条
-        CGRect  Lowframe1 = CGRectMake(0, 0, ScreenWidth, 0.5);
-        UIImageView *Lowimage1 = [MyUtil createIamgeViewFrame:Lowframe1 imageName:@"375x1@2x"];
-        [bgView addSubview:Lowimage1];
-        
-        
-        return bgView;
-        
-    }else
-    {
-        return nil;
-    }
-    
-    
-    
-}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -351,7 +545,8 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if (tableView == _tableView) {
+    if (tableView == _tableView)
+    {
         
         MemberDetailViewController *memberCtrl = [[MemberDetailViewController alloc]init];
         
@@ -366,8 +561,106 @@
         [self.navigationController pushViewController:memberCtrl animated:YES];
         
         
+    }else if (tableView == _popViewTableview)
+    {
         
-    }
+        
+        
+        NSArray *arr = [_TopHeaderView subviews];
+        
+        NSLog(@"%@",arr);
+        
+        
+        for (_chgtn in arr)
+        {
+            
+            
+            if (_chgtn.tag == 10) {
+                
+                
+                NSLog(@"%@",_chgtn);
+                
+                //点击cell 修改 btn 文字 并下载数据
+                AllStoreModel *cellModel = self.StoreDataArray[indexPath.row];
+                
+                _EntID = cellModel.EnterpriseID;
+                bgyl = cellModel.StoreName;
+                
+                _storeID = cellModel.GUID;
+                NSLog(@"%@",bgyl);
+                NSLog(@"%@",_EntID);
+                NSLog(@"%@",_storeID);
+                
+                //选择店铺的时候，下载所选店铺的数据
+                [self download];
+
+                
+                
+                [_chgtn setTitle:bgyl forState:UIControlStateNormal];
+                
+                //改变的时候缩回 然后 下载
+                [self changes];
+                
+                
+            }
+            
+        }
+        
+        
+        
+        
+        
+    }else if (tableView == _TwoPopViewTableView)
+    {
+        
+        NSArray *arr = [_TopHeaderView subviews];
+        
+        NSLog(@"%@",arr);
+        
+        
+        for (_chgtn in arr) {
+            
+            
+            if (_chgtn.tag == 11) {
+                
+                
+
+                
+                CardModel *cellModel = self.CardDataArray[indexPath.row];
+                
+                _cardType = cellModel.CardTypeId;
+                
+                typeName = cellModel.TypeName;
+                
+                
+                
+                //选择店铺的时候，下载所选店铺的数据
+                [self download];
+                
+    
+                [_chgtn setTitle:typeName forState:UIControlStateNormal];
+
+                
+                //改变的时候缩回 然后 下载
+                [self changes];
+                
+                
+
+                
+                }
+                
+                
+
+                
+                
+            }
+            
+        }
+    
+    
+    
+    
+
     
 }
 
@@ -375,7 +668,7 @@
 {
     
     static NSString *cellID = @"cellID";
-    // static NSString *popCellID = @"popCellID";
+    static NSString *popCellID = @"popCellID";
     static NSString *TwoCellID = @"TwoCellID";
     if (tableView == _tableView) {
         MemberCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -405,25 +698,44 @@
         return cell;
         
         
-    }else
-    {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+    }else if (tableView == _popViewTableview){
         
+        AllStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:popCellID];
         
         if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
-            
-            
-            cell.backgroundColor = [UIColor cyanColor];
-            
-            
-            
-            
+            cell = [[AllStoreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:popCellID];
             
         }
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        AllStoreModel *cellModel = self.StoreDataArray[indexPath.row];
+        
+        cell.cellModel = cellModel;
+        
+        //        bgyl = cellModel.StoreName;
+        //        NSLog(@"%@",bgyl);
         
         return cell;
         
+    }else if (tableView == _TwoPopViewTableView){
+        
+        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+    
+        if (cell == nil) {
+            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+            
+        }
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        CardModel *cellModel = self.CardDataArray[indexPath.row];
+        
+        cell.cellModel = cellModel;
+        
+        
+        return cell;
+        
+    }else{
+        return nil;
     }
     
     
@@ -433,12 +745,13 @@
 
 
 
+
 #pragma mark --下载(有两个参数没有取值)
 
 -(void)download
 {
     _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
+//    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
     
     [self juhua];
     NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
@@ -524,8 +837,8 @@
     NSLog(@"%@",_storeID);
     NSLog(@"%@",currPagestr);
     
-    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
+//    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
+//    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
 
     
     [self juhua];
@@ -604,6 +917,238 @@
      }];
     
 }
+
+
+
+#pragma mark --下载店铺
+
+-(void)downloadStore
+{
+    
+    
+    NSString *str = [NSString stringWithFormat:@GetAllStoreListUrl];
+    
+    NSDictionary * params = @{@"entId":_EntID,@"code":@"gy7412589630"};
+    
+    [AFHTTPClientV2 requestWithBaseURLStr:str
+                                   params:params
+                               httpMethod:kHTTPReqMethodTypePOST
+                                 userInfo:nil
+                                  success:^(AFHTTPClientV2 *request, id responseObject)
+     {
+         
+         //保存下载的数据用于缓存
+         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"8" AndType:CacheTypeQuestion];
+         
+         NSError *error = nil;
+         
+         //xml解析
+         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
+         
+         NSLog(@"%@",dict);
+         //第一次分离
+         if ([dict isKindOfClass:[NSDictionary class]]) {
+             
+             NSDictionary *subDict = [dict objectForKey:@"string"];
+             NSString *str = [subDict objectForKey:@"text"];
+             NSLog(@"%@",str);
+             
+             
+             //字符串转化成data
+             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
+             
+             NSError *error;
+             
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
+             
+             //第二次分离
+             if ([dic isKindOfClass:[NSDictionary class]]) {
+                 
+                 
+                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
+                 
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
+                 
+                 if (arr1.count == 0) {
+                     
+                     return ;
+                 }
+                 
+                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+                     
+                     AllStoreModel *model = [[[AllStoreModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     NSLog(@"%@",bgyl);
+                     
+                     [self.StoreDataArray addObject:model];
+                     NSLog(@"======%ld",self.StoreDataArray.count);
+                     
+                     
+                     
+                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
+                     bgyl = model.StoreName;
+                     _storeID = model.GUID;
+                     
+                     
+                     
+                 }
+                 
+                 [self createScan];
+
+                 [_popViewTableview  reloadData];
+                 
+                 
+                 //自动选择店铺
+                 if ([_popViewTableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+                     
+                     NSArray *arr = [_TopHeaderView subviews];
+                     
+                     
+                     for (_chgtn in arr) {
+                         
+                         if (_chgtn.tag == 10) {
+                             
+                             NSInteger selectedIndex = 0;
+                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+                             [_popViewTableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                             [_popViewTableview.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
+                             
+                             [self changes];
+                             
+                         }
+                     }
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 
+             }
+         }
+         
+         
+     }
+                                  failure:^(AFHTTPClientV2 *request, NSError *error)
+     {
+         NSLog(@"%@",error);
+         
+         
+     }];
+    
+}
+
+
+
+
+
+
+#pragma mark --下载会员卡
+
+-(void)downloadCard
+{
+    
+    
+    NSString *str = [NSString stringWithFormat:@GetAllCardTypeToListUrl];
+    
+    NSDictionary * params = @{@"entId":_EntID,@"code":@"gy7412589630"};
+    
+    [AFHTTPClientV2 requestWithBaseURLStr:str
+                                   params:params
+                               httpMethod:kHTTPReqMethodTypePOST
+                                 userInfo:nil
+                                  success:^(AFHTTPClientV2 *request, id responseObject)
+     {
+         
+         //保存下载的数据用于缓存
+         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"11" AndType:CacheTypeQuestion];
+         
+         NSError *error = nil;
+         
+         //xml解析
+         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
+         
+         NSLog(@"%@",dict);
+         //第一次分离
+         if ([dict isKindOfClass:[NSDictionary class]]) {
+             
+             NSDictionary *subDict = [dict objectForKey:@"string"];
+             NSString *str = [subDict objectForKey:@"text"];
+             NSLog(@"%@",str);
+             
+             
+             //字符串转化成data
+             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
+             
+             NSError *error;
+             
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
+             
+             //第二次分离
+             if ([dic isKindOfClass:[NSDictionary class]]) {
+                 
+                 
+                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
+                 
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
+                 
+                 if (arr1.count == 0) {
+                     
+                     return ;
+                 }
+                 
+                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+                     
+                     CardModel *model = [[[CardModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     NSLog(@"%@",_cardType);
+                     
+                     [self.CardDataArray addObject:model];
+                     
+                     NSLog(@"======%ld",self.CardDataArray.count);
+                     
+                     
+                     
+                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
+                     _cardType = model.CardTypeId;
+                     
+                     
+                     
+                 }
+                 
+                 
+                 
+             }
+         }
+         
+         
+     }
+                                  failure:^(AFHTTPClientV2 *request, NSError *error)
+     {
+         NSLog(@"%@",error);
+         
+         
+     }];
+    
+}
+
+
+
+
+
 
 
 
@@ -717,7 +1262,6 @@
                         NotSigview= [[UIView alloc]init];
                         NotSigview.frame = CGRectMake(0, 90, ScreenWidth, ScreenHeight);
                         
-                        [self createbtn];
                         [_tableView addSubview:NotSigview];
                         NSLog(@"不可达的网络(未连接)");
                     }
@@ -761,52 +1305,6 @@
 }
 
 
-#pragma mark - 没有网络的时候
-
--(void)createbtn
-{
-    //喇叭
-    UIImageView *image = [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/2.5, ScreenHeight/4.47, ScreenWidth/5.357, ScreenHeight/9.571) imageName:@"xinhao@2x"];
-    [NotSigview addSubview:image];
-    
-    
-    //即将开放
-    UILabel *label = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/2.42, ScreenHeight/3.04, ScreenWidth/6.25, ScreenHeight/22.3) title:@"网络不好" textAlignment:NSTextAlignmentCenter];
-    label.font = [UIFont systemFontOfSize:14];
-    label.adjustsFontSizeToFitWidth = YES;
-    [NotSigview addSubview:label];
-    
-    //敬请期待
-    UILabel *jqLabel =[MyUtil createLabelFrame:CGRectMake(ScreenWidth/2.6, ScreenHeight/2.735, ScreenWidth/4.6875, ScreenHeight/33.5) title:@"请联网后再试" textAlignment:NSTextAlignmentCenter];
-    jqLabel.font = [UIFont systemFontOfSize:14];
-    jqLabel.textColor = [UIColor grayColor];
-    jqLabel.adjustsFontSizeToFitWidth = YES;
-    [NotSigview addSubview:jqLabel];
-    
-    
-    //返回首页
-    
-    UIImageView *imgback = [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/2.679, ScreenHeight/2.48, ScreenWidth/4.2, ScreenHeight/16.75) imageName:@"buttom_180x88@2x"];
-    
-    [NotSigview addSubview:imgback];
-    
-    UIButton * btn = [UIButton  buttonWithType:UIButtonTypeCustom];
-    
-    btn.frame =CGRectMake(ScreenWidth/2.42, ScreenHeight/2.44, ScreenWidth/6, ScreenHeight/21);
-    
-    //btn.backgroundColor = [UIColor redColor];
-    [btn setTitle:@"刷新"  forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:13];
-    
-    [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    
-    [btn addTarget:self action:@selector(Action:) forControlEvents:UIControlEventTouchUpInside];
-    //btn.adjustsFontSizeToFitWidth = YES;
-    [NotSigview addSubview:btn];
-    
-    
-    
-}
 
 -(void)Action:(UIButton *)sender
 {
@@ -827,35 +1325,6 @@
     
     HUD.userInteractionEnabled = NO;
 }
-
-
-
-////推出页面的时候让tababr
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//
-//    [super viewWillAppear:animated];
-//
-//    MainViewController *tabCtrl = (MainViewController *)self.tabBarController;
-//    [tabCtrl showTabBar];
-//
-//
-//
-//}
-//
-////将要返回的时候
-//-(void)viewWillDisappear:(BOOL)animated
-//{
-//
-//
-//    [super viewWillDisappear:animated];
-//
-//    MainViewController *tabCtrl = (MainViewController *)self.tabBarController;
-//    [tabCtrl showTabBar];
-//
-//}
-
-
 
 
 

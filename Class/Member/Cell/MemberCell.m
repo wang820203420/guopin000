@@ -29,7 +29,7 @@
 +(instancetype)cellWithTableView:(UITableView *)tableView
 {
     //创建cell
-    NSString *cellID = @"cellID";
+    NSString *cellID = @"popCellID";
     MemberCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     
