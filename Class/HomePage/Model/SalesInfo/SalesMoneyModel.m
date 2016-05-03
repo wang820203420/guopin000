@@ -37,8 +37,8 @@
 {
     
     
-    
-    _Data = [dict objectForKey:@"Data"];
+    _TotalMoney = [dict objectForKey:@"TotalMoney"];
+    _TotalCutOff = [dict objectForKey:@"TotalCutOff"];
 
     
 }
@@ -49,7 +49,9 @@
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    [dict setObject:self.Data forKey:@"Data"];
+    [dict setObject:self.TotalMoney forKey:@"TotalMoney"];
+    [dict setObject:self.TotalCutOff forKey:@"TotalCutOff"];
+    
 
     
     return dict;

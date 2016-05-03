@@ -19,23 +19,24 @@
     
     
     UITableView *_tableview;
-    UIButton *Savebtn;
+    NSMutableArray *_dataArray;
+//    UIButton *Savebtn;
     
-    BOOL BtnAction;
-    BOOL xiugai;
+//    BOOL BtnAction;
+//    BOOL xiugai;
+//
+//    NSString *strRET;
     
-    NSString *strRET;
-    
-    int currPageIndex;
+//    int currPageIndex;
     NSString *currPagestr;
-    NSString *date;
     NSString *EntId;
+    
+    
+
 
 
 }
 
-
-@property(nonatomic,retain)NSMutableArray *dataArray;
 
 
 @end
@@ -43,18 +44,6 @@
 @implementation MemberDetailViewController
 
 
--(NSMutableArray *)dataArray
-{
-    
-    if (_dataArray == nil) {
-        
-        self.dataArray = [NSMutableArray array];
-        
-    }
-    
-    return _dataArray;
-    
-}
 
 
 
@@ -68,8 +57,7 @@
     EntId= [df objectForKey:@"GUID"];
     
     
-    NSString *Date = [NSString stringWithFormat:@"%d",1];
-    date = Date;
+
     
     NSString *page = [NSString stringWithFormat:@"%d",0];
     
@@ -95,9 +83,9 @@
 
 -(void)createTableView
 {
+     _dataArray = [NSMutableArray array];
     
-    
-    _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
+    _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 65, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
     
     
     _tableview.delegate = self;
@@ -126,25 +114,17 @@
 {
     
     if (section == 0) {
-        return self.dataArray.count;
+        
+        return 1;
     }else
     {
-        return 1;
+        return _dataArray.count;
     }
     
     
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (indexPath.section == 0) {
-        return 200;
-    }else
-    {
-        return  50;
-    }
-}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -191,9 +171,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];// 取消选中状态
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];// 取消选中状态
     
     
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.section == 0) {
+        
+        return 100;
+        
+    }else
+    {
+        return  40;
+    }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -206,21 +199,21 @@
     if (indexPath.section == 0) {
         MemberDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         
-        if (cell == nil) {
+        if (cell == 0) {
             
             cell = [[MemberDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             
             
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+//            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
         }
+#pragma mark_________________________________________________________________
+//        MemberModel *cellModel = _dataArray[indexPath.row];
+//        
+//        cell.cellModel = cellModel;
+//        
         
-        MemberModel *cellModel = self.dataArray[indexPath.row];
-        
-        cell.cellModel = cellModel;
-        
-        
-        cell.userInteractionEnabled = NO;
+//        cell.userInteractionEnabled = NO;
         
         return cell;
         
@@ -245,10 +238,10 @@
             
             
             
-            //线条
-            CGRect  Lowframe = CGRectMake(0, 49, ScreenWidth, 0.5);
-            UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
-            [cell addSubview:Lowimage];
+//            //线条
+//            CGRect  Lowframe = CGRectMake(0, 34, ScreenWidth, 0.5);
+//            UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
+//            [cell addSubview:Lowimage];
             
             //线条
             CGRect  Lowframe1 = CGRectMake(0, 0, ScreenWidth, 0.5);
@@ -301,7 +294,7 @@
     
     NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
     
-    NSDictionary * params = @{@"entId":EntId,@"storeId":_storeId,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
+    NSDictionary * params = @{@"entId":EntId,@"storeId":_storeId,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"-1",@"code":@"gy7412589630"};
     
     [AFHTTPClientV2 requestWithBaseURLStr:str
                                    params:params
@@ -310,8 +303,8 @@
                                   success:^(AFHTTPClientV2 *request, id responseObject)
      {
          
-         //保存下载的数据用于缓存
-         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
+//         //保存下载的数据用于缓存
+//         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
          
          
          NSError *error = nil;
@@ -346,7 +339,7 @@
                  NSArray *arr1 = [subDict1 objectForKey:@"Data"];
                  
                  
-                 [_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+//                 [_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
                  
                  for (NSDictionary *dict in arr1) {
                      
@@ -357,8 +350,8 @@
                      MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
                      
                      
-                     [self.dataArray addObject:model];
-                     NSLog(@"======%ld",self.dataArray.count);
+                     [_dataArray addObject:model];
+                     NSLog(@"======%ld",_dataArray.count);
                  }
                  [_tableview reloadData];
 
@@ -380,15 +373,6 @@
 
 
 
-
-////正则表达式的判断
-//- (BOOL) regexFlagWith:(NSString *)regex withParameter:(NSString *)parameter{
-//
-//    NSPredicate *pass = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-//
-//    return [pass evaluateWithObject:parameter];
-//
-//}
 
 
 //推出页面的时候让tababr

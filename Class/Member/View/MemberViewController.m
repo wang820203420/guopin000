@@ -7,16 +7,18 @@
 //
 
 #import "MemberViewController.h"
+#import "MemberDetailViewController.h"//会员详情
 #import "MainViewController.h"
 #import "ChangeBtn.h"
-#import "MemberDetailViewController.h"//会员详情
 #import "MemberCell.h"//会员
-#import "Cardcell.h"
 #import "MemberModel.h"
+#import "Cardcell.h"
 #import "CardModel.h"
 
 #import "AllStoreCell.h"//popView显示数据
 #import "AllStoreModel.h"
+
+#import "AFHTTPSessionManager.h"
 
 @interface MemberViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -38,9 +40,7 @@
     UIButton * _lastBtn;//上一个btn
     ChangeBtn *_selectedButton;//颜色赋给btn
     NSUInteger  _selectedIndex;//下标
-    
-    
-    UISearchBar *_souch;//查找
+
     
     //没有网络的背景图
     UIView *NotSigview;
@@ -49,27 +49,28 @@
     MBProgressHUD *HUD;
     
     
-    NSString *date;//今日、本周、本月
+    NSString *EntID;//企业id
+    NSString *storeId;//店铺id
+    NSString *cardType;
+    
     NSString *bgyl;//店铺名
     NSString *typeName;//会员卡（类型名汉字）
-    
-    //日期
-    UILabel *Today;
-    UILabel *Week;
-    UILabel *Month;
+
     
     
     int currPageIndex;
     int s;
     NSString *currPagestr;
     
+    UILabel *cards;
+    
 }
 
-@property(nonatomic,retain)NSMutableArray *dataArray;
+@property(nonatomic,retain)NSMutableArray *dataArray;//会员数据
 
-@property(nonatomic,retain)NSMutableArray *StoreDataArray;
+@property(nonatomic,retain)NSMutableArray *StoreDataArray;//店铺的数据
 
-@property(nonatomic,retain)NSMutableArray *CardDataArray;
+@property(nonatomic,retain)NSMutableArray *CardDataArray;//会员卡类型
 
 
 
@@ -83,7 +84,7 @@
     
     if (_dataArray == nil) {
         
-        self.dataArray = [NSMutableArray array];
+        _dataArray = [NSMutableArray array];
         
     }
     
@@ -124,26 +125,28 @@
     
     
     NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
-    _EntID= [df objectForKey:@"GUID"];
+    EntID= [df objectForKey:@"GUID"];
     
-    
-    NSString *Date = [NSString stringWithFormat:@"%d",1];
-    date = Date;
     
     NSString *page = [NSString stringWithFormat:@"%d",0];
     
     currPagestr = page;
     
-    [self sharedClient];
+//    [self sharedClient];//检查实时网络
     
-    [self downloadCard];
+    [self createTableview];
+    
+    [self createPoPviewTableview];
+    
     [self downloadStore];
-    
+    [self downloadCard];
+
     
     //[self download];
+    
+    
     [self createNav];
-    [self createTableview];
-    [self createPoPviewTableview];
+
 
     
     _selectedButton = [ChangeBtn buttonWithType:UIButtonTypeSystem];
@@ -184,11 +187,33 @@
 -(void)loadNewData
 {
     
-    currPagestr = [NSString stringWithFormat:@"%d",0];
-    currPageIndex = s * 0;
+    if ([storeId isKindOfClass:[NSNull class]] || storeId == nil) {
+        
+        
+        [_tableView.header endRefreshing];
+        return;
+        
+        
+        
+    }else
+    {
+        
+        currPagestr = [NSString stringWithFormat:@"%d",0];
+        currPageIndex = s * 0;
+        
+        
+        [self download];
     
-    [self download];
-    [_tableView.header endRefreshing];
+        
+        [_tableView.header endRefreshing];
+        
+        
+        
+    }
+    
+    
+    
+    
     
 }
 
@@ -212,12 +237,21 @@
 
 
 
+-(void)backAction:(UIButton *)sender
+{
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+}
+
+
 -(void)createTableview
 {
     
-    //_dataArray = [NSMutableArray array];
+    _tableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 44, ScreenWidth, ScreenHeight-9) style:UITableViewStyleGrouped];
     
-    _tableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-28) style:UITableViewStyleGrouped];
     _tableView.showsVerticalScrollIndicator = NO;
     
     //_tableView.backgroundColor = [UIColor redColor];
@@ -228,19 +262,16 @@
     
     _tableView.separatorStyle = UITableViewCellEditingStyleNone;
     
-    
     [self.view addSubview:_tableView];
     
     
-    _TopHeaderView= [[UIView alloc]initWithFrame:CGRectMake(0, 20, ScreenWidth, 45)];
+    
+    
+    _TopHeaderView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 45)];
     
     
     _TopHeaderView.backgroundColor = [UIColor whiteColor];
 
-    
-    
-    
-    
     _tableView.tableHeaderView = _TopHeaderView;
     
     
@@ -257,7 +288,7 @@
     
     _view= [[UIView alloc]init];
     _view.frame = CGRectMake(0,110, ScreenWidth, 0);
-    _view.backgroundColor = [[UIColor grayColor]colorWithAlphaComponent:0.4];
+    _view.backgroundColor = [[UIColor grayColor]colorWithAlphaComponent:0.5];
     _view.clipsToBounds = YES;//截断
     [self.view  addSubview:_view];
     
@@ -312,7 +343,7 @@
     NSArray *images = @[@"24x14_xiala@2x",@"24x14_xiala@2x"];
     
     
-    NSArray *titles = @[bgyl,@"全部卡型"];
+    NSArray *titles = @[@"所有店铺",@"全部卡型"];
     
     CGFloat width = ScreenWidth/2;
     
@@ -344,6 +375,746 @@
         
     }
     
+    
+}
+
+
+
+
+
+#pragma mark--UITableViewDelegate
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+    
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    
+    if (tableView == _tableView)
+    {
+        return self.dataArray.count;
+        
+    }else if (tableView == _popViewTableview)
+    {
+        return self.StoreDataArray.count;
+        
+    }else if (tableView == _TwoPopViewTableView)
+
+    {
+        return self.CardDataArray.count;
+    }else
+    {
+        return 1;
+        
+    }
+}
+
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (tableView == _tableView) {
+        return 100;
+    }else
+    {
+        return 35;
+    }
+}
+
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    if (tableView == _tableView)
+    {
+        
+        MemberDetailViewController *memberCtrl = [[MemberDetailViewController alloc]init];
+        
+        MemberModel *model = self.dataArray[indexPath.row];
+        
+        
+        memberCtrl.storeId = model.StoreID;
+        memberCtrl.mobile = model.Mobile;
+        
+        memberCtrl.cardType = model.CardType;
+        memberCtrl.memberId = model.MemberId;//这个是会员唯一的标示
+        
+        memberCtrl.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        [self.navigationController pushViewController:memberCtrl animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];// 取消选中状态
+
+        
+    }else if (tableView == _popViewTableview)
+    {
+        
+        
+        
+        NSArray *arr = [_TopHeaderView subviews];
+        
+        NSLog(@"%@",arr);
+        
+        
+        for (_chgtn in arr)
+        {
+            
+            
+            if (_chgtn.tag == 10) {
+                
+                
+                NSLog(@"%@",_chgtn);
+                
+                //点击cell 修改 btn 文字 并下载数据
+                AllStoreModel *cellModel = self.StoreDataArray[indexPath.row];
+                NSLog(@"%ld",self.StoreDataArray.count);
+                NSLog(@"%ld",self.CardDataArray.count);
+                
+            //    CardModel *cellModel1 = self.CardDataArray[indexPath.row];
+                
+                EntID = cellModel.EnterpriseID;
+                bgyl = cellModel.StoreName;
+                
+                
+                storeId = cellModel.GUID;
+           //     cardType = cellModel1.CardTypeId;
+                
+                //选择店铺的时候，下载所选店铺的数据
+#pragma mark__________________________这里缺少一个数据cardtype(NSArray)_____________________________
+                
+                
+                [self download];
+
+                
+                
+                [_chgtn setTitle:bgyl forState:UIControlStateNormal];
+                
+                //改变的时候缩回 然后 下载
+                [self changes];
+                
+                
+            }
+            
+        }
+        
+        
+        
+        
+        
+    }else if (tableView == _TwoPopViewTableView)
+    {
+        
+        NSArray *arr = [_TopHeaderView subviews];
+        
+        NSLog(@"%@",arr);
+        
+        
+        for (_chgtn in arr) {
+            
+            
+            if (_chgtn.tag == 11) {
+                
+                
+
+                
+                CardModel *cellModel = self.CardDataArray[indexPath.row];
+                
+                cardType = cellModel.CardTypeId;
+                
+                typeName = cellModel.TypeName;
+                
+                
+                
+                //选择店铺的时候，下载所选店铺的数据
+                [self download];
+                
+    
+                [_chgtn setTitle:typeName forState:UIControlStateNormal];
+
+                
+                //改变的时候缩回 然后 下载
+                [self changes];
+                
+                
+
+                
+                }
+                
+                
+
+                
+                
+            }
+            
+        }
+    
+    
+    
+    
+
+    
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    static NSString *cellID = @"cellID";
+    static NSString *popCellID = @"popCellID";
+    static NSString *TwoCellID = @"TwoCellID";
+    if (tableView == _tableView) {
+        MemberCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+        
+        
+        if (cell == nil) {
+            cell = [[MemberCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            
+            
+            //线条
+            CGRect  Lowframe = CGRectMake(0, 99.5, ScreenWidth, 0.5);
+            UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
+            [cell addSubview:Lowimage];
+            
+            //箭头
+            UIImageView *arrowImage = [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth-20, 41, 10, 15) imageName:@"my_arrow_17X30@2x"];
+            [cell addSubview:arrowImage];
+            
+        }
+        
+        MemberModel *cellModel = self.dataArray[indexPath.row];
+        
+        cell.cellModel = cellModel;
+        
+        
+        
+        return cell;
+        
+        
+    }else if (tableView == _popViewTableview){
+        
+        AllStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:popCellID];
+        
+        if (cell == nil) {
+            cell = [[AllStoreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:popCellID];
+            
+        }
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        AllStoreModel *cellModel = self.StoreDataArray[indexPath.row];
+        
+        cell.cellModel = cellModel;
+        
+        //        bgyl = cellModel.StoreName;
+        //        NSLog(@"%@",bgyl);
+        
+        return cell;
+        
+    }else{
+        
+//        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+//    
+//        if (cell == nil) {
+//            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+//            
+//        }
+//        
+//        
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+
+        
+//        CardModel *cellModel = self.CardDataArray[indexPath.row];
+//        
+//        cell.cellModel = cellModel;
+        
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+        
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+            
+            
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            
+            
+            for (int i = 0; i < self.CardDataArray.count; i++) {
+                if (indexPath.row == i) {
+                    
+                    NSArray *cardName = @[@"全部类型",@"会员卡",@"普卡",@"银卡",@"金卡",@"白金卡",@"钻石卡"];
+                    NSString *cardNameStr = cardName[i];
+
+                    cards = [MyUtil createLabelFrame:CGRectMake(10, 5, 70, 30) title:cardNameStr textAlignment:NSTextAlignmentLeft];
+                    
+                    cards.font = [UIFont systemFontOfSize:15];
+                    
+                    [cell addSubview:cards];
+                }
+            }
+            
+            
+            
+        }
+        
+        return cell;
+    
+    }
+    
+    
+    
+}
+
+
+
+
+
+#pragma mark --下载(有两个参数没有取值)
+
+-(void)download
+{
+   cardType = @"09ec8d0a9cd545f9827381702ed27cba";
+//    storeId = @"0d6a1411d71b4643bdc5c13c1e8af117";
+    
+//    [self juhua];
+    NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
+    
+    NSDictionary * params = @{@"entId":EntID,@"storeId":storeId,@"cardType":cardType,@"currPageIndex":currPagestr,@"pageSize":@"-1",@"code":@"gy7412589630"};
+    
+    [AFHTTPClientV2 requestWithBaseURLStr:str
+                                   params:params
+                               httpMethod:kHTTPReqMethodTypePOST
+                                 userInfo:nil
+                                  success:^(AFHTTPClientV2 *request, id responseObject)
+     {
+         
+         //保存下载的数据用于缓存
+         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
+         
+         
+         NSError *error = nil;
+         
+         //xml解析
+         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
+         
+         NSLog(@"%@",dict);
+         //第一次分离
+         if ([dict isKindOfClass:[NSDictionary class]]) {
+             
+             NSDictionary *subDict = [dict objectForKey:@"string"];
+             NSString *str = [subDict objectForKey:@"text"];
+             NSLog(@"%@",str);
+             
+             
+             //字符串转化成data
+             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
+             
+             NSError *error;
+             
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
+             
+             NSLog(@"%@",dic);
+             
+             //第二次分离
+             if ([dic isKindOfClass:[NSDictionary class]]) {
+                 
+                 
+                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
+                 
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
+                 
+                 
+                 [_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     NSLog(@"%@",sssDict);
+                     
+                     MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     [self.dataArray addObject:model];
+                     NSLog(@"======%ld",self.dataArray.count);
+                 }
+                 
+                 
+                 [_tableView reloadData];
+                 
+                 
+                 NotSigview.hidden = YES;//隐藏无网络视图
+                 [HUD hide:YES];
+             }
+         }
+         
+         
+     }
+                                  failure:^(AFHTTPClientV2 *request, NSError *error)
+     {
+         NSLog(@"%@",error);
+     }];
+    
+}
+
+
+-(void)downloadMore
+{
+    
+    NSLog(@"%@",storeId);
+    NSLog(@"%@",currPagestr);
+    
+//    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
+//    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
+
+    
+ //   [self juhua];
+    NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
+    
+    NSDictionary * params = @{@"entId":EntID,@"storeId":storeId,@"cardType":cardType,@"currPageIndex":currPagestr,@"pageSize":@"-1",@"code":@"gy7412589630"};
+    
+    [AFHTTPClientV2 requestWithBaseURLStr:str
+                                   params:params
+                               httpMethod:kHTTPReqMethodTypePOST
+                                 userInfo:nil
+                                  success:^(AFHTTPClientV2 *request, id responseObject)
+     {
+         
+//         //保存下载的数据用于缓存
+//         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
+         
+         
+         NSError *error = nil;
+         
+         //xml解析
+         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
+         
+         NSLog(@"%@",dict);
+         //第一次分离
+         if ([dict isKindOfClass:[NSDictionary class]]) {
+             
+             NSDictionary *subDict = [dict objectForKey:@"string"];
+             NSString *str = [subDict objectForKey:@"text"];
+             NSLog(@"%@",str);
+             
+             
+             //字符串转化成data
+             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
+             
+             NSError *error;
+             
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
+             
+             NSLog(@"%@",dic);
+             
+             //第二次分离
+             if ([dic isKindOfClass:[NSDictionary class]]) {
+                 
+                 
+                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
+                 
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
+                 
+                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     NSLog(@"%@",sssDict);
+                     
+                     //[_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+                     
+                     MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     [self.dataArray addObject:model];
+                     NSLog(@"======%ld",self.dataArray.count);
+                 }
+                 [_tableView reloadData];
+                 NotSigview.hidden = YES;//隐藏无网络视图
+                 //[HUD hide:YES];
+             }
+         }
+         
+         
+     }
+                                  failure:^(AFHTTPClientV2 *request, NSError *error)
+     {
+         NSLog(@"%@",error);
+     }];
+    
+}
+
+
+
+#pragma mark --下载店铺
+
+-(void)downloadStore
+{
+    
+    
+    NSString *str = [NSString stringWithFormat:@GetAllStoreListUrl];
+    
+    NSDictionary * params = @{@"entId":EntID,@"code":@"gy7412589630"};
+    
+    [AFHTTPClientV2 requestWithBaseURLStr:str
+                                   params:params
+                               httpMethod:kHTTPReqMethodTypePOST
+                                 userInfo:nil
+                                  success:^(AFHTTPClientV2 *request, id responseObject)
+     {
+         
+         //保存下载的数据用于缓存
+         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"8" AndType:CacheTypeQuestion];
+         
+         NSError *error = nil;
+         
+         //xml解析
+         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
+         
+         NSLog(@"%@",dict);
+         //第一次分离
+         if ([dict isKindOfClass:[NSDictionary class]]) {
+             
+             NSDictionary *subDict = [dict objectForKey:@"string"];
+             NSString *str = [subDict objectForKey:@"text"];
+             NSLog(@"%@",str);
+             
+             
+             //字符串转化成data
+             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
+             
+             NSError *error;
+             
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
+             
+             //第二次分离
+             if ([dic isKindOfClass:[NSDictionary class]]) {
+                 
+                 
+                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
+                 
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
+                 
+                 if (arr1.count == 0) {
+                     
+                     return ;
+                 }
+                 
+                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+                     
+                     AllStoreModel *model = [[[AllStoreModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     NSLog(@"%@",bgyl);
+                     
+                     [self.StoreDataArray addObject:model];
+                     NSLog(@"======%ld",self.StoreDataArray.count);
+                     
+                     
+                     
+                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
+                     bgyl = model.StoreName;
+                     storeId = model.GUID;
+                     
+                     
+                     
+                 }
+                 
+                 
+                 [_popViewTableview  reloadData];
+                 
+                 [self createScan];
+
+
+                 
+                 
+                 //自动选择店铺
+                 if ([_popViewTableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+                     
+                     NSArray *arr = [_TopHeaderView subviews];
+                     
+                     
+                     for (_chgtn in arr) {
+                         
+                         if (_chgtn.tag == 10) {
+                             
+                             NSInteger selectedIndex = 0;
+                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+                             [_popViewTableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                             [_popViewTableview.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
+                             
+                             [self changes];
+                             
+                         }
+//                         if (_chgtn.tag == 11) {
+//                             
+//                             NSInteger selectedIndex = 0;
+//                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+//                             [_TwoPopViewTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//                             [_TwoPopViewTableView.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
+//                             
+//                             [self changes];
+                         
+//                         }
+
+                     }
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 
+             }
+         }
+         
+         
+     }
+                                  failure:^(AFHTTPClientV2 *request, NSError *error)
+     {
+         NSLog(@"%@",error);
+         
+         
+     }];
+    
+}
+
+
+
+
+
+
+#pragma mark --下载会员卡
+
+-(void)downloadCard
+{
+    
+    NSString *str = [NSString stringWithFormat:@GetAllCardTypeToListUrl];
+    
+    NSDictionary * params = @{@"entId":EntID,@"code":@"gy7412589630"};
+    
+    [AFHTTPClientV2 requestWithBaseURLStr:str
+                                   params:params
+                               httpMethod:kHTTPReqMethodTypePOST
+                                 userInfo:nil
+                                  success:^(AFHTTPClientV2 *request, id responseObject)
+     {
+         
+         //保存下载的数据用于缓存
+         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"8" AndType:CacheTypeQuestion];
+         
+         NSError *error = nil;
+         
+         //xml解析
+         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
+         
+         NSLog(@"%@",dict);
+         //第一次分离
+         if ([dict isKindOfClass:[NSDictionary class]]) {
+             
+             NSDictionary *subDict = [dict objectForKey:@"string"];
+             NSString *str = [subDict objectForKey:@"text"];
+             NSLog(@"%@",str);
+             
+             
+             //字符串转化成data
+             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
+             
+             NSError *error;
+             
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
+             
+             //第二次分离
+             if ([dic isKindOfClass:[NSDictionary class]]) {
+                 
+                 
+                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
+                 
+                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
+                 
+                 if (arr1.count == 0) {
+                     
+                     return ;
+                 }
+                 
+                 
+                 for (NSDictionary *dict in arr1) {
+                     
+                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
+                     
+                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+                     
+                     CardModel *model = [[[CardModel alloc]init]initWithDictionary:sssDict];
+                     
+                     
+                     NSLog(@"%@",cardType);
+                     
+                     [self.CardDataArray addObject:model];
+                     
+                     NSLog(@"======%ld",self.CardDataArray.count);
+                     
+                     
+                     
+                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
+                     cardType = model.CardTypeId;
+                     
+                     
+                     
+                 }
+                 
+                 
+                 
+                 [_TwoPopViewTableView  reloadData];
+                 
+                 //[self createScan];
+                 
+                 
+                 //自动选择会员卡类型
+                 if ([_TwoPopViewTableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+                     
+                     NSArray *arr = [_TopHeaderView subviews];
+                     
+                     
+                     for (_chgtn in arr) {
+                         
+                         if (_chgtn.tag == 11) {
+                             
+                             NSInteger selectedIndex = 0;
+                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+                             [_TwoPopViewTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                             [_TwoPopViewTableView.delegate tableView:_TwoPopViewTableView didSelectRowAtIndexPath:selectedIndexPath];
+                             
+                             [self changes];
+                             
+                         }
+                     }
+                 }
+                 
+                 
+                 
+             }
+             
+         }
+         
+         
+     }
+    failure:^(AFHTTPClientV2 *request, NSError *error)
+     {
+         NSLog(@"%@",error);
+         
+         
+     }];
     
 }
 
@@ -478,727 +1249,6 @@
     
     
 }
-
-
-
-
-#pragma mark--UITableViewDelegate
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-    
-    
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    
-    if (tableView == _tableView) {
-        
-        return self.dataArray.count;
-    }else if (tableView == _popViewTableview)
-    {
-        return self.StoreDataArray.count;
-        
-    }else if (tableView == _TwoPopViewTableView)
-    {
-        
-        return self.CardDataArray.count+1;
-    }else
-    {
-        return 1;
-    }
-}
-
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 0;
-//    
-//    
-//}
-//
-//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [_souch  resignFirstResponder];
-//}
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (tableView == _tableView) {
-        return 100;
-    }else
-    {
-        return 35;
-    }
-}
-
-
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    if (tableView == _tableView)
-    {
-        
-        MemberDetailViewController *memberCtrl = [[MemberDetailViewController alloc]init];
-        
-        MemberModel *model = self.dataArray[indexPath.row];
-        
-        
-        memberCtrl.storeId =model.StoreID;
-        
-        
-        memberCtrl.cardType = model.CardType;
-        
-        [self.navigationController pushViewController:memberCtrl animated:YES];
-        
-        
-    }else if (tableView == _popViewTableview)
-    {
-        
-        
-        
-        NSArray *arr = [_TopHeaderView subviews];
-        
-        NSLog(@"%@",arr);
-        
-        
-        for (_chgtn in arr)
-        {
-            
-            
-            if (_chgtn.tag == 10) {
-                
-                
-                NSLog(@"%@",_chgtn);
-                
-                //点击cell 修改 btn 文字 并下载数据
-                AllStoreModel *cellModel = self.StoreDataArray[indexPath.row];
-                
-                _EntID = cellModel.EnterpriseID;
-                bgyl = cellModel.StoreName;
-                
-                _storeID = cellModel.GUID;
-                NSLog(@"%@",bgyl);
-                NSLog(@"%@",_EntID);
-                NSLog(@"%@",_storeID);
-                
-                //选择店铺的时候，下载所选店铺的数据
-                [self download];
-
-                
-                
-                [_chgtn setTitle:bgyl forState:UIControlStateNormal];
-                
-                //改变的时候缩回 然后 下载
-                [self changes];
-                
-                
-            }
-            
-        }
-        
-        
-        
-        
-        
-    }else if (tableView == _TwoPopViewTableView)
-    {
-        
-        NSArray *arr = [_TopHeaderView subviews];
-        
-        NSLog(@"%@",arr);
-        
-        
-        for (_chgtn in arr) {
-            
-            
-            if (_chgtn.tag == 11) {
-                
-                
-
-                
-                CardModel *cellModel = self.CardDataArray[indexPath.row];
-                
-                _cardType = cellModel.CardTypeId;
-                
-                typeName = cellModel.TypeName;
-                
-                
-                
-                //选择店铺的时候，下载所选店铺的数据
-                [self download];
-                
-    
-                [_chgtn setTitle:typeName forState:UIControlStateNormal];
-
-                
-                //改变的时候缩回 然后 下载
-                [self changes];
-                
-                
-
-                
-                }
-                
-                
-
-                
-                
-            }
-            
-        }
-    
-    
-    
-    
-
-    
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    static NSString *cellID = @"cellID";
-    static NSString *popCellID = @"popCellID";
-    static NSString *TwoCellID = @"TwoCellID";
-    if (tableView == _tableView) {
-        MemberCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        
-        
-        if (cell == nil) {
-            cell = [[MemberCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            
-            
-            //线条
-            CGRect  Lowframe = CGRectMake(0, 99.5, ScreenWidth, 0.5);
-            UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
-            [cell addSubview:Lowimage];
-            
-            //箭头
-            UIImageView *arrowImage = [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth-20, 41, 10, 15) imageName:@"my_arrow_17X30@2x"];
-            [cell addSubview:arrowImage];
-            
-        }
-        
-        MemberModel *cellModel = self.dataArray[indexPath.row];
-        
-        cell.cellModel = cellModel;
-        
-        
-        
-        return cell;
-        
-        
-    }else if (tableView == _popViewTableview){
-        
-        AllStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:popCellID];
-        
-        if (cell == nil) {
-            cell = [[AllStoreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:popCellID];
-            
-        }
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        AllStoreModel *cellModel = self.StoreDataArray[indexPath.row];
-        
-        cell.cellModel = cellModel;
-        
-        //        bgyl = cellModel.StoreName;
-        //        NSLog(@"%@",bgyl);
-        
-        return cell;
-        
-    }else{
-        
-//        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
-//    
-//        if (cell == nil) {
-//            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
-//            
-//        }
-//        
-//        
-//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-
-        
-//        CardModel *cellModel = self.CardDataArray[indexPath.row];
-//        
-//        cell.cellModel = cellModel;
-        
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
-        
-        
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
-            
-            
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            
-            
-            if (indexPath.row == 0) {
-                Today= [MyUtil createLabelFrame:CGRectMake(10, 5, 30, 30) title:@"今日" textAlignment:NSTextAlignmentLeft];
-                
-                Today.font = [UIFont systemFontOfSize:15];
-                [cell addSubview:Today];
-                
-            }else if (indexPath.row == 1)
-            {
-                
-                Week= [MyUtil createLabelFrame:CGRectMake(10, 5, 30, 30) title:@"本周" textAlignment:NSTextAlignmentLeft];
-                
-                Week.font = [UIFont systemFontOfSize:15];
-                [cell addSubview:Week];
-                
-                
-            }else
-            {
-                
-                Month= [MyUtil createLabelFrame:CGRectMake(10, 5, 30, 30) title:@"本月" textAlignment:NSTextAlignmentLeft];
-                
-                Month.font = [UIFont systemFontOfSize:15];
-                [cell addSubview:Month];
-                
-            }
-            
-            
-            
-        }
-        
-        return cell;
-    
-    }
-    
-    
-    
-}
-
-
-
-
-
-#pragma mark --下载(有两个参数没有取值)
-
--(void)download
-{
-    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-//    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
-    
-    [self juhua];
-    NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
-    
-    NSDictionary * params = @{@"entId":_EntID,@"storeId":_storeID,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
-    
-    [AFHTTPClientV2 requestWithBaseURLStr:str
-                                   params:params
-                               httpMethod:kHTTPReqMethodTypePOST
-                                 userInfo:nil
-                                  success:^(AFHTTPClientV2 *request, id responseObject)
-     {
-         
-         //保存下载的数据用于缓存
-         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
-         
-         
-         NSError *error = nil;
-         
-         //xml解析
-         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
-         
-         NSLog(@"%@",dict);
-         //第一次分离
-         if ([dict isKindOfClass:[NSDictionary class]]) {
-             
-             NSDictionary *subDict = [dict objectForKey:@"string"];
-             NSString *str = [subDict objectForKey:@"text"];
-             NSLog(@"%@",str);
-             
-             
-             //字符串转化成data
-             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
-             
-             NSError *error;
-             
-             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
-             
-             NSLog(@"%@",dic);
-             
-             //第二次分离
-             if ([dic isKindOfClass:[NSDictionary class]]) {
-                 
-                 
-                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-                 
-                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
-                 
-                 
-                 [_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
-                 
-                 for (NSDictionary *dict in arr1) {
-                     
-                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
-                     
-                     NSLog(@"%@",sssDict);
-                     
-                     MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
-                     
-                     
-                     [self.dataArray addObject:model];
-                     NSLog(@"======%ld",self.dataArray.count);
-                 }
-                 [_tableView reloadData];
-                 NotSigview.hidden = YES;//隐藏无网络视图
-                 [HUD hide:YES];
-             }
-         }
-         
-         
-     }
-                                  failure:^(AFHTTPClientV2 *request, NSError *error)
-     {
-         NSLog(@"%@",error);
-     }];
-    
-}
-
-
--(void)downloadMore
-{
-    
-    NSLog(@"%@",_storeID);
-    NSLog(@"%@",currPagestr);
-    
-//    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-//    _storeID = @"0d6a1411d71b4643bdc5c13c1e8af117";
-
-    
-    [self juhua];
-    NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
-    
-    NSDictionary * params = @{@"entId":_EntID,@"storeId":_storeID,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"10",@"code":@"gy7412589630"};
-    
-    [AFHTTPClientV2 requestWithBaseURLStr:str
-                                   params:params
-                               httpMethod:kHTTPReqMethodTypePOST
-                                 userInfo:nil
-                                  success:^(AFHTTPClientV2 *request, id responseObject)
-     {
-         
-         //保存下载的数据用于缓存
-         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
-         
-         
-         NSError *error = nil;
-         
-         //xml解析
-         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
-         
-         NSLog(@"%@",dict);
-         //第一次分离
-         if ([dict isKindOfClass:[NSDictionary class]]) {
-             
-             NSDictionary *subDict = [dict objectForKey:@"string"];
-             NSString *str = [subDict objectForKey:@"text"];
-             NSLog(@"%@",str);
-             
-             
-             //字符串转化成data
-             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
-             
-             NSError *error;
-             
-             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
-             
-             NSLog(@"%@",dic);
-             
-             //第二次分离
-             if ([dic isKindOfClass:[NSDictionary class]]) {
-                 
-                 
-                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-                 
-                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
-                 
-                 
-                 for (NSDictionary *dict in arr1) {
-                     
-                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
-                     
-                     NSLog(@"%@",sssDict);
-                     
-                     //[_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
-                     
-                     MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
-                     
-                     
-                     [self.dataArray addObject:model];
-                     NSLog(@"======%ld",self.dataArray.count);
-                 }
-                 [_tableView reloadData];
-                 NotSigview.hidden = YES;//隐藏无网络视图
-                 [HUD hide:YES];
-             }
-         }
-         
-         
-     }
-                                  failure:^(AFHTTPClientV2 *request, NSError *error)
-     {
-         NSLog(@"%@",error);
-     }];
-    
-}
-
-
-
-#pragma mark --下载店铺
-
--(void)downloadStore
-{
-    
-    
-    NSString *str = [NSString stringWithFormat:@GetAllStoreListUrl];
-    
-    NSDictionary * params = @{@"entId":_EntID,@"code":@"gy7412589630"};
-    
-    [AFHTTPClientV2 requestWithBaseURLStr:str
-                                   params:params
-                               httpMethod:kHTTPReqMethodTypePOST
-                                 userInfo:nil
-                                  success:^(AFHTTPClientV2 *request, id responseObject)
-     {
-         
-         //保存下载的数据用于缓存
-         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"8" AndType:CacheTypeQuestion];
-         
-         NSError *error = nil;
-         
-         //xml解析
-         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
-         
-         NSLog(@"%@",dict);
-         //第一次分离
-         if ([dict isKindOfClass:[NSDictionary class]]) {
-             
-             NSDictionary *subDict = [dict objectForKey:@"string"];
-             NSString *str = [subDict objectForKey:@"text"];
-             NSLog(@"%@",str);
-             
-             
-             //字符串转化成data
-             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
-             
-             NSError *error;
-             
-             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
-             
-             //第二次分离
-             if ([dic isKindOfClass:[NSDictionary class]]) {
-                 
-                 
-                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-                 
-                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
-                 
-                 if (arr1.count == 0) {
-                     
-                     return ;
-                 }
-                 
-                 
-                 for (NSDictionary *dict in arr1) {
-                     
-                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
-                     
-                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
-                     
-                     AllStoreModel *model = [[[AllStoreModel alloc]init]initWithDictionary:sssDict];
-                     
-                     
-                     NSLog(@"%@",bgyl);
-                     
-                     [self.StoreDataArray addObject:model];
-                     NSLog(@"======%ld",self.StoreDataArray.count);
-                     
-                     
-                     
-                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
-                     bgyl = model.StoreName;
-                     _storeID = model.GUID;
-                     
-                     
-                     
-                 }
-                 
-                 [self createScan];
-
-                 [_popViewTableview  reloadData];
-                 
-                 
-                 //自动选择店铺
-                 if ([_popViewTableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-                     
-                     NSArray *arr = [_TopHeaderView subviews];
-                     
-                     
-                     for (_chgtn in arr) {
-                         
-                         if (_chgtn.tag == 10) {
-                             
-                             NSInteger selectedIndex = 0;
-                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-                             [_popViewTableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                             [_popViewTableview.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
-                             
-                             [self changes];
-                             
-                         }
-                         if (_chgtn.tag == 11) {
-                             
-                             NSInteger selectedIndex = 0;
-                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-                             [_TwoPopViewTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                             [_TwoPopViewTableView.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
-                             
-                             [self changes];
-                             
-                         }
-
-                     }
-                     
-                 }
-                 
-                 
-                 
-                 
-                 
-                 
-             }
-         }
-         
-         
-     }
-                                  failure:^(AFHTTPClientV2 *request, NSError *error)
-     {
-         NSLog(@"%@",error);
-         
-         
-     }];
-    
-}
-
-
-
-
-
-
-#pragma mark --下载会员卡
-
--(void)downloadCard
-{
-    
-    
-    NSString *str = [NSString stringWithFormat:@GetAllCardTypeToListUrl];
-    
-    NSDictionary * params = @{@"entId":_EntID,@"code":@"gy7412589630"};
-    
-    [AFHTTPClientV2 requestWithBaseURLStr:str
-                                   params:params
-                               httpMethod:kHTTPReqMethodTypePOST
-                                 userInfo:nil
-                                  success:^(AFHTTPClientV2 *request, id responseObject)
-     {
-         
-         //保存下载的数据用于缓存
-         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"11" AndType:CacheTypeQuestion];
-         
-         NSError *error = nil;
-         
-         //xml解析
-         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
-         
-         NSLog(@"%@",dict);
-         //第一次分离
-         if ([dict isKindOfClass:[NSDictionary class]]) {
-             
-             NSDictionary *subDict = [dict objectForKey:@"string"];
-             NSString *str = [subDict objectForKey:@"text"];
-             NSLog(@"%@",str);
-             
-             
-             //字符串转化成data
-             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
-             
-             NSError *error;
-             
-             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
-             
-             //第二次分离
-             if ([dic isKindOfClass:[NSDictionary class]]) {
-                 
-                 
-                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-                 
-                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
-                 
-                 if (arr1.count == 0) {
-                     
-                     return ;
-                 }
-                 
-                 
-                 for (NSDictionary *dict in arr1) {
-                     
-                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
-                     
-                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
-                     
-                     CardModel *model = [[[CardModel alloc]init]initWithDictionary:sssDict];
-                     
-                     
-                     NSLog(@"%@",_cardType);
-                     
-                     [self.CardDataArray addObject:model];
-                     
-                     NSLog(@"======%ld",self.CardDataArray.count);
-                     
-                     
-                     
-                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
-                     _cardType = model.CardTypeId;
-                     
-                     
-                     
-                 }
-                 
-                 
-                 
-             }
-         }
-         
-         
-     }
-                                  failure:^(AFHTTPClientV2 *request, NSError *error)
-     {
-         NSLog(@"%@",error);
-         
-         
-     }];
-    
-}
-
-
-
-
 
 
 

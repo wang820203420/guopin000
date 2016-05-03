@@ -33,7 +33,6 @@
     }
     
     
-    
     return cell;
     
     
@@ -111,6 +110,7 @@
     
     //售价
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:15]};
+    
     
     //动态计算出宽度
     CGSize size1 = [self.SalePrice.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;

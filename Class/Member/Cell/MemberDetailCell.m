@@ -11,8 +11,8 @@
 
 
 @interface MemberDetailCell ()
+
 {
-    
     NSString *data;
 }
 
@@ -66,40 +66,42 @@
         label.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:label];
         self.cardType = [[UILabel alloc]init];
-        self.cardType.frame = CGRectMake(85, 20, 150, 10);
+        self.cardType.frame = CGRectMake(85, 70, 150, 10);
         self.cardType.font = [UIFont systemFontOfSize:14];
         [self.contentView addSubview:self.cardType];
         
         
-        
-        UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(10, 45, 200, 10) title:@"会员姓名:" textAlignment:NSTextAlignmentLeft];
+        UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(10, 45, 100, 10) title:@"会员姓名:" textAlignment:NSTextAlignmentLeft];
         label1.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label1.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:label1];
         self.staffName = [[UILabel alloc]init];
-        self.staffName.frame = CGRectMake(85, 45, 150, 10);
+        self.staffName.frame = CGRectMake(ScreenWidth/3.9, 20, 150, 10);
         self.staffName.font = [UIFont systemFontOfSize:14];
         [self.contentView addSubview:self.staffName];
         
         
         
         
-        UILabel *label2 = [MyUtil createLabelFrame:CGRectMake(10, 70, 200, 10) title:@"手机号码:" textAlignment:NSTextAlignmentLeft];
+        UILabel *label2 = [MyUtil createLabelFrame:CGRectMake(10, 70, 100, 10) title:@"手机号码:" textAlignment:NSTextAlignmentLeft];
         label2.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label2.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:label2];
         self.mobile = [[UILabel alloc]init];
-        self.mobile.frame = CGRectMake(85,70, 150, 10);
+        self.mobile.frame = CGRectMake(ScreenWidth/3.9,45, 150, 10);
         self.mobile.font = [UIFont systemFontOfSize:14];
         [self.contentView addSubview:self.mobile];
+
         
         
         
         
-        //线条
-        CGRect  Lowframe = CGRectMake(0, 99.5, ScreenWidth, 0.5);
-        UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
-        [self.contentView addSubview:Lowimage];
+        
+
+        
+        
+        
+        
         
         //线条
         CGRect  Lowframe1 = CGRectMake(0, 0, ScreenWidth, 0.5);

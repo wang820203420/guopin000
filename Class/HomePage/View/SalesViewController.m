@@ -136,6 +136,7 @@
 {
     
     _dataArray = [NSMutableArray array];
+    
     _ListDataArray = [NSMutableArray array];
     
      _tableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 65, ScreenWidth, ScreenHeight-88) style:UITableViewStylePlain];
@@ -162,7 +163,6 @@
 {
     
     if (section == 0) {
-    NSLog(@"%ld",_dataArray.count);
         return _dataArray.count;
    
         
@@ -356,7 +356,7 @@
         SalesListDetailModel *cellModel = _dataArray[indexPath.row];
         
         
-        cell.cellModel =cellModel;
+        cell.cellModel = cellModel;
         
         
         
@@ -457,7 +457,8 @@
                      
                      
                      [_dataArray addObject:model];
-                     NSLog(@"======%ld",_dataArray.count);
+            
+                 
                 
                  [_tableView reloadData];
                  

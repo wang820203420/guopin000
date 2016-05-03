@@ -10,7 +10,10 @@
 
 @interface SalesMoneyModel : NSObject
 
-@property(nonatomic,strong)NSNumber *Data;//销售信息总金额
+@property(nonatomic,strong)NSNumber *TotalMoney;//销售信息总金额
+@property(nonatomic,strong)NSNumber *TotalCutOff;//销售信息总折扣
+
+
 
 
 

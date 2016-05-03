@@ -553,6 +553,10 @@
         SalesInformationModel *model = self.dataArray[indexPath.row];
         SalesCtrl.saleId = model.GUID;
         SalesCtrl.storeMoney = model.totalmoney.stringValue;
+        
+#pragma mark_______________________折扣总和添加________________________________________
+//        SalesCtrl.totalmoney = model.totalmoney.stringValue;
+
   
         
 
@@ -1108,7 +1112,8 @@
                  
                  [_popViewTableview  reloadData];
        
-                [self createScan];
+                 [self createScan];
+                 
                  
                  //自动选择店铺
                  if ([_popViewTableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
