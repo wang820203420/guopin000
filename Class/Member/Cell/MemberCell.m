@@ -95,13 +95,7 @@
         self.discount.textColor = [UIColor colorWithRed:74.0/255.0 green:150.0/255.0 blue:62.0/255.0 alpha:1];
         [self.contentView addSubview:self.discount];
         
-        
-        //售价单位
-        self.UnitName = [[UILabel alloc]init];
-        self.UnitName.frame = CGRectMake(ScreenWidth/1.13,38, 40, 20);
-        self.UnitName.font = [UIFont systemFontOfSize:16.5];
-        self.UnitName.textColor = [UIColor colorWithRed:74.0/255.0 green:150.0/255.0 blue:62.0/255.0 alpha:1];
-        [self.contentView addSubview:self.UnitName];
+    
         
         
         
@@ -122,8 +116,7 @@
     self.cardTypeName.text = _cellModel.CardTypeName;
     self.staffName.text = _cellModel.StaffName;
     self.mobile.text= _cellModel.Mobile;
-    self.discount.text = [NSString stringWithFormat:@"%.2f元/",_cellModel.Discount.doubleValue];
-    self.UnitName.text = _cellModel.UnitName;
+    self.discount.text = [NSString stringWithFormat:@"%.2f元",_cellModel.Discount.doubleValue];
     
     
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16.5]};

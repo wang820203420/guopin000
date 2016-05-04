@@ -57,6 +57,7 @@
 		912D97851CCF0D2500356D68 /* MemberDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D97841CCF0D2500356D68 /* MemberDetailCell.m */; };
 		912D97881CCFCB4100356D68 /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D97871CCFCB4100356D68 /* CardModel.m */; };
 		912D978B1CD061BA00356D68 /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D978A1CD061BA00356D68 /* CardCell.m */; };
+		912D97DC1CD8425C00356D68 /* MemberDetaiTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 912D97DB1CD8425C00356D68 /* MemberDetaiTwoCell.m */; };
 		914243061BD5DD1F00A80BB1 /* ToGoosdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 914243051BD5DD1F00A80BB1 /* ToGoosdModel.m */; };
 		9142430A1BD5E02300A80BB1 /* ToGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 914243091BD5E02300A80BB1 /* ToGoodsCell.m */; };
 		914243111BD5E64C00A80BB1 /* GoodsMngModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 914243101BD5E64C00A80BB1 /* GoodsMngModel.m */; };
@@ -343,6 +344,8 @@
 		912D97871CCFCB4100356D68 /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
 		912D97891CD061BA00356D68 /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
 		912D978A1CD061BA00356D68 /* CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCell.m; sourceTree = "<group>"; };
+		912D97DA1CD8425C00356D68 /* MemberDetaiTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberDetaiTwoCell.h; sourceTree = "<group>"; };
+		912D97DB1CD8425C00356D68 /* MemberDetaiTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberDetaiTwoCell.m; sourceTree = "<group>"; };
 		914243041BD5DD1F00A80BB1 /* ToGoosdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToGoosdModel.h; sourceTree = "<group>"; };
 		914243051BD5DD1F00A80BB1 /* ToGoosdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToGoosdModel.m; sourceTree = "<group>"; };
 		914243081BD5E02300A80BB1 /* ToGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToGoodsCell.h; sourceTree = "<group>"; };
@@ -1228,6 +1231,8 @@
 				912D977E1CCE627400356D68 /* MemberCell.m */,
 				912D97831CCF0D2500356D68 /* MemberDetailCell.h */,
 				912D97841CCF0D2500356D68 /* MemberDetailCell.m */,
+				912D97DA1CD8425C00356D68 /* MemberDetaiTwoCell.h */,
+				912D97DB1CD8425C00356D68 /* MemberDetaiTwoCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1954,6 +1959,7 @@
 				911D49FF1BE8B059005E3D62 /* FMDatabaseQueue.m in Sources */,
 				9142436C1BD77B3F00A80BB1 /* ToGoodsCreatUserModel.m in Sources */,
 				9142435D1BD633CF00A80BB1 /* UIView+MJExtension.m in Sources */,
+				912D97DC1CD8425C00356D68 /* MemberDetaiTwoCell.m in Sources */,
 				9195E6B21B96A81D0089DB7F /* HomePageViewController.m in Sources */,
 				9195E6DF1B9C40930089DB7F /* SearchViewController.m in Sources */,
 				914243541BD633CF00A80BB1 /* MJRefreshBackNormalFooter.m in Sources */,

@@ -10,6 +10,7 @@
 #import "MainViewController.h"
 
 #import "MemberDetailCell.h"//商品详细
+#import "MemberDetaiTwoCell.h"//商品详细
 #import "MemberModel.h"//因为无需MemberDetailModel所以可用同一模型替代
 
 @interface MemberDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
@@ -49,8 +50,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self createNav];
+    UILabel *label0 = [MyUtil createLabelFrame:CGRectMake(0, 64, self.view.frame.size.width, 40) title:@"会员信息:" textAlignment:NSTextAlignmentLeft];
+    label0.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:label0];
+    UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(0, 64+label0.frame.size.height, self.view.frame.size.width, 40) title:[NSString stringWithFormat:@"会员名字：%@", self.model.StaffName] textAlignment:NSTextAlignmentLeft];
+    [self.view addSubview:label1];
+    UILabel *label2 = [MyUtil createLabelFrame:CGRectMake(0, CGRectGetMaxY(label1.frame), self.view.frame.size.width, 40) title:[NSString stringWithFormat:@"手机号：%@", self.model.Mobile] textAlignment:NSTextAlignmentLeft];
+    [self.view addSubview:label2];
     
-    
+#if 0
     self.view.backgroundColor = [UIColor whiteColor];
     
     NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
@@ -72,14 +82,14 @@
     
     [self addNavLabel:CGRectMake(ScreenWidth/2.737, 25, 100, 30) font:[UIFont systemFontOfSize:20] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter text:@"会员详情"];
     
-    
+#endif
    
 }
 
 
 
 
-
+#if 0
 
 -(void)createTableView
 {
@@ -118,7 +128,8 @@
         return 1;
     }else
     {
-        return _dataArray.count;
+        NSLog(@"%ld", _dataArray.count);
+        return 1;//_dataArray.count;
     }
     
     
@@ -219,35 +230,11 @@
         
     }else
     {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellstateID];
+        MemberDetaiTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         
-        if (cell == nil) {
+        if (cell == 0) {
             
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellstateID];
-            
-#pragma mark_________________________________________________________
-            
-            UILabel *staffName = [MyUtil createLabelFrame:CGRectMake(10, 15, 80, 20) title:@"会员姓名" textAlignment:NSTextAlignmentLeft];
-            staffName.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
-            staffName.font = [UIFont systemFontOfSize:16];
-            [cell addSubview:staffName];
-            
-            
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            
-            
-            
-            
-//            //线条
-//            CGRect  Lowframe = CGRectMake(0, 34, ScreenWidth, 0.5);
-//            UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
-//            [cell addSubview:Lowimage];
-            
-            //线条
-            CGRect  Lowframe1 = CGRectMake(0, 0, ScreenWidth, 0.5);
-            UIImageView *Lowimage1 = [MyUtil createIamgeViewFrame:Lowframe1 imageName:@"375x1@2x"];
-            [cell addSubview:Lowimage1];
-            
+            cell = [[MemberDetaiTwoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             
             
             
@@ -407,7 +394,7 @@
 
 
 
-
+#endif
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
