@@ -1120,7 +1120,6 @@
                      
                      NSArray *arr = [_TopHeaderView subviews];
                      
-                     
                      for (_chgtn in arr) {
 
                          if (_chgtn.tag == 10) {
@@ -1133,13 +1132,14 @@
                              [self changes];
                              
                          }
+                        
+                         
                      }
                      
+                 
                  }
              
-                 
-             
-            
+                
                
                  
              }

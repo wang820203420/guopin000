@@ -116,14 +116,8 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -139,16 +133,17 @@
     
     currPagestr = page;
     
+    [self downloadStore];
+    
 //    [self sharedClient];//检查实时网络
     
     [self createTableview];
     
     [self createPoPviewTableview];
     
-    [self downloadStore];
+
     
     [self createNav];
-    [self createScan];
 
 
     
@@ -313,8 +308,6 @@
     _TwoPopViewTableView.dataSource = self;
     [_view addSubview:_TwoPopViewTableView];
 
-    
-    
     
 }
 
@@ -503,9 +496,91 @@
         
     }else if (tableView == _TwoPopViewTableView)
     {
-        
+            
         NSArray *arr = [_TopHeaderView subviews];
+        
 
+        
+            
+            for (_chgtn in arr) {
+                
+                
+                if (_chgtn.tag == 11) {
+                    
+                    NSArray *cardName = @[@"普卡",@"银卡",@"金卡",@"白金卡",@"钻石卡"];
+                    
+                    if (indexPath.row == 0) {
+                        
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@",cardName[0]];
+                        
+                        [_chgtn setTitle:str forState:UIControlStateNormal];
+                        
+                        
+                        cardType = @"001";
+                        //选择卡的类型的时候，下载所选卡类型的的数据
+                        [self download];
+                        
+                    }
+                    else if (indexPath.row == 1){
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@",cardName[1]];
+                        
+                        [_chgtn setTitle:str forState:UIControlStateNormal];
+                        
+            
+                        cardType = @"002";
+                        //选择卡的类型的时候，下载所选卡类型的的数据
+                        [self download];
+                    }
+                    else if (indexPath.row == 2){
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@",cardName[2]];
+                        
+                        [_chgtn setTitle:str forState:UIControlStateNormal];
+                       
+                        cardType = @"003";
+                        //选择卡的类型的时候，下载所选卡类型的的数据
+                        [self download];
+                    }
+                    else if (indexPath.row == 3){
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@",cardName[3]];
+                        
+                        [_chgtn setTitle:str forState:UIControlStateNormal];
+                        
+                        cardType = @"004";
+                        //选择卡的类型的时候，下载所选卡类型的的数据
+                        [self download];
+                    }
+                    else if (indexPath.row == 4){
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@",cardName[4]];
+                        
+                        [_chgtn setTitle:str forState:UIControlStateNormal];
+                        
+    
+                        cardType = @"005";
+                        //选择卡的类型的时候，下载所选卡类型的的数据
+                        [self download];
+                    }
+                    
+                    
+                    //改变的时候缩回 然后 下载
+                    [self changes];
+                    
+                    
+                }
+                
+            }
+            
+            
+    
+        
+        
+        
+#if 0
+        NSArray *arr = [_TopHeaderView subviews];
         
         for (_chgtn in arr) {
             
@@ -523,8 +598,8 @@
                 
                 
                 
-                //选择店铺的时候，下载所选店铺的数据
-//                [self download];
+                //选择卡的类型的时候，下载所选卡的类型的数据
+                [self download];
                 
     
                 [_chgtn setTitle:typeName forState:UIControlStateNormal];
@@ -543,7 +618,8 @@
                 
                 
             }
-            
+#endif
+        
         }
     
     
@@ -607,50 +683,50 @@
         
     }else{
         
-//        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
-//    
-//        if (cell == nil) {
-//            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
-//            
-//        }
-//        
-//        
-//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        CardCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
+    
+        if (cell == nil) {
+            cell = [[CardCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+            
+        }
+        
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 
         
-//        CardModel *cellModel = self.CardDataArray[indexPath.row];
+        CardModel *cellModel = self.CardDataArray[indexPath.row];
+        
+        cell.cellModel = cellModel;
+        
+        
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
 //        
-//        cell.cellModel = cellModel;
-        
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TwoCellID];
-        
-        
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
-            
-            
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            
-            
-            for (int i = 0; i < self.CardDataArray.count; i++) {
-                if (indexPath.row == i) {
-                    
-                    NSArray *cardName = @[@"全部类型",@"会员卡",@"普卡",@"银卡",@"金卡",@"白金卡",@"钻石卡"];
-                    NSString *cardNameStr = cardName[i];
-
-                    cards = [MyUtil createLabelFrame:CGRectMake(10, 5, 70, 30) title:cardNameStr textAlignment:NSTextAlignmentLeft];
-                    
-                    cards.font = [UIFont systemFontOfSize:15];
-                    
-                    [cell addSubview:cards];
-                }
-            }
-            
-            
-            
-        }
+//        
+//        if (cell == nil) {
+//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TwoCellID];
+//            
+//            
+//            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//            
+//            
+//            for (int i = 0; i < self.CardDataArray.count; i++) {
+//                if (indexPath.row == i) {
+//                    
+//                    NSArray *cardName = @[@"全部类型",@"会员卡",@"普卡",@"银卡",@"金卡",@"白金卡",@"钻石卡"];
+//                    NSString *cardNameStr = cardName[i];
+//
+//                    cards = [MyUtil createLabelFrame:CGRectMake(10, 5, 70, 30) title:cardNameStr textAlignment:NSTextAlignmentLeft];
+//                    
+//                    cards.font = [UIFont systemFontOfSize:15];
+//                    
+//                    [cell addSubview:cards];
+//                }
+//            }
+//            
+//            
+//            
+//        }
         
         return cell;
     
@@ -664,21 +740,24 @@
 
 
 
-#pragma mark --下载(有两个参数没有取值)
+#pragma mark --下载会员信息
 
 -(void)download
 
 
 {
-//    cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-//    storeId = @"0d6a1411d71b4643bdc5c13c1e8af117";
+
     
 //    [self juhua];
     NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
     if (!storeId) {
         storeId = @"";
     }
-    NSDictionary * params = @{@"entId":EntID,@"storeId":storeId,@"cardType":@"",@"currPageIndex":currPagestr,@"pageSize":@"-1",@"code":@"gy7412589630"};
+    if (!cardType) {
+        cardType = @"";
+    }
+    
+    NSDictionary * params = @{@"entId":EntID,@"storeId":storeId,@"cardType":cardType,@"currPageIndex":currPagestr,@"pageSize":@"-1",@"code":@"gy7412589630"};
     
     [AFHTTPClientV2 requestWithBaseURLStr:str
                                    params:params
@@ -880,11 +959,15 @@
                      return ;
                  }
                  
-                 AllStoreModel *model = [[AllStoreModel alloc] init];
-                 model.StoreName = @"所有数据";
-                 model.EnterpriseID = EntID;
-                 [self.StoreDataArray addObject:model];
+
                  [self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+//                 AllStoreModel *model = [[AllStoreModel alloc] init];
+//                 model.StoreName = @"所有数据";
+//                 model.EnterpriseID = EntID;
+//                 [self.StoreDataArray addObject:model];
+                 
+                 
+                 NSLog(@"haha--------");
                  
                  for (NSDictionary *dict in arr1) {
                      
@@ -895,44 +978,49 @@
 
                      
                      [self.StoreDataArray addObject:model];
+                     
+                     NSLog(@"------------------%ld",_StoreDataArray.count);
 
                      
                      
                      
-                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
-                     bgyl = model.StoreName;
-                     storeId = model.GUID;
+//                     //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
+//                     bgyl = model.StoreName;
+//                     storeId = model.GUID;
                      
                      
                      
                  }
                  
-                 
                  [_popViewTableview  reloadData];
                  
                  
+ 
+
+                 
+                 [self createScan];
 
 
                  
                  
                  //自动选择店铺
-                 if ([_popViewTableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+//                 if ([_popViewTableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+//                     
+//                     NSArray *arr = [_TopHeaderView subviews];
+                 
                      
-                     NSArray *arr = [_TopHeaderView subviews];
-                     
-                     
-                     for (_chgtn in arr) {
+//                     for (_chgtn in arr) {
                          
-                         if (_chgtn.tag == 10) {
-                             
-                             NSInteger selectedIndex = 0;
-                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-                             [_popViewTableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                             [_popViewTableview.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
-                             
-                             [self changes];
-                             
-                         }
+//                         if (_chgtn.tag == 10) {
+//                             
+//                             NSInteger selectedIndex = 0;
+//                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+//                             [_popViewTableview selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//                             [_popViewTableview.delegate tableView:_popViewTableview didSelectRowAtIndexPath:selectedIndexPath];
+//                             
+//                             [self changes];
+//                             
+//                         }
 //                         if (_chgtn.tag == 11) {
 //                             
 //                             NSInteger selectedIndex = 0;
@@ -944,9 +1032,9 @@
                          
 //                         }
 
-                     }
+//                     }
                      
-                 }
+//                 }
                  
                  
                  
@@ -956,6 +1044,8 @@
              }
          }
          [self downloadCard];
+         
+
          
      }
                                   failure:^(AFHTTPClientV2 *request, NSError *error)
@@ -1023,12 +1113,14 @@
                      return ;
                  }
                  
+
+                [self.CardDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
                  
                  for (NSDictionary *dict in arr1) {
                      
                      NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
                      
-                     //[self.StoreDataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
+
                      
                      CardModel *model = [[[CardModel alloc]init]initWithDictionary:sssDict];
         
@@ -1040,39 +1132,40 @@
                      
                      
                      //判断断网的时候，店铺名是否为空。如果空的，代表数据缓存清除了。那么_TopHeaderView,就没有加载过。防止
-                     cardType = model.CardTypeId;
+//                     cardType = model.CardTypeId;
                      
                      
                      
                  }
                  
-                 
+                NSLog(@"%ld", _StoreDataArray.count);
                  
                  [_TwoPopViewTableView  reloadData];
                  
-                 //[self createScan];
+
+                 
                  
                  
                  //自动选择会员卡类型
-                 if ([_TwoPopViewTableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-                     
-                     NSArray *arr = [_TopHeaderView subviews];
-                     
-                     
-                     for (_chgtn in arr) {
-                         
-                         if (_chgtn.tag == 11) {
-                             
-                             NSInteger selectedIndex = 0;
-                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
-                             [_TwoPopViewTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                             [_TwoPopViewTableView.delegate tableView:_TwoPopViewTableView didSelectRowAtIndexPath:selectedIndexPath];
-                             
-                             [self changes];
-                             
-                         }
-                     }
-                 }
+//                 if ([_TwoPopViewTableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+//                     
+//                     NSArray *arr = [_TopHeaderView subviews];
+//                     
+//                     
+//                     for (_chgtn in arr) {
+//                         
+//                         if (_chgtn.tag == 11) {
+//                             
+//                             NSInteger selectedIndex = 0;
+//                             NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+//                             [_TwoPopViewTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//                             [_TwoPopViewTableView.delegate tableView:_TwoPopViewTableView didSelectRowAtIndexPath:selectedIndexPath];
+//                             
+//                             [self changes];
+//                             
+//                         }
+//                     }
+//                 }
                  
                  
                  
@@ -1400,15 +1493,8 @@
 
 
 
-
-
-
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

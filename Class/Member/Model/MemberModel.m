@@ -40,7 +40,7 @@
     
     _Mobile = [dict objectForKey:@"Mobile"];
     
-    _MemberId = [dict objectForKey:@"MemberId"];
+    _Name = [dict objectForKey:@"Name"];
     
     _CardType = [dict objectForKey:@"CardType"];
     
@@ -50,11 +50,12 @@
     
     _Points = [dict objectForKey:@"Points"];
     
-    _SourceID = [dict objectForKey:@"SourceID"];
+    _StoreName = [dict objectForKey:@"StoreName"];
     
     _CreateTime = [dict objectForKey:@"CreateTime"];
     
-    _CreateUser = [dict objectForKey:@"CreateUser"];
+    _MemberCode = [dict objectForKey:@"MemberCode"];
+
     
     
     
@@ -81,17 +82,17 @@
     [dict setObject:self.StaffName forKey:@"StaffName"];
     [dict setObject:self.Sex forKey:@"Sex"];
     [dict setObject:self.Mobile forKey:@"Mobile"];
-    [dict setObject:self.MemberId forKey:@"MemberId"];
+    [dict setObject:self.Name forKey:@"Name"];
     [dict setObject:self.CardType forKey:@"CardType"];
     [dict setObject:self.Amount forKey:@"Amount"];
     [dict setObject:self.Points forKey:@"Points"];
-    [dict setObject:self.SourceID forKey:@"SourceID"];
     [dict setObject:self.CreateTime forKey:@"CreateTime"];
-    [dict setObject:self.CreateUser forKey:@"CreateUser"];
     [dict setObject:self.GUID forKey:@"Enterprise"];
     [dict setObject:self.StoreID forKey:@"StoreID"];
     [dict setObject:self.Discount forKey:@"Discount"];
     [dict setObject:self.CardTypeName forKey:@"CardTypeName"];
+    [dict setObject:self.StoreName forKey:@"StoreName"];
+    [dict setObject:self.MemberCode forKey:@"MemberCode"];
     
     return dict;
     

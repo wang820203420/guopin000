@@ -13,7 +13,7 @@
 
 
 @property(nonatomic,strong)UILabel *cardTypeName;//会员卡类型
-@property(nonatomic,strong)UILabel *staffName;//会员姓名
+@property(nonatomic,strong)UILabel *name;//会员姓名
 @property(nonatomic,strong)UILabel *mobile;//手机号码
 @property(nonatomic,strong)UILabel *discount;//折扣
 @property(nonatomic,strong)UILabel *UnitName;//人民币符号
@@ -70,10 +70,10 @@
         label1.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label1.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:label1];
-        self.staffName = [[UILabel alloc]init];
-        self.staffName.frame = CGRectMake(ScreenWidth/3.9, 45, 150, 10);
-        self.staffName.font = [UIFont systemFontOfSize:14];
-        [self.contentView addSubview:self.staffName];
+        self.name = [[UILabel alloc]init];
+        self.name.frame = CGRectMake(ScreenWidth/3.9, 45, 150, 10);
+        self.name.font = [UIFont systemFontOfSize:14];
+        [self.contentView addSubview:self.name];
         
         
         
@@ -114,29 +114,29 @@
     _cellModel = cellModel;
     
     self.cardTypeName.text = _cellModel.CardTypeName;
-    self.staffName.text = _cellModel.StaffName;
+    self.name.text = _cellModel.Name;
     self.mobile.text= _cellModel.Mobile;
-    self.discount.text = [NSString stringWithFormat:@"%.2f元",_cellModel.Discount.doubleValue];
+//    self.discount.text = [NSString stringWithFormat:@"%.2f元",_cellModel.Discount.doubleValue];
     
     
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16.5]};
-    
-    //动态计算出宽度
-    CGSize size1 = [self.discount.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
-    
-    
-    CGRect frame1 = self.discount.frame;
-    frame1.size.width = size1.width;
-    frame1.origin.x =ScreenWidth/1.15-size1.width;
-    
-    self.discount.frame = frame1;
-    
-    //商品zhon
-    CGRect frame2 = self.UnitName.frame;
-    //frame2.size.width = size1.width;
-    frame2.origin.x =ScreenWidth/1.15-size1.width+size1.width;
-    
-    self.UnitName.frame = frame2;
+//    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16.5]};
+//    
+//    //动态计算出宽度
+//    CGSize size1 = [self.discount.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+//    
+//    
+//    CGRect frame1 = self.discount.frame;
+//    frame1.size.width = size1.width;
+//    frame1.origin.x =ScreenWidth/1.15-size1.width;
+//    
+//    self.discount.frame = frame1;
+//    
+//    //商品zhon
+//    CGRect frame2 = self.UnitName.frame;
+//    //frame2.size.width = size1.width;
+//    frame2.origin.x =ScreenWidth/1.15-size1.width+size1.width;
+//    
+//    self.UnitName.frame = frame2;
     
     
     

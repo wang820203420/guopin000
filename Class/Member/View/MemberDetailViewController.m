@@ -9,396 +9,148 @@
 #import "MemberDetailViewController.h"
 #import "MainViewController.h"
 
-#import "MemberDetailCell.h"//商品详细
-#import "MemberDetaiTwoCell.h"//商品详细
-#import "MemberModel.h"//因为无需MemberDetailModel所以可用同一模型替代
-
-@interface MemberDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
-
-
-{
-    
-    
-    UITableView *_tableview;
-    NSMutableArray *_dataArray;
-//    UIButton *Savebtn;
-    
-//    BOOL BtnAction;
-//    BOOL xiugai;
-//
-//    NSString *strRET;
-    
-//    int currPageIndex;
-    NSString *currPagestr;
-    NSString *EntId;
-    
-    
-
-
-
-}
-
-
-
-@end
-
 @implementation MemberDetailViewController
 
 
 
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self createNav];
-    UILabel *label0 = [MyUtil createLabelFrame:CGRectMake(0, 64, self.view.frame.size.width, 40) title:@"会员信息:" textAlignment:NSTextAlignmentLeft];
-    label0.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:label0];
-    UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(0, 64+label0.frame.size.height, self.view.frame.size.width, 40) title:[NSString stringWithFormat:@"会员名字：%@", self.model.StaffName] textAlignment:NSTextAlignmentLeft];
-    [self.view addSubview:label1];
-    UILabel *label2 = [MyUtil createLabelFrame:CGRectMake(0, CGRectGetMaxY(label1.frame), self.view.frame.size.width, 40) title:[NSString stringWithFormat:@"手机号：%@", self.model.Mobile] textAlignment:NSTextAlignmentLeft];
-    [self.view addSubview:label2];
     
-#if 0
     self.view.backgroundColor = [UIColor whiteColor];
     
-    NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
-    EntId= [df objectForKey:@"GUID"];
-    
-    
-
-    
-    NSString *page = [NSString stringWithFormat:@"%d",0];
-    
-    currPagestr = page;
-
-    
-    [self download];
     [self createNav];
-    [self createTableView];
+    
+    [self createView];
+    
     [self addNavButton:CGRectMake(-10, 25, 60, 30) imageName:@"back_icon@2x" target:self action:@selector(backAction:)];
     
-    
     [self addNavLabel:CGRectMake(ScreenWidth/2.737, 25, 100, 30) font:[UIFont systemFontOfSize:20] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter text:@"会员详情"];
+}
+
+
+- (void)createView
+{
+    [self createBackgroundColorView:64 with:@"会员信息"];//数字64代表y点坐标
+
+//    [self createLabelOne:94 with:@"会员姓名" and:self.model.Name];//上一个选中的单元格数据传递过来的模型值
+//    [self createLabelOne:124 with:@"手机号码" and:self.model.Mobile];
+//    [self createLabelOne:154 with:@"会员卡类型" and:self.model.CardTypeName];
+//    
+//    [self createBackgroundColorView:184 with:@"会员明细"];
     
-#endif
-   
+    [self createLabelTwo:99 with:@"会员姓名" and:self.model.Name];
+    
+    
+    if([self.model.Sex  isEqual: @"1"]){
+        NSString *str = @"男";
+        [self createLabelTwo:139 with:@"性别" and:str];}
+    else if([self.model.Sex  isEqual: @"0"]){
+        NSString *str = @"女";
+        [self createLabelTwo:139 with:@"性别" and:str];}
+    
+    
+    [self createLabelTwo:179 with:@"手机号" and:self.model.Mobile];
+    [self createLabelTwo:219 with:@"会员卡号" and:self.model.MemberCode];
+    [self createLabelTwo:259 with:@"会员类型" and:self.model.CardTypeName];
+    [self createLabelTwo:299 with:@"账户余额" and:self.model.Amount.description];
+    [self createLabelTwo:339 with:@"账户积分" and:self.model.Discount.description];
+    [self createLabelTwo:379 with:@"办卡地点" and:self.model.StoreName];
+    [self createLabelTwo:419 with:@"办理时间" and:self.model.CreateTime];
+    [self createLabelTwo:459 with:@"办理人" and:self.model.StaffName];
+    
+    [self line];//填补两条缺失的线条
+}
+
+- (void)line
+{
+    UIImageView *line1 = [MyUtil createIamgeViewFrame:CGRectMake(0, 64, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+    [self.view addSubview:line1];
+//    UIImageView *line2 = [MyUtil createIamgeViewFrame:CGRectMake(0, 184, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+//    [self.view addSubview:line2];
+}
+
+//用来创建导航文字的背景
+- (void)createBackgroundColorView:(CGFloat)y with:(NSString *)title
+{
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, y, ScreenWidth, 35)];
+    bgView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1];
+    
+    UIImageView *line = [MyUtil createIamgeViewFrame:CGRectMake(0, y + 35, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+    [self.view addSubview:line];
+
+    
+    UILabel *label = [MyUtil createLabelFrame:CGRectMake(12, 9, 80, 20) title:title textAlignment:NSTextAlignmentLeft];
+    label.textColor = [UIColor colorWithRed:156.0/255.0 green:156.0/255.0 blue:156.0/255.0 alpha:1];
+    label.font = [UIFont systemFontOfSize:14];
+    
+    [bgView addSubview:label];
+    [self.view addSubview:bgView];
+}
+
+
+
+//创建格式一的label＋数据的传输
+- (void)createLabelOne:(CGFloat)y with:(NSString *)title and:(NSString *)text
+{
+    UILabel *label = [MyUtil createLabelFrame:CGRectMake(12, y, ScreenWidth, 35) title:[NSString stringWithFormat:@"%@：%@", title, text] textAlignment:NSTextAlignmentLeft];
+    label.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:label];
+}
+
+
+//创建格式二的label＋数据的传输
+- (void)createLabelTwo:(CGFloat)y with:(NSString *)title and:(NSString *)text
+{
+    UILabel *label = [MyUtil createLabelFrame:CGRectMake(12, y, 100, 40) title:title textAlignment:NSTextAlignmentLeft];
+    label.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
+    label.font = [UIFont systemFontOfSize:16];
+    [self.view addSubview:label];
+    
+    UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(100, y, ScreenWidth - 120, 40) title:text textAlignment:NSTextAlignmentRight];
+    label1.font = [UIFont systemFontOfSize:16];
+    [self.view addSubview:label1];
+    
+    UIImageView *line = [MyUtil createIamgeViewFrame:CGRectMake(0, y + 40, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+    [self.view addSubview:line];
 }
 
 
 
 
-#if 0
-
--(void)createTableView
+- (void)backAction:(UIButton *)btn
 {
-     _dataArray = [NSMutableArray array];
-    
-    _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 65, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
-    
-    
-    _tableview.delegate = self;
-    _tableview.dataSource = self;
-    
-    [self.view addSubview:_tableview];
-    
-    
-    
-}
-
-
-
-
-
-#pragma mark --UITableViewDelegate
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    
-    return 2;
-    
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    if (section == 0) {
-        
-        return 1;
-    }else
-    {
-        NSLog(@"%ld", _dataArray.count);
-        return 1;//_dataArray.count;
-    }
-    
-    
-}
-
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    
-    return 35;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        UIView *bgView = [[UIView alloc]init];
-        bgView.frame = CGRectMake(0, 0, ScreenWidth, 35);
-        
-        bgView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1];
-        
-        UILabel *label = [MyUtil createLabelFrame:CGRectMake(12, 9, 80, 20) title:@"会员信息" textAlignment:NSTextAlignmentLeft];
-        label.textColor = [UIColor colorWithRed:156.0/255.0 green:156.0/255.0 blue:156.0/255.0 alpha:1];
-        label.font = [UIFont systemFontOfSize:14];
-        
-        [bgView addSubview:label];
-        
-        
-        return bgView;
-    }else
-    {
-        
-        UIView *bgView = [[UIView alloc]init];
-        bgView.frame = CGRectMake(0, 0, ScreenWidth, 35);
-        
-        bgView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1];
-        
-        UILabel *label = [MyUtil createLabelFrame:CGRectMake(12, 9, 80, 20) title:@"会员明细" textAlignment:NSTextAlignmentLeft];
-        label.textColor = [UIColor colorWithRed:156.0/255.0 green:156.0/255.0 blue:156.0/255.0 alpha:1];
-        label.font = [UIFont systemFontOfSize:14];
-        
-        [bgView addSubview:label];
-        
-        
-        return bgView;
-    }
-    
-    
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];// 取消选中状态
-    
-    
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (indexPath.section == 0) {
-        
-        return 100;
-        
-    }else
-    {
-        return  40;
-    }
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    
-    static NSString *cellID = @"cellID";
-    static NSString *cellstateID = @"statecellID";
-    
-    if (indexPath.section == 0) {
-        MemberDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        
-        if (cell == 0) {
-            
-            cell = [[MemberDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            
-            
-//            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            
-        }
-#pragma mark_________________________________________________________________
-//        MemberModel *cellModel = _dataArray[indexPath.row];
-//        
-//        cell.cellModel = cellModel;
-//        
-        
-//        cell.userInteractionEnabled = NO;
-        
-        return cell;
-        
-    }else
-    {
-        MemberDetaiTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        
-        if (cell == 0) {
-            
-            cell = [[MemberDetaiTwoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            
-            
-            
-        }
-        
-        
-        
-        
-        return cell;
-        
-        
-        
-    }
-    
-    
-    
-    
-}
-
-
-
-
-
-
--(void)backAction:(UIButton *)btn
-{
-    
     [self.navigationController popViewControllerAnimated:YES];
-    
-    
 }
 
 
 
-#pragma mark --下载
-
-
-#pragma mark --下载(有两个参数没有取值)
-
--(void)download
+//推出页面的时候让tababr隐藏
+- (void)viewWillAppear:(BOOL)animated
 {
-    _cardType = @"09ec8d0a9cd545f9827381702ed27cba";
-    _storeId = @"0d6a1411d71b4643bdc5c13c1e8af117";
-    
-    NSString *str = [NSString stringWithFormat:@GetAllMemberCardToListUrl];
-    
-    NSDictionary * params = @{@"entId":EntId,@"storeId":_storeId,@"cardType":_cardType,@"currPageIndex":currPagestr,@"pageSize":@"-1",@"code":@"gy7412589630"};
-    
-    [AFHTTPClientV2 requestWithBaseURLStr:str
-                                   params:params
-                               httpMethod:kHTTPReqMethodTypePOST
-                                 userInfo:nil
-                                  success:^(AFHTTPClientV2 *request, id responseObject)
-     {
-         
-//         //保存下载的数据用于缓存
-//         [CacheManager saveCacheWithObject:responseObject ForURLKey:@"6" AndType:CacheTypeQuestion];
-         
-         
-         NSError *error = nil;
-         
-         //xml解析
-         NSDictionary *dict = [XMLReader dictionaryForXMLData:responseObject error:&error];
-         
-         NSLog(@"%@",dict);
-         //第一次分离
-         if ([dict isKindOfClass:[NSDictionary class]]) {
-             
-             NSDictionary *subDict = [dict objectForKey:@"string"];
-             NSString *str = [subDict objectForKey:@"text"];
-             NSLog(@"%@",str);
-             
-             
-             //字符串转化成data
-             NSData *jsData = [str dataUsingEncoding:NSUTF8StringEncoding];
-             
-             NSError *error;
-             
-             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsData options:NSJSONReadingMutableContainers error:&error];
-             
-             NSLog(@"%@",dic);
-             
-             //第二次分离
-             if ([dic isKindOfClass:[NSDictionary class]]) {
-                 
-                 
-                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-                 
-                 NSArray *arr1 = [subDict1 objectForKey:@"Data"];
-                 
-                 
-//                 [_dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
-                 
-                 for (NSDictionary *dict in arr1) {
-                     
-                     NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
-                     
-                     NSLog(@"%@",sssDict);
-                     
-                     MemberModel *model = [[[MemberModel alloc]init]initWithDictionary:sssDict];
-                     
-                     
-                     [_dataArray addObject:model];
-                     NSLog(@"======%ld",_dataArray.count);
-                 }
-                 [_tableview reloadData];
-
-             }
-         }
-         
-         
-     }
-                                  failure:^(AFHTTPClientV2 *request, NSError *error)
-     {
-         NSLog(@"%@",error);
-     }];
-    
-}
-
-
-
-
-
-
-
-
-
-//推出页面的时候让tababr
--(void)viewWillAppear:(BOOL)animated
-{
-    
     [super viewWillAppear:animated];
     
     MainViewController *tabCtrl = (MainViewController *)self.tabBarController;
     [tabCtrl hideTabBar];
-    
-    
-    
 }
 
+
 //将要返回的时候
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    
-    
     [super viewWillDisappear:animated];
     
     MainViewController *tabCtrl = (MainViewController *)self.tabBarController;
     [tabCtrl showTabBar];
-    
 }
 
 
 
-
-
-
-
-
-#endif
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-   
 }
 
 

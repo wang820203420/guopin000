@@ -18,11 +18,11 @@
 @property(nonatomic,strong)UILabel *staffName;//会员姓名
 @property(nonatomic,strong)UILabel *sex;//性别
 @property(nonatomic,strong)UILabel *mobile;//手机号
-@property(nonatomic,strong)UILabel *memberId;//会员卡号
+@property(nonatomic,strong)UILabel *name;//会员卡号
 @property(nonatomic,strong)UILabel *cardType;//会员类型
 @property(nonatomic,strong)UILabel *amount;//账户余额
 @property(nonatomic,strong)UILabel *points;//账户积分
-@property(nonatomic,strong)UILabel *sourceID;//办卡地点
+@property(nonatomic,strong)UILabel *storeName;//办卡地点
 @property(nonatomic,strong)UILabel *createTime;//办卡时间
 @property(nonatomic,strong)UILabel *createUser;//办理人
 
@@ -86,15 +86,13 @@
     _cellModel = cellModel;
     
     self.staffName.text = _cellModel.StaffName;
+    self.name.text = _cellModel.Name;
     self.sex.text = _cellModel.Sex;
     self.mobile.text = _cellModel.Mobile;
-    self.memberId.text = _cellModel.MemberId;
     self.cardType.text = _cellModel.CardTypeName;
     self.amount.text = [NSString stringWithFormat:@"%@", _cellModel.Amount];
     self.points.text= [NSString stringWithFormat:@"%@", _cellModel.Points];
-    self.sourceID.text = _cellModel.SourceID;
     self.createTime.text = _cellModel.CreateTime;
-    self.createUser.text = _cellModel.CreateUser;
     
     [self calculatePosition];
     
@@ -143,13 +141,13 @@
     //会员卡号
     
     
-    CGSize size3 = [self.memberId.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    CGSize size3 = [self.name.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
     
     
-    CGRect frame3 = self.memberId.frame;
+    CGRect frame3 = self.name.frame;
     frame3.size.width = size3.width;
     frame3.origin.x =ScreenWidth/1.05-size3.width;
-    self.memberId.frame = frame3;
+    self.name.frame = frame3;
     
     //会员类型
     
@@ -190,13 +188,13 @@
     //办卡地点
     
     
-    CGSize size7 = [self.sourceID.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    CGSize size7 = [self.storeName.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
     
     
-    CGRect frame7 = self.sourceID.frame;
+    CGRect frame7 = self.storeName.frame;
     frame7.size.width = size7.width;
     frame7.origin.x =ScreenWidth/1.05-size7.width;
-    self.sourceID.frame = frame7;
+    self.storeName.frame = frame7;
     
     //办卡时间
     
