@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong)NSString *storeMoney;
 
+@property (nonatomic,strong)NSString *discountMoney;
+
 
 
 

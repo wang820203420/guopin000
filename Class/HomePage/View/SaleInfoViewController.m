@@ -1456,11 +1456,9 @@
                  
                  
                  NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-
-                 NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:subDict1];
-                 
-           
-
+                 NSDictionary *subDict2 = [subDict1 objectForKey:@"Data"];
+                 NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:subDict2];
+                 NSLog(@"%@",sssDict);
                  SalesMoneyModel *model = [[[SalesMoneyModel alloc]init]initWithDictionary:sssDict];
 
                  [_BarView setCellModel:model];
@@ -1888,7 +1886,8 @@
                 
                 
                 NSDictionary *subDict1 = [dic objectForKey:@"Value"];
-                NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:subDict1];
+                NSDictionary *subDict2 = [subDict1 objectForKey:@"Data"];
+                NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:subDict2];
                 NSLog(@"%@",sssDict);
                 SalesMoneyModel *model = [[[SalesMoneyModel alloc]init]initWithDictionary:sssDict];
                 [_BarView setCellModel:model];

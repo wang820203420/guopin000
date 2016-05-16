@@ -18,6 +18,8 @@
 
 @property(nonatomic,strong)NSNumber *totalmoney;//金钱
 
+@property(nonatomic,strong)NSNumber *totalCutOff;//金钱
+
 @property(nonatomic,strong)NSString *saledate;//出售时间
 
 @property(nonatomic,strong)NSString *GUID;

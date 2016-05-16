@@ -507,7 +507,7 @@
                 
                 if (_chgtn.tag == 11) {
                     
-                    NSArray *cardName = @[@"普卡",@"银卡",@"金卡",@"白金卡",@"钻石卡"];
+                    NSArray *cardName = @[@"会员卡",@"普卡",@"银卡",@"金卡",@"白金卡",@"钻石卡"];
                     
                     if (indexPath.row == 0) {
                         
@@ -517,7 +517,7 @@
                         [_chgtn setTitle:str forState:UIControlStateNormal];
                         
                         
-                        cardType = @"001";
+                        cardType = @"28e5a34fdda74ee4a3c46f1621f3c984";
                         //选择卡的类型的时候，下载所选卡类型的的数据
                         [self download];
                         
@@ -528,18 +528,20 @@
                         
                         [_chgtn setTitle:str forState:UIControlStateNormal];
                         
-            
-                        cardType = @"002";
+                        
+                        cardType = @"78a120fd89e74f2493a26b6152c25803";
                         //选择卡的类型的时候，下载所选卡类型的的数据
                         [self download];
                     }
+
                     else if (indexPath.row == 2){
                         
                         NSString *str = [NSString stringWithFormat:@"%@",cardName[2]];
                         
                         [_chgtn setTitle:str forState:UIControlStateNormal];
-                       
-                        cardType = @"003";
+                        
+            
+                        cardType = @"09ec8d0a9cd545f9827381702ed27cba";
                         //选择卡的类型的时候，下载所选卡类型的的数据
                         [self download];
                     }
@@ -548,8 +550,8 @@
                         NSString *str = [NSString stringWithFormat:@"%@",cardName[3]];
                         
                         [_chgtn setTitle:str forState:UIControlStateNormal];
-                        
-                        cardType = @"004";
+                       
+                        cardType = @"c0e00b2ed9154aed9259b763d7accd30";
                         //选择卡的类型的时候，下载所选卡类型的的数据
                         [self download];
                     }
@@ -559,8 +561,18 @@
                         
                         [_chgtn setTitle:str forState:UIControlStateNormal];
                         
+                        cardType = @"bc560d1d1c3a441a8b794d35ce3af409";
+                        //选择卡的类型的时候，下载所选卡类型的的数据
+                        [self download];
+                    }
+                    else if (indexPath.row == 5){
+                        
+                        NSString *str = [NSString stringWithFormat:@"%@",cardName[5]];
+                        
+                        [_chgtn setTitle:str forState:UIControlStateNormal];
+                        
     
-                        cardType = @"005";
+                        cardType = @"2fc57cbc2ab9473e8b0bf743bbb9ac94";
                         //选择卡的类型的时候，下载所选卡类型的的数据
                         [self download];
                     }
@@ -642,7 +654,6 @@
         if (cell == nil) {
             cell = [[MemberCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             
-            
             //线条
             CGRect  Lowframe = CGRectMake(0, 99.5, ScreenWidth, 0.5);
             UIImageView *Lowimage = [MyUtil createIamgeViewFrame:Lowframe imageName:@"375x1@2x"];
@@ -653,6 +664,7 @@
             [cell addSubview:arrowImage];
             
         }
+        
         
         MemberModel *cellModel = self.dataArray[indexPath.row];
         

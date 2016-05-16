@@ -73,7 +73,7 @@
     self.label2.text = [NSString stringWithFormat:@"¥ %.2f",cellModel.TotalCutOff.doubleValue];
     
     
-#pragma mark————增加折扣价格的下划线
+#pragma mark————增加折扣价格的下划线------------
      NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥ %.2f",cellModel.TotalCutOff.doubleValue]];
      [string setAttributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:NSMakeRange(0, string.length)];
      

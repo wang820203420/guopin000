@@ -41,6 +41,8 @@
     _storename = [dict objectForKey:@"StoreName"];
     
     _totalmoney = [dict objectForKey:@"TotalMoney"];
+#pragma mark  ----20160512
+    _totalCutOff = [dict objectForKey:@"TotalCutOff"];
     
     _saledate = [dict objectForKey:@"SaleDate"];
     
@@ -60,6 +62,8 @@
     [dict setObject:self.saleno forKey:@"SaleNo"];
     [dict setObject:self.storename forKey:@"StoreName"];
     [dict setObject:self.totalmoney forKey:@"TotalMoney"];
+    [dict setObject:self.totalCutOff forKey:@"TotalCutOff"];
+    
     [dict setObject:self.saledate forKey:@"SaleDate"];
     [dict setObject:self.GUID forKey:@"GUID"];
     [dict setObject:self.StoreID forKey:@"StoreID"];

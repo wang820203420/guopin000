@@ -55,7 +55,7 @@
         
         
         
-        UILabel *label = [MyUtil createLabelFrame:CGRectMake(10, 20, 100, 10) title:@"会员卡类型:" textAlignment:NSTextAlignmentLeft];
+        UILabel *label = [MyUtil createLabelFrame:CGRectMake(10, 20, 100, 10) title:@"会员类型:" textAlignment:NSTextAlignmentLeft];
         label.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:label];
