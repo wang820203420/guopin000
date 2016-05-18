@@ -339,7 +339,7 @@
     
         MyUser = _myUser.text;
     
-         MyPsw = _PassWord.text;
+        MyPsw = _PassWord.text;
     
 
 

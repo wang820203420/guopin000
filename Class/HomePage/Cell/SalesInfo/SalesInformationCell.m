@@ -13,11 +13,13 @@
 @interface SalesInformationCell ()
 {
     UILabel *_label3;
+    //UILabel *_label4;
 }
 
 @property(nonatomic,strong)UILabel *saleno;
 @property(nonatomic,strong)UILabel *storename;
 @property(nonatomic,strong)UILabel *totalmoney;
+@property(nonatomic,strong)UILabel *discutoff;
 @property(nonatomic,strong)UILabel *saledate;
 
 
@@ -99,11 +101,26 @@
         self.totalmoney.font = [UIFont systemFontOfSize:14];
         self.totalmoney.textAlignment = NSTextAlignmentRight;
         
-        
-        
-        
-        
         [self.contentView addSubview:self.totalmoney];
+        
+        
+        
+        
+
+        self.discutoff = [[UILabel alloc]init];
+        //self.totalmoney.backgroundColor = [UIColor redColor];
+        self.discutoff.textColor = [UIColor grayColor];
+        self.discutoff.frame = CGRectMake(ScreenWidth/1.2,40, 30, 20);
+        self.discutoff.font = [UIFont systemFontOfSize:14];
+        self.discutoff.textAlignment = NSTextAlignmentLeft;
+        
+        [self.contentView addSubview:self.discutoff];
+
+        
+        
+        
+        
+        
         
     }
     
@@ -122,24 +139,50 @@
     self.storename.text = _cellModel.storename;
     self.saledate.text = _cellModel.saledate;
     self.totalmoney.text= [NSString stringWithFormat:@"%.2f",_cellModel.totalmoney.doubleValue];
+    self.discutoff.text = [NSString stringWithFormat:@"¥ %.2f",_cellModel.totalCutOff.doubleValue];
+#pragma mark————添加折扣价格的下划线------------
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.discutoff.text];
+    [string setAttributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:NSMakeRange(0, string.length)];
+    
+    self.discutoff.attributedText = string;
+    
+    
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
     
     //动态计算出宽度
     CGSize size1 = [self.totalmoney.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
     
-    
     CGRect frame1 = self.totalmoney.frame;
     frame1.size.width = size1.width;
-    frame1.origin.x =ScreenWidth/1.14-size1.width;
+    frame1.origin.x =ScreenWidth/1.1-size1.width;
+    frame1.origin.y = 30;
     
     self.totalmoney.frame = frame1;
     
     
     CGRect frame2 = self.totalmoney.frame;
     frame2.size.width = size1.width;
-    frame2.origin.x =ScreenWidth/1.2-size1.width;
+    frame2.origin.x =ScreenWidth/1.14-size1.width;
     
     _label3.frame = frame2;
+    
+    
+    
+    
+    
+    //动态计算出宽度
+    CGSize size2 = [self.discutoff.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+    
+    CGRect frame3 = self.discutoff.frame;
+    frame3.size.width = size2.width;
+    frame3.origin.x = _label3.frame.origin.x;
+    frame3.origin.y = 50;
+
+    
+    self.discutoff.frame = frame3;
+    
+    
+    
     
     
     

@@ -197,7 +197,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-         return 150;
+         return 250;
     }else
     {
         
@@ -348,6 +348,16 @@
             CGRect  Lowframe3 = CGRectMake(0, 149.5, ScreenWidth, 0.5);
             UIImageView *Lowimage3 = [MyUtil createIamgeViewFrame:Lowframe3 imageName:@"375x1@2x"];
             [cell addSubview:Lowimage3];
+            
+            //线条
+            CGRect  Lowframe4 = CGRectMake(0, 199.5, ScreenWidth, 0.5);
+            UIImageView *Lowimage4 = [MyUtil createIamgeViewFrame:Lowframe4 imageName:@"375x1@2x"];
+            [cell addSubview:Lowimage4];
+            
+            //线条
+            CGRect  Lowframe5 = CGRectMake(0, 249.5, ScreenWidth, 0.5);
+            UIImageView *Lowimage5 = [MyUtil createIamgeViewFrame:Lowframe5 imageName:@"375x1@2x"];
+            [cell addSubview:Lowimage5];
 
           
         }

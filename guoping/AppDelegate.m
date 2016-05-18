@@ -43,7 +43,7 @@
     
     //登录的同时押入mainvc。。第一次启动是看见登录页面
     _rootNav = [[UINavigationController alloc] initWithRootViewController:us ? _mainVC : _logVC];
-        _rootNav.navigationBarHidden = YES;
+    _rootNav.navigationBarHidden = YES;
     
     
     

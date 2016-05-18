@@ -12,11 +12,16 @@
 
 @property(nonatomic,assign,setter=setId:)NSInteger mId;
 
-@property(nonatomic,retain)NSString *saleno;//订单编号
+@property(nonatomic,retain)NSString *saleno;//订单号
 
-@property(nonatomic,strong)NSString *storename;//店铺地址
+@property(nonatomic,strong)NSString *storename;//所属门店
 
 @property(nonatomic,strong)NSString *saledate;//订单时间
+
+@property(nonatomic,strong)NSString *totalcutoff;//折扣金额
+
+@property(nonatomic,strong)NSString *cutofftype;//会员卡
+
 
 //@property(nonatomic,strong)NSString *GoodsName;//商品名称
 //
@@ -27,6 +32,11 @@
 //@property(nonatomic,strong)NSString *UnitName;//单位
 //
 //@property(nonatomic,strong)NSString *Amount;//小计金额
+
+
+
+
+
 
 
 //创建cell模型的同时设置模型数据

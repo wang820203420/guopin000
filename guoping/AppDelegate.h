@@ -11,7 +11,6 @@
 
 @class MainViewController;
 @class LogViewController;
-@class MainViewController;
 
 
 

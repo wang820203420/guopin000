@@ -39,6 +39,8 @@
     _saleno = [dict objectForKey:@"SaleNo"];
     _storename = [dict objectForKey:@"StoreName"];
     _saledate = [dict objectForKey:@"SaleDate"];
+    _totalcutoff = [dict objectForKey:@"TotalCutOff"];
+    _cutofftype = [dict objectForKey:@"CutOffType"];
 //    _GoodsName = [dict objectForKey:@"GoodsName"];
 //    _SalePrice = [dict objectForKey:@"SalePrice"];
 //    _SaleNumber = [dict objectForKey:@"SaleNumber"];
@@ -49,6 +51,8 @@
     
 }
 
+
+
 //将cellmodel转换成字典
 -(NSDictionary *)dictionary
 {
@@ -57,6 +61,8 @@
     [dict setObject:self.saleno forKey:@"SaleNo"];
     [dict setObject:self.storename forKey:@"StoreName"];
     [dict setObject:self.saledate forKey:@"SaleDate"];
+    [dict setObject:self.totalcutoff forKey:@"TotalCutOff"];
+    [dict setObject:self.cutofftype forKey:@"CutOffType"];
 //    [dict setObject:self.GoodsName forKey:@"GoodsName"];
 //    [dict setObject:self.SalePrice forKey:@"SalePrice"];
 //    [dict setObject:self.SaleNumber forKey:@"SaleNumber"];

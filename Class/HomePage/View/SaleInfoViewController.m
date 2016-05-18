@@ -552,11 +552,7 @@
         
         SalesInformationModel *model = self.dataArray[indexPath.row];
         SalesCtrl.saleId = model.GUID;
-        SalesCtrl.storeMoney = model.totalmoney.stringValue;
-        
-#pragma mark_______________________折扣总和添加________________________________________
-//        SalesCtrl.totalmoney = model.totalmoney.stringValue;
-
+        SalesCtrl.storeMoney = model.totalmoney.stringValue;//该值传递给下一个控制器进行显示
   
         
 

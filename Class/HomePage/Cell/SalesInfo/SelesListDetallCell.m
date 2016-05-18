@@ -14,6 +14,8 @@
 @property(nonatomic,strong)UILabel *saleno;
 @property(nonatomic,strong)UILabel *storename;
 @property(nonatomic,strong)UILabel *saledate;
+@property(nonatomic,strong)UILabel *totalcutoff;//折扣金额
+@property(nonatomic,strong)UILabel *cutofftype;//会员卡
 
 
 @end
@@ -82,6 +84,30 @@
         [self.contentView addSubview:self.saledate];
         
         
+        
+        
+        UILabel *label3 = [MyUtil createLabelFrame:CGRectMake(13,170, 100, 10) title:@"折扣金额" textAlignment:NSTextAlignmentLeft];
+        label3.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
+        label3.font = [UIFont systemFontOfSize:16];
+        [self.contentView addSubview:label3];
+        self.totalcutoff = [[UILabel alloc]init];
+        self.totalcutoff.frame = CGRectMake(ScreenWidth/1.05,170, 200, 20);
+        self.totalcutoff.font = [UIFont systemFontOfSize:16];
+        [self.contentView addSubview:self.totalcutoff];
+        
+        
+        
+        
+        UILabel *label4 = [MyUtil createLabelFrame:CGRectMake(13,220, 100, 10) title:@"会员卡" textAlignment:NSTextAlignmentLeft];
+        label4.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
+        label4.font = [UIFont systemFontOfSize:16];
+        [self.contentView addSubview:label4];
+        self.cutofftype = [[UILabel alloc]init];
+        self.cutofftype.frame = CGRectMake(ScreenWidth/1.05,220, 200, 20);
+        self.cutofftype.font = [UIFont systemFontOfSize:16];
+        [self.contentView addSubview:self.cutofftype];
+        
+        
     }
     
     return self;
@@ -98,7 +124,11 @@
     self.saleno.text = _cellModel.saleno;
     self.storename.text = _cellModel.storename;
     self.saledate.text = _cellModel.saledate;
+    self.totalcutoff.text = [NSString stringWithFormat:@"%@",_cellModel.totalcutoff];
+    self.cutofftype.text = [NSString stringWithFormat:@"%@",_cellModel.cutofftype];
     
+    
+   //1.订单号
     
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
@@ -112,8 +142,8 @@
     
     self.saleno.frame = frame1;
     
-    
-    //所属门店
+
+   //2.所属门店
     
     NSDictionary *attribute1 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
@@ -128,7 +158,8 @@
     self.storename.frame = frame2;
     
     
-    //订单时间
+
+    //3.订单时间
     
     
     NSDictionary *attribute2 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
@@ -143,6 +174,40 @@
     
     self.saledate.frame = frame3;
     
+    
+
+    //4.折扣金额
+    
+    
+    NSDictionary *attribute3 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+    
+    //动态计算出宽度
+    CGSize size4 = [self.totalcutoff.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute3 context:nil].size;
+    
+    
+    CGRect frame4 = self.totalcutoff.frame;
+    frame4.size.width = size4.width;
+    frame4.origin.x =ScreenWidth/1.05-size4.width;
+    
+    self.totalcutoff.frame = frame4;
+    
+    
+
+    //5.会员卡
+    
+    
+    NSDictionary *attribute4 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+    
+    //动态计算出宽度
+    CGSize size5 = [self.cutofftype.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute4 context:nil].size;
+    
+    
+    CGRect frame5 = self.cutofftype.frame;
+    frame5.size.width = size5.width;
+    frame5.origin.x =ScreenWidth/1.05-size5.width;
+    
+    self.cutofftype.frame = frame5;
+
     
     
     
