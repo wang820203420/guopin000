@@ -188,9 +188,16 @@
 //    AddViewController *addController = [[AddViewController alloc] init];
 //    
 //    addController.classmodel = [self.dataArray objectAtIndex:row];//这里有问题，应该创建一个控制器然后把模型数据传递过去，
+    
+    
+
+    
     GoodsClassModel *model = [self.dataArray objectAtIndex:row];
     
+    
     ClassGuidstr = [NSString stringWithFormat:@"%@",model.GUID];
+    typeNo = [NSString stringWithFormat:@"%@", model.TypeNo];
+    className = [NSString stringWithFormat:@"%@",model.GoodsTypeName];
     
 
 
