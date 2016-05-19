@@ -18,6 +18,8 @@
     
     NSString *className;
     NSString *ClassGuidstr;
+    NSString *typeNo;
+    
 
     
 
@@ -33,7 +35,6 @@
     if (_dataArray == nil) {
         
         _dataArray = [NSMutableArray array];
-        
     }
     
     return _dataArray;
@@ -72,13 +73,56 @@
 
 -(void)createPkview{
     
-    pkview = [[UIPickerView alloc]initWithFrame:CGRectMake(35, 100, ScreenWidth/1.25, 100)];
+    
+    [self createHeaderView];
+    [self createBackgroundView];
+    
+    
+    pkview = [[UIPickerView alloc]initWithFrame:CGRectMake(0, ScreenHeight/2-150, ScreenWidth, 300)];
     pkview.dataSource = self;
     pkview.delegate = self;
     
     [self.view addSubview:pkview];
     
+    
+    
+    
 
+}
+
+//创建一个headerView
+- (void)createHeaderView
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 40)];
+    headerView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1];
+    [self.view addSubview:headerView];
+    
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(ScreenWidth-60, 30, 50, 30);
+    [btn setTitle:@"保存" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    
+    [btn addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:btn];
+    
+    
+}
+
+- (void)createBackgroundView
+{
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 180, ScreenWidth, 300)];
+    bgView.backgroundColor = [[UIColor grayColor]colorWithAlphaComponent:0.1];
+    //把view倒角依据半径倒圆角
+    bgView.layer.cornerRadius = 30.0;
+    bgView.layer.masksToBounds = YES;
+    [self.view addSubview:bgView];
+    
+ 
+
+
+    
 }
 
 
@@ -87,10 +131,16 @@
 -(void)backAction:(UIButton *)sender
 {
     
-    self.block(className);
-     self.Class(ClassGuidstr);
     [self.navigationController popViewControllerAnimated:YES];
     
+}
+
+-(void)saveAction:(UIButton *)sender
+{
+    
+    self.block(className);
+    self.Class(ClassGuidstr);
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
@@ -112,21 +162,22 @@
     
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 45;
+}
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
 
- 
-    
     
     GoodsClassModel *model = [self.dataArray objectAtIndex:row];
-    
-    
     className = [NSString stringWithFormat:@"%@",model.GoodsTypeName];
+    typeNo = [NSString stringWithFormat:@"%@",model.TypeNo];
     
-    ClassGuidstr = [NSString stringWithFormat:@"%@",model.GUID];
+    NSString *str = [NSString stringWithFormat:@"%@-%@", typeNo,className];
     
-    
-    return  model.GoodsTypeName;
+    return str;
     
 }
 
@@ -134,23 +185,19 @@
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     
-    
-    
-    
-    
+//    AddViewController *addController = [[AddViewController alloc] init];
+//    
+//    addController.classmodel = [self.dataArray objectAtIndex:row];//这里有问题，应该创建一个控制器然后把模型数据传递过去，
     GoodsClassModel *model = [self.dataArray objectAtIndex:row];
-
+    
     ClassGuidstr = [NSString stringWithFormat:@"%@",model.GUID];
     
-    
-  
-    
+
 
     
 }
 
 #pragma mark--- 下载
-
 -(void)download
 {
     NSLog(@"%@",entID);
@@ -226,9 +273,7 @@
              }
              
 
-             
-      
-            // className = [self.dataArray objectAtIndex:0];
+            
              
                 [pkview reloadComponent:0];
              

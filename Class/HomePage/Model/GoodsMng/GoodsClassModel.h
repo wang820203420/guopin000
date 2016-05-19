@@ -13,6 +13,7 @@
 
 @property(nonatomic,strong)NSString *GoodsTypeName;//商品名称1
 @property(nonatomic,strong)NSString *GUID;//商品名称1
+@property(nonatomic,strong)NSString *TypeNo;//商品名称1
 
 
 

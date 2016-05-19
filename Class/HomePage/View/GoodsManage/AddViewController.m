@@ -287,7 +287,7 @@
             
             [Goodsclass setText:str];
             
-             [Goodsclass setTextColor:[UIColor blackColor]];
+            [Goodsclass setTextColor:[UIColor blackColor]];
             
         };
         

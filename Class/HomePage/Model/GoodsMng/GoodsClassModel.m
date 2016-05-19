@@ -41,6 +41,8 @@
     
     _GUID= [dict objectForKey:@"GUID"];
     
+    _TypeNo= [dict objectForKey:@"TypeNo"];
+    
     
     
 }
@@ -52,6 +54,8 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [dict setObject:self.GUID forKey:@"GUID"];
+    [dict setObject:self.GoodsTypeName forKey:@"GoodsTypeName"];
+    [dict setObject:self.TypeNo forKey:@"TypeNo"];
 
     
     return dict;
