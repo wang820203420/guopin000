@@ -13,6 +13,7 @@
 
 @property(nonatomic,strong)NSString *UnitName;//度量单位
 @property(nonatomic,strong)NSString *GUID;//度量单位guid
+@property(nonatomic,strong)NSString *UnitCode;
 
 
 

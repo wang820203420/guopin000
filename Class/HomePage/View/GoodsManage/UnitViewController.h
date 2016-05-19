@@ -9,8 +9,8 @@
 #import "BaseViewController.h"
 
 @interface UnitViewController : BaseViewController
-@property(nonatomic,copy) void (^block)(NSString *);
 
+@property(nonatomic,copy) void (^block)(NSString *);
 @property(nonatomic,copy) void (^UntGuid)(NSString *);
 
 @end

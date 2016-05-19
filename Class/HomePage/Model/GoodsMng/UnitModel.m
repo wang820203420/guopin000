@@ -35,7 +35,8 @@
     
     
     _UnitName= [dict objectForKey:@"UnitName"];
-      _GUID= [dict objectForKey:@"GUID"];
+    _GUID= [dict objectForKey:@"GUID"];
+    _UnitCode= [dict objectForKey:@"UnitCode"];
     
     
     
@@ -50,6 +51,7 @@
     
     [dict setObject:self.UnitName forKey:@"UnitName"];
     [dict setObject:self.GUID forKey:@"GUID"];
+    [dict setObject:self.UnitCode forKey:@"UnitCode"];
     
     return dict;
     

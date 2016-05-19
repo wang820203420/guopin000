@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 
 @interface MainGoodsViewController : BaseViewController
-@property(nonatomic,copy) void (^block)(NSString *);
 
+@property(nonatomic,copy) void (^block)(NSString *);
 @property(nonatomic,copy) void (^guid)(NSString *);
 @end

@@ -37,7 +37,9 @@
     
     _GoodsName= [dict objectForKey:@"GoodsName"];
     
-      _GUID= [dict objectForKey:@"GUID"];
+    _GUID= [dict objectForKey:@"GUID"];
+    
+    _GoodsCode= [dict objectForKey:@"GoodsCode"];
     
     
     
@@ -50,7 +52,8 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [dict setObject:self.GoodsName forKey:@"GoodsName"];
-     [dict setObject:self.GUID forKey:@"GUID"];
+    [dict setObject:self.GUID forKey:@"GUID"];
+    [dict setObject:self.GoodsCode forKey:@"GoodsCode"];
     
     return dict;
     

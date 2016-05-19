@@ -82,8 +82,49 @@
     
 }
 
+#pragma mark++++++++++数据的接口的更改++++++++++++++++
 
+#if 0
+": {
+"GUID": "1cff82c357974cf9b5a6f7e682139f35",//商品GUID
+"GoodsCode": "2313",
+"GoodsName": "36绿果",
+"RetailPrice": 5.00,//-------------------1手动修改价格
+"CostPrice": 1.00,
+"UnitID": "0002",
+"WeighingType": "0",
+"RatedInventory": 100.000,
+"GoodsType": "5378f52447cb4f418540d203fb75ec45",
+"ClearanceDiscountPerc": 100.00,
+"Origin": "",
+"IsSkuDiscount": null,
+"IsHandInput": null,//   手动出入2是否手动
+"IsAllowSale": null,
+"SaleState": "销售中",
+"IsForbidden": false,//=========================3是否上架
+"UpdateUser": "",//============================4更新人
+"UpdateTime": null,
+"CreateUser": "05397e04317441009caa9e890947cc70",
+"CreateTime": "2015-12-17 16:58:54",
+"IsDelete": 0,
+"CurrentInventory": 981.000,
+"StoreName": null,
+"UnitName": "个",
+"GoodsTypeName": null,
+"UploadUpdateTime": null,
+"UploadCreateTime": null,
+"SourceID": null,
+"StoreID": null,
+"EnterpriseID": "05397e04317441009caa9e890947cc70",
+"OriginCode": "",
+"ProvinceCode": "",
+"CityCode": "",
+"AreaCode": "",
+"ParentID": null
+}
+},
 
+#endif
 
 
 #pragma mark --UITableViewDelegate
@@ -226,10 +267,10 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+
     
-    
-      static NSString *cellID = @"cellID";
-     static NSString *cellstateID = @"statecellID";
+    static NSString *cellID = @"cellID";
+    static NSString *cellstateID = @"statecellID";
     
     if (indexPath.section == 0) {
         GoodsMngDetCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];

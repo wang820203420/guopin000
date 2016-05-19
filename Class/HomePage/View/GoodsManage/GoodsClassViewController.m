@@ -71,6 +71,25 @@
 }
 
 
+-(void)backAction:(UIButton *)sender
+{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void)saveAction:(UIButton *)sender
+{
+    
+    self.block(className);
+    self.Class(ClassGuidstr);
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+
+
+
 -(void)createPkview{
     
     
@@ -128,23 +147,6 @@
 
 
 
--(void)backAction:(UIButton *)sender
-{
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
-
--(void)saveAction:(UIButton *)sender
-{
-    
-    self.block(className);
-    self.Class(ClassGuidstr);
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
-
-
 #pragma mark -- pkview代理
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -175,7 +177,7 @@
     className = [NSString stringWithFormat:@"%@",model.GoodsTypeName];
     typeNo = [NSString stringWithFormat:@"%@",model.TypeNo];
     
-    NSString *str = [NSString stringWithFormat:@"%@-%@", typeNo,className];
+    NSString *str = [NSString stringWithFormat:@"%@-%@", typeNo, className];
     
     return str;
     
