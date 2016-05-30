@@ -20,7 +20,7 @@
 
 @property(nonatomic,strong)NSString *totalcutoff;//折扣金额
 
-@property(nonatomic,strong)NSString *cutofftype;//会员卡
+@property(nonatomic,strong)NSString *memberID;//会员卡
 
 
 //@property(nonatomic,strong)NSString *GoodsName;//商品名称

@@ -10,7 +10,7 @@
 #import "GoodsMngDetModel.h"
 
 
-@interface GoodsMngDetCell ()<UITextViewDelegate>
+@interface GoodsMngDetCell ()
 {
     
     NSString *data;
@@ -19,7 +19,7 @@
 @property(nonatomic,strong)UILabel *GoodsName;
 @property(nonatomic,strong)UILabel *GoodsCode;
 @property(nonatomic,strong)UILabel *SaleState;
-//@property(nonatomic,strong)UITextView *RetailPrice;
+@property(nonatomic,strong)UITextView *RetailPrice;
 @property(nonatomic,strong)UILabel *CurrentInventory;
 @property(nonatomic,strong)UILabel *UnitName;
 @property(nonatomic,strong)UILabel *UnitName1;
@@ -92,13 +92,12 @@
         label3.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label3.font = [UIFont systemFontOfSize:16];
         [self.contentView addSubview:label3];
+        //数字lable
         self.CurrentInventory = [[UILabel alloc]init];
-        //self.CurrentInventory.backgroundColor=[UIColor redColor];
         self.CurrentInventory.frame = CGRectMake(ScreenWidth/1.09, 117, 150, 20);
         self.CurrentInventory.font = [UIFont systemFontOfSize:16];
         [self.contentView addSubview:self.CurrentInventory];
-        
-    
+        //单位lable
         self.UnitName = [[UILabel alloc]init];
         self.UnitName.frame = CGRectMake(ScreenWidth/1.09, 117, 150, 20);
         self.UnitName.font = [UIFont systemFontOfSize:16];
@@ -111,20 +110,28 @@
         label4.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label4.font = [UIFont systemFontOfSize:16];
         [self.contentView addSubview:label4];
+        
+        //创建一个空白的文本编辑框输入的是  数字  UIKeyboardTypeDecimalPad
         self.RetailPrice = [[UITextView alloc]init];
-        //self.RetailPrice.backgroundColor = [UIColor redColor];
         self.RetailPrice.frame = CGRectMake(ScreenWidth/1.2,159, 150, 30);
         self.RetailPrice.font = [UIFont systemFontOfSize:16];
+        
+
+        
+
 
         self.RetailPrice.delegate = self;
-        [self.RetailPrice setEditable:NO];
+        self.RetailPrice.editable = NO;
         self.RetailPrice.returnKeyType = UIReturnKeyDone;
+        self.RetailPrice.keyboardType = UIKeyboardTypeDecimalPad;//数字键盘加小数点
         //self.RetailPrice.keyboardType = UIKeyboardTypeURL;
+        
+        
         
         self.RetailPrice.scrollEnabled = NO;
         [self.contentView addSubview:self.RetailPrice];
         
-        
+        //拼接格式创建的单位lable
         self.UnitName1 = [[UILabel alloc]init];
         self.UnitName1.frame = CGRectMake(ScreenWidth/1.18, 167, 150, 20);
         self.UnitName1.font = [UIFont systemFontOfSize:16];
@@ -170,7 +177,7 @@
     self.GoodsCode.text = _cellModel.GoodsCode;
     self.SaleState.text= _cellModel.SaleState;
     self.UnitName.text = _cellModel.UnitName;
-      self.UnitName1.text = [NSString stringWithFormat:@"元/%@",_cellModel.UnitName];
+    self.UnitName1.text = [NSString stringWithFormat:@"元/%@",_cellModel.UnitName];
     
     self.CurrentInventory.text = [NSString stringWithFormat:@"%.2f",_cellModel.CurrentInventory.doubleValue];
  
@@ -178,11 +185,10 @@
     
     
     
-    
+    //1.库存frame
     
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
-    //动态计算出宽度
     CGSize size1 = [self.CurrentInventory.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
     
     
@@ -201,11 +207,10 @@
 
     
     
-    //销售的
+    //2.售价frame
 
     NSDictionary *attribute1 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
-    //动态计算出宽度
     CGSize size2 = [self.RetailPrice.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute1 context:nil].size;
     
     

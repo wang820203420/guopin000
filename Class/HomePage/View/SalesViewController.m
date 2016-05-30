@@ -409,7 +409,84 @@
 
 
 #pragma mark --下载
-
+/**
+ *     接口样例:
+ *
+ *
+         {"SaleInfo":{
+                     "GUID": "e2eea4d075e44787b730b57f6bb35088",
+                     "SaleNo": "031604130002",
+                     "UpdateUser": "",
+                     "UpdateTime": null,
+                     "CreateUser": "ec828d50d9a24507aef40a3fafb4b83c",
+                     "CreateTime": "2016-05-13 08:45:07",
+                     "IsDelete": 0,
+                     "TotalMoney": 27.00,
+                     "TotalUnitNum": null,
+                     "SaleDate": "2016-05-13 08:45:07",
+                     "StoreID": "0d6a1411d71b4643bdc5c13c1e8af117",
+                     "StoreName": "嘉客来水果大华二路店",
+                     "UploadUpdateTime": null,
+                     "UploadCreateTime": null,
+                     "SourceID": null,
+                     "EnterpriseID": null,
+                     "CutOffType": 0,
+                     "CutOff": null,
+                     "MemberID": "343434",
+                     "TotalCutOff": 4.40},
+         "SaleDetailList":[ { 
+                             "ID": 0,
+                             "GUID": "af1f9b17804248e3a8762a9a71acc2a8",
+                             "SaleNo": "e2eea4d075e44787b730b57f6bb35088",
+                             "GoodsID": "f71caf6a22bf4366a6a5598adf437006",
+                             "SalePrice": 5.27,
+                             "SaleNumber": 5.0000,
+                             "Amount": 26.40,
+                             "ProductBatch": "03160119215",
+                             "IsReturn": null,
+                             "UpdateUser": "",
+                             "UpdateTime": null,
+                             "CreateUser": "ec828d50d9a24507aef40a3fafb4b83c",
+                             "CreateTime": "2016-04-13 08:45:07",
+                             "IsDelete": 0,
+                             "OriginalPrice": 5.00,
+                             "DisplayNO": 2,
+                             "GoodsName": "25绿果",
+                             "UnitName": "个",
+                             "UploadUpdateTime": null,
+                             "UploadCreateTime": null,
+                             "SourceID": null,
+                             "StoreID": null,
+                             "EnterpriseID": null },
+                             { 
+                             "ID": 0,
+                             "GUID": "d4d54d4396fa4a2f9a8a8460bea78af8",
+                             "SaleNo": "e2eea4d075e44787b730b57f6bb35088",
+                             "GoodsID": "4b013897eec2480bab3dc1dae791cda8",
+                             "SalePrice": 5.00,
+                             "SaleNumber": 1.0000,
+                             "Amount": 5.00,
+                             "ProductBatch": "03160119214",
+                             "IsReturn": null,
+                             "UpdateUser": "",
+                             "UpdateTime": null,
+                             "CreateUser": "ec828d50d9a24507aef40a3fafb4b83c", "CreateTime": "2016-04-13 08:45:07",
+                             "IsDelete": 0,
+                             "OriginalPrice": 5.00,
+                             "DisplayNO": 1,
+                             "GoodsName": "33金果",
+                             "UnitName": "个",
+                             "UploadUpdateTime": null,
+                             "UploadCreateTime": null,
+                             "SourceID": null,
+                             "StoreID": null,
+                             "EnterpriseID": null } 
+                           ]}
+         }
+ *
+ *
+ *
+ */
 -(void)download
 {
     

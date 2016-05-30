@@ -369,10 +369,9 @@
         goodsCtrl.GUID =model.GUID;
         
         
-        
+        goodsCtrl.HandInput = model.IsHandInput;
         goodsCtrl.Forbidden = model.IsForbidden;
         
-        NSLog(@"%@", goodsCtrl.Forbidden );
         
         [self.navigationController pushViewController:goodsCtrl animated:YES];
         

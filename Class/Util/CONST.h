@@ -58,8 +58,17 @@
 //合计金额
 #define MoneyUrl "http://192.168.8.113:8006/UserWebService.asmx/GetSaleTotalMoney"
 
-//商品状态
-#define UpdateGoodsStateByIdUrl "http://192.168.8.113:8006/UserWebService.asmx/UpdateGoodsStateById"
+
+
+
+
+//
+////商品状态
+//#define UpdateGoodsStateByIdUrl "http://192.168.8.113:8006/UserWebService.asmx/UpdateGoodsStateById"
+//
+
+
+
 
 
 //全部店铺
@@ -71,8 +80,20 @@
 //搜索
 #define GetGoodsInfoLisByPageUrl "http://192.168.8.113:8006/UserWebService.asmx/GetGoodsInfoLisByPage"
 
-//修改售价
-#define UpdateGoodsPriceByIdUrl "http://192.168.8.113:8006/UserWebService.asmx/UpdateGoodsPriceById"
+
+
+
+
+//
+////修改售价
+//#define UpdateGoodsPriceByIdUrl "http://192.168.8.113:8006/UserWebService.asmx/UpdateGoodsPriceById"
+//
+
+
+
+
+
+
 
 //全部商品种类
 #define GetGoodsTypeListUrl "http://192.168.8.113:8006/UserWebService.asmx/GetGoodsTypeList"
@@ -107,7 +128,8 @@
 //全部会员卡信息
 #define GetAllMemberCardToListUrl "http://192.168.8.113:8006/UserWebService.asmx/GetAllMemberCardToList"
 
-//输入参数entId（企业ID）/storeId（店铺ID）/cardType(卡类型)/currPageIndex(当前页码)/pageSize(页面大小，不分页传-1)/code（授权码）
+//修改售价／商店状态／是否手输金额／修改人（原有接口做了合并）
+#define UpdateGoodsInfoByIdUrl "http://192.168.8.113:8006/UserWebService.asmx/UpdateGoodsInfoById"
 
 
 

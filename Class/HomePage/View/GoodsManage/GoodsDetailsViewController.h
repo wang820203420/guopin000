@@ -12,4 +12,5 @@
 @property (nonatomic,strong)NSString *GUID;
 
 @property (nonatomic,strong)NSNumber *Forbidden;
+@property (nonatomic,strong)NSNumber *HandInput;
 @end

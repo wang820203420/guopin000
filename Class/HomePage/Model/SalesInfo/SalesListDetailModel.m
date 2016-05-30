@@ -40,7 +40,7 @@
     _storename = [dict objectForKey:@"StoreName"];
     _saledate = [dict objectForKey:@"SaleDate"];
     _totalcutoff = [dict objectForKey:@"TotalCutOff"];
-    _cutofftype = [dict objectForKey:@"CutOffType"];
+    _memberID = [dict objectForKey:@"MemberID"];
 //    _GoodsName = [dict objectForKey:@"GoodsName"];
 //    _SalePrice = [dict objectForKey:@"SalePrice"];
 //    _SaleNumber = [dict objectForKey:@"SaleNumber"];
@@ -62,7 +62,7 @@
     [dict setObject:self.storename forKey:@"StoreName"];
     [dict setObject:self.saledate forKey:@"SaleDate"];
     [dict setObject:self.totalcutoff forKey:@"TotalCutOff"];
-    [dict setObject:self.cutofftype forKey:@"CutOffType"];
+    [dict setObject:self.memberID forKey:@"MemberID"];
 //    [dict setObject:self.GoodsName forKey:@"GoodsName"];
 //    [dict setObject:self.SalePrice forKey:@"SalePrice"];
 //    [dict setObject:self.SaleNumber forKey:@"SaleNumber"];

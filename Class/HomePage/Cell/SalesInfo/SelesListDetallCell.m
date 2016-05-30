@@ -15,7 +15,7 @@
 @property(nonatomic,strong)UILabel *storename;
 @property(nonatomic,strong)UILabel *saledate;
 @property(nonatomic,strong)UILabel *totalcutoff;//折扣金额
-@property(nonatomic,strong)UILabel *cutofftype;//会员卡
+@property(nonatomic,strong)UILabel *memberID;//会员卡
 
 
 @end
@@ -102,10 +102,10 @@
         label4.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
         label4.font = [UIFont systemFontOfSize:16];
         [self.contentView addSubview:label4];
-        self.cutofftype = [[UILabel alloc]init];
-        self.cutofftype.frame = CGRectMake(ScreenWidth/1.05,220, 200, 20);
-        self.cutofftype.font = [UIFont systemFontOfSize:16];
-        [self.contentView addSubview:self.cutofftype];
+        self.memberID = [[UILabel alloc]init];
+        self.memberID.frame = CGRectMake(ScreenWidth/1.05,220, 200, 20);
+        self.memberID.font = [UIFont systemFontOfSize:16];
+        [self.contentView addSubview:self.memberID];
         
         
     }
@@ -124,8 +124,9 @@
     self.saleno.text = _cellModel.saleno;
     self.storename.text = _cellModel.storename;
     self.saledate.text = _cellModel.saledate;
+    self.memberID.text = _cellModel.memberID;
     self.totalcutoff.text = [NSString stringWithFormat:@"%@",_cellModel.totalcutoff];
-    self.cutofftype.text = [NSString stringWithFormat:@"%@",_cellModel.cutofftype];
+    self.memberID.text = [NSString stringWithFormat:@"%@",_cellModel.memberID];
     
     
    //1.订单号
@@ -199,14 +200,14 @@
     NSDictionary *attribute4 = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
     //动态计算出宽度
-    CGSize size5 = [self.cutofftype.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute4 context:nil].size;
+    CGSize size5 = [self.memberID.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 30) options: NSStringDrawingUsesLineFragmentOrigin  attributes:attribute4 context:nil].size;
     
     
-    CGRect frame5 = self.cutofftype.frame;
+    CGRect frame5 = self.memberID.frame;
     frame5.size.width = size5.width;
     frame5.origin.x =ScreenWidth/1.05-size5.width;
     
-    self.cutofftype.frame = frame5;
+    self.memberID.frame = frame5;
 
     
     

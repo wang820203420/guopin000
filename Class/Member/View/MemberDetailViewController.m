@@ -56,7 +56,7 @@
     [self createLabelTwo:219 with:@"会员卡号" and:self.model.MemberCode];
     [self createLabelTwo:259 with:@"会员类型" and:self.model.CardTypeName];
     [self createLabelTwo:299 with:@"账户余额" and:self.model.Amount.description];
-    [self createLabelTwo:339 with:@"账户积分" and:self.model.Discount.description];
+    [self createLabelTwo:339 with:@"账户积分" and:self.model.Points.description];
     [self createLabelTwo:379 with:@"办卡地点" and:self.model.StoreName];
     [self createLabelTwo:419 with:@"办理时间" and:self.model.CreateTime];
     [self createLabelTwo:459 with:@"办理人" and:self.model.StaffName];

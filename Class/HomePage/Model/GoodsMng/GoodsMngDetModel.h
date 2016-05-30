@@ -24,6 +24,12 @@
 
 @property(nonatomic,strong)NSString *UnitName;//重量单位
 
+@property(nonatomic,strong)NSNumber *HandInput;//是否手输金额
+
+@property(nonatomic,strong)NSNumber *Forbidden;//是否上架
+
+@property(nonatomic,strong)NSString *updateUser;//更新用户
+
 
 
 

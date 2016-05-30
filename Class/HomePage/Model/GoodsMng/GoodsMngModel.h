@@ -19,6 +19,7 @@
 @property(nonatomic,strong)NSString *SaleState;//销售状态
 
 @property(nonatomic,strong)NSNumber *RetailPrice;//零售价格
+
 @property(nonatomic,strong)NSString *GUID;//零售价格
 
 @property(nonatomic,strong)NSNumber *IsForbidden;//零售状态

@@ -14,11 +14,9 @@
 //保存当前cell的显示数据
 @property(nonatomic,retain) GoodsMngDetModel *cellModel;
 
-
-
 //指定的cell是给哪个tableview使用
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 
-@property(nonatomic,strong)UITextView *RetailPrice;
+
 @end

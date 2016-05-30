@@ -37,32 +37,23 @@
     
     _GoodsName= [dict objectForKey:@"GoodsName"];
     
-    
-    
     _GoodsCode = [dict objectForKey:@"GoodsCode"];
     
+    _SaleState = [dict objectForKey:@"SaleState"];
 
-       _SaleState = [dict objectForKey:@"SaleState"];
+    _CurrentInventory = [dict objectForKey:@"CurrentInventory"];
     
+    _RetailPrice = [dict objectForKey:@"RetailPrice"];
     
+    _UnitName = [dict objectForKey:@"UnitName"];
     
- 
+    _HandInput = [dict objectForKey:@"IsHandInput"];
+    
+    _Forbidden = [dict objectForKey:@"IsForbidden"];
+    
+    _updateUser = [dict objectForKey:@"UpdateUser"];
+    
 
-           _CurrentInventory = [dict objectForKey:@"CurrentInventory"];
-    
- 
-
-        _RetailPrice = [dict objectForKey:@"RetailPrice"];
-        
-        
-    
-  
-
-          _UnitName = [dict objectForKey:@"UnitName"];
-    
-        
-    
-    
 
     
 }
@@ -79,6 +70,9 @@
     [dict setObject:self.CurrentInventory forKey:@"CurrentInventory"];
     [dict setObject:self.RetailPrice forKey:@"RetailPrice"];
     [dict setObject:self.UnitName forKey:@"UnitName"];
+    [dict setObject:self.HandInput forKey:@"IsHandInput"];
+    [dict setObject:self.Forbidden forKey:@"IsForbidden"];
+    [dict setObject:self.updateUser forKey:@"UpdateUser"];
     
     return dict;
     

@@ -1729,7 +1729,7 @@
 				TargetAttributes = {
 					9195E64B1B9695F30089DB7F = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = NJV382FEQX;
+						DevelopmentTeam = NH2R67RJYF;
 					};
 					9195E6641B9695F30089DB7F = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -2139,7 +2139,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Class/Util/PrefixHeader.pch";
 				INFOPLIST_FILE = guoping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhisu.guopingone;
 				PRODUCT_NAME = "果品";
@@ -2156,7 +2156,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Class/Util/PrefixHeader.pch";
 				INFOPLIST_FILE = guoping/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhisu.guopingone;
 				PRODUCT_NAME = "果品";

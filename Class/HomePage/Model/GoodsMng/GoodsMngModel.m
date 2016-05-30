@@ -49,9 +49,8 @@
     
    
       _GUID = [dict objectForKey:@"GUID"];
-    
+    _IsForbidden = [dict objectForKey:@"IsForbidden"];
 
-         _IsForbidden = [dict objectForKey:@"IsForbidden"];
 
    
     
@@ -71,7 +70,7 @@
     [dict setObject:self.RetailPrice forKey:@"RetailPrice"];
     [dict setObject:self.UnitName forKey:@"UnitName"];
     [dict setObject:self.GUID forKey:@"GUID"];
-     [dict setObject:self.IsForbidden forKey:@"IsForbidden"];
+    [dict setObject:self.IsForbidden forKey:@"IsForbidden"];
     
     return dict;
     
