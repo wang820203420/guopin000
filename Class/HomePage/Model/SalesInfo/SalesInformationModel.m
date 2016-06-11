@@ -28,7 +28,6 @@
 
 +(instancetype)cellModelWithDictionary:(NSDictionary *)dict
 {
-    
     return [[self alloc]initWithDictionary:dict];
 }
 
@@ -49,7 +48,6 @@
     _GUID = [dict objectForKey:@"GUID"];
     
     _StoreID = [dict objectForKey:@"StoreID"];
-    _mobile = [dict objectForKey:@"Mobile"];
     
   
     
@@ -68,7 +66,6 @@
     [dict setObject:self.saledate forKey:@"SaleDate"];
     [dict setObject:self.GUID forKey:@"GUID"];
     [dict setObject:self.StoreID forKey:@"StoreID"];
-    [dict setObject:self.mobile forKey:@"Mobile"];
     
     return dict;
     

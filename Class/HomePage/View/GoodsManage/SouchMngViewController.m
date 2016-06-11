@@ -333,6 +333,10 @@
     GoodsMngModel *model = self.dataArray[indexPath.row];
     goodsCtrl.GUID =model.GUID;
     
+    goodsCtrl.HandInput = model.IsHandInput;
+    goodsCtrl.Forbidden = model.IsForbidden;
+
+    
     [self.navigationController pushViewController:goodsCtrl animated:YES];
     
     

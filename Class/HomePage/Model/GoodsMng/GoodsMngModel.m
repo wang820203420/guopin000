@@ -50,6 +50,7 @@
    
       _GUID = [dict objectForKey:@"GUID"];
     _IsForbidden = [dict objectForKey:@"IsForbidden"];
+    _IsHandInput = [dict objectForKey:@"IsHandInput"];
 
 
    
@@ -71,6 +72,7 @@
     [dict setObject:self.UnitName forKey:@"UnitName"];
     [dict setObject:self.GUID forKey:@"GUID"];
     [dict setObject:self.IsForbidden forKey:@"IsForbidden"];
+    [dict setObject:self.IsHandInput forKey:@"IsHandInput"];
     
     return dict;
     

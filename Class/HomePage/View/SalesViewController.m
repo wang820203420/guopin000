@@ -490,8 +490,7 @@
 -(void)download
 {
     
-    NSLog(@"%@",storeId);
-    NSLog(@"%@",_saleId);
+  
 
     
     NSString *str = [NSString stringWithFormat:@GetSaleDetailInfoUrl];

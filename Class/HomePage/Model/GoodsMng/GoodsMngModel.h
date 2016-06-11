@@ -26,6 +26,8 @@
 
 @property(nonatomic,strong)NSString *UnitName;//商品重量单位
 
+@property(nonatomic,strong)NSNumber *IsHandInput;//是否手输金额
+
 
 
 
