@@ -19,6 +19,9 @@
 #import "RankingViewController.h"//店铺排行
 #import "PropretyViewController.h"//财务报表
 #import "LossRankViewController.h"//损耗排行
+#import "CheckGoodsViewController.h"//门店盘点
+#import "TransferViewController.h"//门店调货
+#import "MoreInfoViewController.h"//更多信息
 #import "AFHTTPClientV2.h"//下载
 #import "XMLReader.h"//去掉外围的xml
 #import "HomePageModel.h"//每日金额总结
@@ -131,7 +134,8 @@
     
     
     
-    layout.itemSize = CGSizeMake(ScreenWidth/3.02, ScreenHeight/4.7999);
+    layout.itemSize = CGSizeMake(ScreenWidth/3.02, ScreenHeight/4.7999);//九宫格
+    //layout.itemSize = CGSizeMake(ScreenWidth/4.04, ScreenHeight/4.7999);//十二宫格
     //间距(横向)
     layout.minimumInteritemSpacing = ScreenWidth/ScreenWidth;
     
@@ -225,7 +229,7 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-        return 9;
+        return 12;
     
   
 }
@@ -290,7 +294,26 @@
         LossRankViewController *lossCtrl = [[LossRankViewController alloc]init];
         [self.navigationController pushViewController:lossCtrl animated:YES];
         
+    } else if (indexPath.item == 9)
+    {
+        
+        TransferViewController *TransferCtrl = [[TransferViewController alloc]init];
+        [self.navigationController pushViewController:TransferCtrl animated:YES];
+        
+    }  else if (indexPath.item == 10)
+    {
+        
+        CheckGoodsViewController *CheckCtrl = [[CheckGoodsViewController alloc]init];
+        [self.navigationController pushViewController:CheckCtrl animated:YES];
+        
+    }  else if (indexPath.item == 11)
+    {
+        
+        MoreInfoViewController *MoreInfoCtrl = [[MoreInfoViewController alloc]init];
+        [self.navigationController pushViewController:MoreInfoCtrl animated:YES];
     }
+
+
     
 }
 
@@ -478,10 +501,86 @@
         
         
         
+    } else if (indexPath.item == 9)
+    {
+        
+        
+        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"shph_icon@2x"];
+        [cell addSubview:view];
+        
+        
+        
+        UILabel *label = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/14, ScreenHeight/7.445, ScreenWidth/5.4, 20) title:@"门店调货" textAlignment:NSTextAlignmentCenter];
+        
+        label.font = [UIFont systemFontOfSize:14];
+        label.adjustsFontSizeToFitWidth = YES;
+        
+        [cell addSubview:label];
+        
+        
+        
+        
+        
+        
+    } else if (indexPath.item == 10)
+    {
+        
+        
+        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"shph_icon@2x"];
+        [cell addSubview:view];
+        
+        
+        
+        UILabel *label = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/14, ScreenHeight/7.445, ScreenWidth/5.4, 20) title:@"门店盘点" textAlignment:NSTextAlignmentCenter];
+        
+        label.font = [UIFont systemFontOfSize:14];
+        label.adjustsFontSizeToFitWidth = YES;
+        
+        [cell addSubview:label];
+        
+        
+        
+        
+        
+        
+    } else if (indexPath.item == 11)
+    {
+        
+        
+        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"shph_icon@2x"];
+        [cell addSubview:view];
+        
+        
+        
+        UILabel *label = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/14, ScreenHeight/7.445, ScreenWidth/5.4, 20) title:@"更多信息" textAlignment:NSTextAlignmentCenter];
+        
+        label.font = [UIFont systemFontOfSize:14];
+        label.adjustsFontSizeToFitWidth = YES;
+        
+        [cell addSubview:label];
+        
+        
+        
+        
+        
     }
 
     
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         
         return cell;
         

@@ -40,6 +40,10 @@
 		911D49FF1BE8B059005E3D62 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D49F81BE8B059005E3D62 /* FMDatabaseQueue.m */; };
 		911D4A001BE8B059005E3D62 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D49FB1BE8B059005E3D62 /* FMResultSet.m */; };
 		911D4A021BE8B079005E3D62 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 911D4A011BE8B079005E3D62 /* libsqlite3.tbd */; };
+		911D584B1D0D12C6001C4F8B /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D584A1D0D12C6001C4F8B /* MoreInfoViewController.m */; };
+		911D58511D0D3CF0001C4F8B /* TransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D58501D0D3CF0001C4F8B /* TransferViewController.m */; };
+		911D58541D0D3D42001C4F8B /* CheckGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */; };
+		911D58571D0D4CD3001C4F8B /* SouchCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D58561D0D4CD3001C4F8B /* SouchCheckViewController.m */; };
 		911FF49F1BA16A2D00B93020 /* cancel_28x28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 911FF4961BA16A2D00B93020 /* cancel_28x28@2x.png */; };
 		911FF4A01BA16A2D00B93020 /* greenbuttom_670x90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 911FF4971BA16A2D00B93020 /* greenbuttom_670x90@2x.png */; };
 		911FF4A11BA16A2D00B93020 /* greenbuttom_676x76_click@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 911FF4981BA16A2D00B93020 /* greenbuttom_676x76_click@2x.png */; };
@@ -319,6 +323,14 @@
 		911D49FA1BE8B059005E3D62 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		911D49FB1BE8B059005E3D62 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		911D4A011BE8B079005E3D62 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		911D58491D0D12C6001C4F8B /* MoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreInfoViewController.h; path = MoreInfo/MoreInfoViewController.h; sourceTree = "<group>"; };
+		911D584A1D0D12C6001C4F8B /* MoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreInfoViewController.m; path = MoreInfo/MoreInfoViewController.m; sourceTree = "<group>"; };
+		911D584F1D0D3CF0001C4F8B /* TransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferViewController.h; path = Transfer/TransferViewController.h; sourceTree = "<group>"; };
+		911D58501D0D3CF0001C4F8B /* TransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferViewController.m; path = Transfer/TransferViewController.m; sourceTree = "<group>"; };
+		911D58521D0D3D42001C4F8B /* CheckGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckGoodsViewController.h; path = Check/CheckGoodsViewController.h; sourceTree = "<group>"; };
+		911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckGoodsViewController.m; path = Check/CheckGoodsViewController.m; sourceTree = "<group>"; };
+		911D58551D0D4CD3001C4F8B /* SouchCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SouchCheckViewController.h; path = Check/SouchCheckViewController.h; sourceTree = "<group>"; };
+		911D58561D0D4CD3001C4F8B /* SouchCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SouchCheckViewController.m; path = Check/SouchCheckViewController.m; sourceTree = "<group>"; };
 		911FF4961BA16A2D00B93020 /* cancel_28x28@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel_28x28@2x.png"; sourceTree = "<group>"; };
 		911FF4971BA16A2D00B93020 /* greenbuttom_670x90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenbuttom_670x90@2x.png"; sourceTree = "<group>"; };
 		911FF4981BA16A2D00B93020 /* greenbuttom_676x76_click@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenbuttom_676x76_click@2x.png"; sourceTree = "<group>"; };
@@ -809,6 +821,35 @@
 			path = fmdb;
 			sourceTree = "<group>";
 		};
+		911D58451D0D0F80001C4F8B /* MoreInfo */ = {
+			isa = PBXGroup;
+			children = (
+				911D58491D0D12C6001C4F8B /* MoreInfoViewController.h */,
+				911D584A1D0D12C6001C4F8B /* MoreInfoViewController.m */,
+			);
+			name = MoreInfo;
+			sourceTree = "<group>";
+		};
+		911D584D1D0D2C5C001C4F8B /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				911D584F1D0D3CF0001C4F8B /* TransferViewController.h */,
+				911D58501D0D3CF0001C4F8B /* TransferViewController.m */,
+			);
+			name = Transfer;
+			sourceTree = "<group>";
+		};
+		911D584E1D0D2C68001C4F8B /* Check */ = {
+			isa = PBXGroup;
+			children = (
+				911D58521D0D3D42001C4F8B /* CheckGoodsViewController.h */,
+				911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */,
+				911D58551D0D4CD3001C4F8B /* SouchCheckViewController.h */,
+				911D58561D0D4CD3001C4F8B /* SouchCheckViewController.m */,
+			);
+			name = Check;
+			sourceTree = "<group>";
+		};
 		914243031BD5DCC000A80BB1 /* ToGoods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1196,6 +1237,9 @@
 		9195E69A1B969FCD0089DB7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				911D584E1D0D2C68001C4F8B /* Check */,
+				911D584D1D0D2C5C001C4F8B /* Transfer */,
+				911D58451D0D0F80001C4F8B /* MoreInfo */,
 				91D2AA5D1BBBD82900966446 /* loss */,
 				91D2AA501BBB907800966446 /* Proprety */,
 				911485DC1BAC188C00640ABD /* Ranking */,
@@ -1928,7 +1972,9 @@
 				9142434F1BD633CF00A80BB1 /* MJRefreshHeader.m in Sources */,
 				91E0DD811BD220FA0033B3B2 /* SalesListDetailModel.m in Sources */,
 				9142434B1BD633CF00A80BB1 /* MJRefreshAutoFooter.m in Sources */,
+				911D58541D0D3D42001C4F8B /* CheckGoodsViewController.m in Sources */,
 				9142434C1BD633CF00A80BB1 /* MJRefreshBackFooter.m in Sources */,
+				911D584B1D0D12C6001C4F8B /* MoreInfoViewController.m in Sources */,
 				915B09401C3CE24C00D57CC2 /* SBJson4StreamParserState.m in Sources */,
 				91BCA6C11BE06FA900414CDA /* SalesMoneyModel.m in Sources */,
 				911485C81BABF71000640ABD /* LossViewController.m in Sources */,
@@ -1937,6 +1983,7 @@
 				91BCA6B41BDF41B800414CDA /* RankingModel.m in Sources */,
 				9142435B1BD633CF00A80BB1 /* UIScrollView+MJExtension.m in Sources */,
 				914243581BD633CF00A80BB1 /* MJRefreshStateHeader.m in Sources */,
+				911D58571D0D4CD3001C4F8B /* SouchCheckViewController.m in Sources */,
 				588A75851C0AFD3800F440BD /* ReplCreatModel.m in Sources */,
 				91BB14A11BA6AB7F0035B47D /* SalesViewController.m in Sources */,
 				915B093F1C3CE24C00D57CC2 /* SBJson4StreamParser.m in Sources */,
@@ -1998,6 +2045,7 @@
 				9142436F1BD7827500A80BB1 /* ToGoodsCreatUserCell.m in Sources */,
 				915B06151C34D63200D57CC2 /* GoodsClassViewController.m in Sources */,
 				914243561BD633CF00A80BB1 /* MJRefreshGifHeader.m in Sources */,
+				911D58511D0D3CF0001C4F8B /* TransferViewController.m in Sources */,
 				911485D21BAC0B5F00640ABD /* ToTheGoodsViewController.m in Sources */,
 				91D2AA7C1BCDFEE300966446 /* AFSecurityPolicy.m in Sources */,
 				91BB14C41BA812590035B47D /* ChangeBtn.m in Sources */,
