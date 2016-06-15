@@ -23,7 +23,10 @@
 {
     NSString * title = [self titleForState:UIControlStateNormal];
     UIImage * image = [self imageForState:UIControlStateNormal];
-    CGSize stringSize =  [title sizeWithFont:[UIFont systemFontOfSize:15]];
+    
+    NSDictionary* attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:15]};
+    CGSize stringSize =  [title sizeWithAttributes:attributes];
+    
     CGFloat titleW = stringSize.width;
     CGFloat titleH = contentRect.size.height;
     CGFloat titleX = (contentRect.size.width - (stringSize.width + kTitleImageSpace + image.size.width)) / 2;
@@ -35,7 +38,7 @@
 {
     NSString * title = [self titleForState:UIControlStateNormal];
     UIImage * image = [self imageForState:UIControlStateNormal];
-    CGSize stringSize =  [title sizeWithFont:[UIFont systemFontOfSize:15]];
+    CGSize stringSize =  [title sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
     CGFloat imageW = image.size.width;
     CGFloat imageH = contentRect.size.height;
     CGFloat imageX = (contentRect.size.width - (stringSize.width + kTitleImageSpace + image.size.width)) / 2 + stringSize.width + kTitleImageSpace;
