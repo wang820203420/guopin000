@@ -168,7 +168,12 @@
 
 - (void)openView:(ChangeBtn *)btn
 {
-    //1.点击Btn显示选中状态mainTableView关闭滚动
+    //1.点击Btn初始化所有btn状态并设置当前btn,关闭mainTableView滚动
+    for (ChangeBtn *dropdown in [self.view subviews]) {
+        if ([dropdown isKindOfClass:[ChangeBtn class]]) {
+            dropdown.selected = NO;
+        }
+    }
     btn.selected = YES;
     mainTableView.scrollEnabled = NO;
     //2.通过改变truncationView.frame来控制popoverTableView是否显示出来
@@ -210,9 +215,18 @@
         default:
             break;
     }
-    
-    truncationView.frame = frame;
-    
+    //4.添加动画效果
+    if (frame.size.height) {
+        [UIView animateWithDuration:0.35f animations:^{
+            truncationView.frame = frame;
+            [btn setImage:[UIImage imageNamed:@"24x14_famhui@2x"] forState:UIControlStateSelected];
+        }];
+    } else {
+        [UIView animateWithDuration:0.65f animations:^{
+            truncationView.frame = frame;
+            [btn setImage:[UIImage imageNamed:@"24x14_xiala@2x"] forState:UIControlStateSelected];
+        }];
+    }
 }
 
 #pragma mark __________________________监控触发事件_____________________________
