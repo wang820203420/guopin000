@@ -9,43 +9,19 @@
 #import "CheckGoodsViewController.h"
 #import "MainViewController.h"
 #import "ChangeBtn.h"
-#import "SouchCheckViewController.h"
 
 
-@interface CheckGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface CheckGoodsViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
-    UIView *_TopHeaderView;
-    UIView *_view;//弹出的透明遮罩
+    UITableView *mainTableView;         //mainTableView
+    UIView *truncationView;             //截断view(弹出的透明遮罩)
+    UITableView *leftPopoverTableView;  //左侧弹出的tableview
+    UITableView *rightPopoverTableView; //右侧弹出的tableview
     
-    UITableView *_tableView;
-    UITableView *_popViewTableview;
-    UITableView *_TwoPopViewTableView;
+    ChangeBtn *dropdownBtn;               //点击弹出选择view
     
-    ChangeBtn *_selectedButton;//颜色赋给btn
-    UIButton *_chgtn;//点击弹出选择view
-    UISearchBar *_souch;//查找
-    BOOL _isShow;//有没有显示
-    UIButton * _lastBtn;//上一个btn
-    UIButton *_btn;
-    ChangeBtn *_btnTag;
-
-
-    
-    //日期
-    UILabel *Today;
-    UILabel *Week;
-    UILabel *Month;
-    
-    NSString *EntID;
-    NSString *date;//今日、本周、本月
-    NSString *bgyl;//店铺名
-    NSString *storeID;//店铺id
-
-    NSString *currPagestr;
-    
-    int currPageIndex;
-    int s;
-    NSUInteger  _selectedIndex;//下标
+    NSString *store;    //店铺名
+    NSString *date;     //今日、本周、本月
 }
 
 @property(nonatomic,retain)NSMutableArray *dataArray;
@@ -65,6 +41,7 @@
     return _dataArray;
 }
 
+#if 0
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -107,6 +84,8 @@
     }];
     
 }
+
+
 
 -(void)hid
 {
@@ -291,6 +270,7 @@
     
     
 }
+
 
 #pragma mark __________________________点击事件_____________________________
 -(void)playScan:(UIButton *)sender
@@ -743,7 +723,7 @@
 
 
 
-
+#endif
 
 
 

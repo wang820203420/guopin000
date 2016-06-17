@@ -10,7 +10,7 @@
 #import "MainViewController.h"
 #import "ChangeBtn.h"
 
-@interface TransferViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TransferViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *mainTableView;         //mainTableView
     UIView *truncationView;             //截断view(弹出的透明遮罩)
@@ -28,6 +28,13 @@
 
 @implementation TransferViewController
 #pragma mark __________________________懒加载_____________________________
+-(NSMutableArray *)dataArray
+{
+    if (_dataArray == nil) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

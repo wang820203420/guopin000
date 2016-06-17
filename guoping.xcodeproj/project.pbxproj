@@ -43,7 +43,6 @@
 		911D584B1D0D12C6001C4F8B /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D584A1D0D12C6001C4F8B /* MoreInfoViewController.m */; };
 		911D58511D0D3CF0001C4F8B /* TransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D58501D0D3CF0001C4F8B /* TransferViewController.m */; };
 		911D58541D0D3D42001C4F8B /* CheckGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */; };
-		911D58571D0D4CD3001C4F8B /* SouchCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911D58561D0D4CD3001C4F8B /* SouchCheckViewController.m */; };
 		911FF49F1BA16A2D00B93020 /* cancel_28x28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 911FF4961BA16A2D00B93020 /* cancel_28x28@2x.png */; };
 		911FF4A01BA16A2D00B93020 /* greenbuttom_670x90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 911FF4971BA16A2D00B93020 /* greenbuttom_670x90@2x.png */; };
 		911FF4A11BA16A2D00B93020 /* greenbuttom_676x76_click@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 911FF4981BA16A2D00B93020 /* greenbuttom_676x76_click@2x.png */; };
@@ -329,8 +328,6 @@
 		911D58501D0D3CF0001C4F8B /* TransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferViewController.m; path = Transfer/TransferViewController.m; sourceTree = "<group>"; };
 		911D58521D0D3D42001C4F8B /* CheckGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckGoodsViewController.h; path = Check/CheckGoodsViewController.h; sourceTree = "<group>"; };
 		911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckGoodsViewController.m; path = Check/CheckGoodsViewController.m; sourceTree = "<group>"; };
-		911D58551D0D4CD3001C4F8B /* SouchCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SouchCheckViewController.h; path = Check/SouchCheckViewController.h; sourceTree = "<group>"; };
-		911D58561D0D4CD3001C4F8B /* SouchCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SouchCheckViewController.m; path = Check/SouchCheckViewController.m; sourceTree = "<group>"; };
 		911FF4961BA16A2D00B93020 /* cancel_28x28@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel_28x28@2x.png"; sourceTree = "<group>"; };
 		911FF4971BA16A2D00B93020 /* greenbuttom_670x90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenbuttom_670x90@2x.png"; sourceTree = "<group>"; };
 		911FF4981BA16A2D00B93020 /* greenbuttom_676x76_click@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenbuttom_676x76_click@2x.png"; sourceTree = "<group>"; };
@@ -844,8 +841,6 @@
 			children = (
 				911D58521D0D3D42001C4F8B /* CheckGoodsViewController.h */,
 				911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */,
-				911D58551D0D4CD3001C4F8B /* SouchCheckViewController.h */,
-				911D58561D0D4CD3001C4F8B /* SouchCheckViewController.m */,
 			);
 			name = Check;
 			sourceTree = "<group>";
@@ -1983,7 +1978,6 @@
 				91BCA6B41BDF41B800414CDA /* RankingModel.m in Sources */,
 				9142435B1BD633CF00A80BB1 /* UIScrollView+MJExtension.m in Sources */,
 				914243581BD633CF00A80BB1 /* MJRefreshStateHeader.m in Sources */,
-				911D58571D0D4CD3001C4F8B /* SouchCheckViewController.m in Sources */,
 				588A75851C0AFD3800F440BD /* ReplCreatModel.m in Sources */,
 				91BB14A11BA6AB7F0035B47D /* SalesViewController.m in Sources */,
 				915B093F1C3CE24C00D57CC2 /* SBJson4StreamParser.m in Sources */,
