@@ -27,6 +27,8 @@
 @end
 
 @implementation TransferViewController
+
+
 #pragma mark __________________________懒加载_____________________________
 -(NSMutableArray *)dataArray
 {
@@ -42,6 +44,8 @@
     [self download];
     [self configureUI];
 }
+
+
 #pragma mark __________________________创建UI_____________________________
 - (void)configureUI
 {
@@ -100,8 +104,6 @@
     [truncationView addSubview:rightPopoverTableView];
 }
 
-
-
 - (void)createChangeBtn
 {
     //NSArray *titles = @[store,date];
@@ -120,8 +122,8 @@
         
         dropdownBtn.tag = i;
     }
-    
 }
+
 
 #pragma mark __________________________UITableViewDataSource_____________________________
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -167,6 +169,8 @@
 //{
 //    return 50;
 //}
+
+
 #pragma mark __________________________点击事件_____________________________
 - (void)backAction:(UIButton *)btn
 {
@@ -236,6 +240,7 @@
     }
 }
 
+
 #pragma mark __________________________监控触发事件_____________________________
 /**
  推出页面的时候让tababr
@@ -258,6 +263,7 @@
     MainViewController *tabCtrl = (MainViewController *)self.tabBarController;
     [tabCtrl showTabBar];
 }
+
 
 #pragma mark __________________________下载_____________________________
 - (void)download
