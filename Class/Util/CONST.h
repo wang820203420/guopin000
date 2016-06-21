@@ -132,5 +132,13 @@
 #define UpdateGoodsInfoByIdUrl "http://192.168.8.113:8006/UserWebService.asmx/UpdateGoodsInfoById"
 
 
+//获取调货单列表
+#define GetTransferListByPageUrl "http://192.168.8.113:8006/UserWebService.asmx?op=GetTransferListByPage"
+
+
+//调货明细
+#define GetTransferDetailInfoUrl "http://192.168.8.113:8006/UserWebService.asmx?op=GetTransferDetailInfo"
+
+
 
 #endif
