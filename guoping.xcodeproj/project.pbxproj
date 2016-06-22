@@ -121,6 +121,11 @@
 		91667C071BD4EB4500401B38 /* LossInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91667C061BD4EB4500401B38 /* LossInfoCell.m */; };
 		918127461D17CCC60084D8E9 /* CheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127451D17CCC60084D8E9 /* CheckModel.m */; };
 		918127491D17CCF50084D8E9 /* TransferModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127481D17CCF50084D8E9 /* TransferModel.m */; };
+		9181274E1D18E62B0084D8E9 /* TransferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9181274D1D18E62B0084D8E9 /* TransferCell.m */; };
+		918127511D18E6430084D8E9 /* CheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127501D18E6430084D8E9 /* CheckCell.m */; };
+		918127541D190B700084D8E9 /* TransferDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127531D190B700084D8E9 /* TransferDetailCell.m */; };
+		918127571D199BFC0084D8E9 /* TransferDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127561D199BFC0084D8E9 /* TransferDetailViewController.m */; };
+		9181275A1D199E230084D8E9 /* TransferDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127591D199E230084D8E9 /* TransferDetailModel.m */; };
 		9192F3261C0D956100B80A40 /* sousuokuang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192F3251C0D956100B80A40 /* sousuokuang@2x.png */; };
 		9192F3281C11242300B80A40 /* logo_114x114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192F3271C11242300B80A40 /* logo_114x114@2x.png */; };
 		9195E6521B9695F30089DB7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9195E6511B9695F30089DB7F /* main.m */; };
@@ -470,6 +475,16 @@
 		918127451D17CCC60084D8E9 /* CheckModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckModel.m; path = Check/CheckModel.m; sourceTree = "<group>"; };
 		918127471D17CCF50084D8E9 /* TransferModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferModel.h; path = Transfer/TransferModel.h; sourceTree = "<group>"; };
 		918127481D17CCF50084D8E9 /* TransferModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferModel.m; path = Transfer/TransferModel.m; sourceTree = "<group>"; };
+		9181274C1D18E62B0084D8E9 /* TransferCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferCell.h; path = Transfer/TransferCell.h; sourceTree = "<group>"; };
+		9181274D1D18E62B0084D8E9 /* TransferCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferCell.m; path = Transfer/TransferCell.m; sourceTree = "<group>"; };
+		9181274F1D18E6430084D8E9 /* CheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCell.h; sourceTree = "<group>"; };
+		918127501D18E6430084D8E9 /* CheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCell.m; sourceTree = "<group>"; };
+		918127521D190B700084D8E9 /* TransferDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferDetailCell.h; path = Transfer/TransferDetailCell.h; sourceTree = "<group>"; };
+		918127531D190B700084D8E9 /* TransferDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferDetailCell.m; path = Transfer/TransferDetailCell.m; sourceTree = "<group>"; };
+		918127551D199BFC0084D8E9 /* TransferDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferDetailViewController.h; path = Transfer/TransferDetailViewController.h; sourceTree = "<group>"; };
+		918127561D199BFC0084D8E9 /* TransferDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferDetailViewController.m; path = Transfer/TransferDetailViewController.m; sourceTree = "<group>"; };
+		918127581D199E230084D8E9 /* TransferDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferDetailModel.h; path = Transfer/TransferDetailModel.h; sourceTree = "<group>"; };
+		918127591D199E230084D8E9 /* TransferDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferDetailModel.m; path = Transfer/TransferDetailModel.m; sourceTree = "<group>"; };
 		9192F3251C0D956100B80A40 /* sousuokuang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sousuokuang@2x.png"; sourceTree = "<group>"; };
 		9192F3271C11242300B80A40 /* logo_114x114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_114x114@2x.png"; sourceTree = "<group>"; };
 		9195E64C1B9695F30089DB7F /* 果品.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "果品.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -838,6 +853,8 @@
 			children = (
 				911D584F1D0D3CF0001C4F8B /* TransferViewController.h */,
 				911D58501D0D3CF0001C4F8B /* TransferViewController.m */,
+				918127551D199BFC0084D8E9 /* TransferDetailViewController.h */,
+				918127561D199BFC0084D8E9 /* TransferDetailViewController.m */,
 			);
 			name = Transfer;
 			sourceTree = "<group>";
@@ -1084,6 +1101,8 @@
 			children = (
 				918127471D17CCF50084D8E9 /* TransferModel.h */,
 				918127481D17CCF50084D8E9 /* TransferModel.m */,
+				918127581D199E230084D8E9 /* TransferDetailModel.h */,
+				918127591D199E230084D8E9 /* TransferDetailModel.m */,
 			);
 			name = Transfer;
 			sourceTree = "<group>";
@@ -1100,6 +1119,10 @@
 		9181274A1D184AC10084D8E9 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
+				9181274C1D18E62B0084D8E9 /* TransferCell.h */,
+				9181274D1D18E62B0084D8E9 /* TransferCell.m */,
+				918127521D190B700084D8E9 /* TransferDetailCell.h */,
+				918127531D190B700084D8E9 /* TransferDetailCell.m */,
 			);
 			name = Transfer;
 			sourceTree = "<group>";
@@ -1107,6 +1130,8 @@
 		9181274B1D184ADE0084D8E9 /* Check */ = {
 			isa = PBXGroup;
 			children = (
+				9181274F1D18E6430084D8E9 /* CheckCell.h */,
+				918127501D18E6430084D8E9 /* CheckCell.m */,
 			);
 			name = Check;
 			sourceTree = "<group>";
@@ -1254,10 +1279,10 @@
 		9195E6991B969FCD0089DB7F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				918127431D17CBCC0084D8E9 /* Check */,
-				918127421D17CBC60084D8E9 /* Transfer */,
 				9196A8691BCE49F700EE008F /* HomePageModel.h */,
 				9196A86A1BCE49F700EE008F /* HomePageModel.m */,
+				918127431D17CBCC0084D8E9 /* Check */,
+				918127421D17CBC60084D8E9 /* Transfer */,
 				911D496F1BE310DD005E3D62 /* AllStore */,
 				91E0DD791BD220FA0033B3B2 /* SalesInfo */,
 				91E0DD8D1BD221AD0033B3B2 /* StockSh */,
@@ -1959,12 +1984,14 @@
 				91667C021BD4E8B200401B38 /* LossInfoModel.m in Sources */,
 				91D2AA7A1BCDFEE300966446 /* AFHTTPSessionManager.m in Sources */,
 				911485BA1BAAC74800640ABD /* StockDetailsViewController.m in Sources */,
+				918127541D190B700084D8E9 /* TransferDetailCell.m in Sources */,
 				9195E6581B9695F30089DB7F /* ViewController.m in Sources */,
 				911D4A001BE8B059005E3D62 /* FMResultSet.m in Sources */,
 				912D97881CCFCB4100356D68 /* CardModel.m in Sources */,
 				911485CE1BAC05D300640ABD /* LossSouchViewController.m in Sources */,
 				915B09441C3CE24C00D57CC2 /* SBJson4Writer.m in Sources */,
 				911485DF1BAC18C500640ABD /* RankingViewController.m in Sources */,
+				9181274E1D18E62B0084D8E9 /* TransferCell.m in Sources */,
 				915B094A1C3E077E00D57CC2 /* CityModel.m in Sources */,
 				91BB14BF1BA7EAC80035B47D /* SouchViewController.m in Sources */,
 				914243551BD633CF00A80BB1 /* MJRefreshBackStateFooter.m in Sources */,
@@ -1986,6 +2013,7 @@
 				91D2AA631BBBD96700966446 /* LossRankViewController.m in Sources */,
 				91E0DD8B1BD221410033B3B2 /* SelesListDetallCell.m in Sources */,
 				9195E6B51B96A8340089DB7F /* GoodsViewController.m in Sources */,
+				9181275A1D199E230084D8E9 /* TransferDetailModel.m in Sources */,
 				911485B71BAAC55800640ABD /* StockSouchViewController.m in Sources */,
 				91E0DD8A1BD221410033B3B2 /* SalesInformationCell.m in Sources */,
 				912D97791CCE598600356D68 /* MemberViewController.m in Sources */,
@@ -1998,6 +2026,7 @@
 				915B09411C3CE24C00D57CC2 /* SBJson4StreamTokeniser.m in Sources */,
 				9142431D1BD61EFE00A80BB1 /* ReplenishStCell.m in Sources */,
 				91CBEFF31BFD6FF7003AF089 /* StockDetModel.m in Sources */,
+				918127511D18E6430084D8E9 /* CheckCell.m in Sources */,
 				588A75881C0AFE3E00F440BD /* ReplCreatCell.m in Sources */,
 				91BCA6C41BE0705200414CDA /* SalesMoneyView.m in Sources */,
 				911FF4AA1BA17ECE00B93020 /* ChangeLeftBtn.m in Sources */,
@@ -2056,6 +2085,7 @@
 				912D977C1CCE5BF000356D68 /* MemberDetailViewController.m in Sources */,
 				91CBEFEB1BF9B437003AF089 /* AboutMeViewController.m in Sources */,
 				588A75431C0980C600F440BD /* ReplOrderCell.m in Sources */,
+				918127571D199BFC0084D8E9 /* TransferDetailViewController.m in Sources */,
 				911D49FC1BE8B059005E3D62 /* FMDatabase.m in Sources */,
 				91BCA6B81BDF42E200414CDA /* RankingCell.m in Sources */,
 				91C62FBA1C05A8A00089F1BE /* LogModel.m in Sources */,

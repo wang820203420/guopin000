@@ -11,10 +11,10 @@
 @interface TransferModel : NSObject
 
 @property(nonatomic,strong)NSString *OrderNo;         //调货单号
-@property(nonatomic,strong)NSNumber *StoreName;       //调货门店
-@property(nonatomic,strong)NSNumber *TargetStoreName; //收货门店
-@property(nonatomic,strong)NSNumber *SendDate;        //调货时间
-@property(nonatomic,strong)NSNumber *StaffName;       //操作人
+@property(nonatomic,strong)NSString *StoreName;       //调货门店
+@property(nonatomic,strong)NSString *TargetStoreName; //收货门店
+@property(nonatomic,strong)NSString *SendDate;        //调货时间
+@property(nonatomic,strong)NSString *StaffName;       //操作人
 
 //创建cell模型的同时设置模型数据
 +(instancetype)cellModelWithDictionary:(NSDictionary *)dict;
