@@ -26,6 +26,7 @@
     _TargetStoreName = [dict objectForKey:@"TargetStoreName"];
     _SendDate = [dict objectForKey:@"SendDate"];
     _StaffName = [dict objectForKey:@"StaffName"];
+    _OrderId = [dict objectForKey:@"GUID"];
 }
 
 + (instancetype)cellModelWithDictionary:(NSDictionary *)dict
@@ -43,6 +44,7 @@
     [dict setObject:self.TargetStoreName forKey:@"TargetStoreName"];
     [dict setObject:self.SendDate forKey:@"SendDate"];
     [dict setObject:self.StaffName forKey:@"StaffName"];
+    [dict setObject:self.OrderId forKey:@"GUID"];
     
     return dict;
 }

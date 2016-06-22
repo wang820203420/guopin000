@@ -15,6 +15,8 @@
 @property(nonatomic,strong)NSString *TargetStoreName; //收货门店
 @property(nonatomic,strong)NSString *SendDate;        //调货时间
 @property(nonatomic,strong)NSString *StaffName;       //操作人
+@property(nonatomic,strong)NSString *OrderId;
+
 
 //创建cell模型的同时设置模型数据
 +(instancetype)cellModelWithDictionary:(NSDictionary *)dict;
