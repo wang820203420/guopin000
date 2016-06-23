@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class TransferDetailModel;
+@class TransferModel;
 @interface TransferDetailCell : UITableViewCell
 
 
-@property(nonatomic,retain) TransferDetailModel *cellModel;
+@property(nonatomic,retain) TransferModel *cellModel;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

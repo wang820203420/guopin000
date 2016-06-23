@@ -140,5 +140,12 @@
 #define GetTransferDetailInfoUrl "http://192.168.8.113:8006/UserWebService.asmx/GetTransferDetailInfo"
 
 
+//获取盘点单列表
+#define GetStockcheckinfoListByPageUrl "http://192.168.8.113:8006/UserWebService.asmx/GetStockcheckinfoListByPage"
+
+
+//盘点明细
+#define GetStockcheckDetailInfoUrl "http://192.168.8.113:8006/UserWebService.asmx/GetStockcheckDetailInfo"
+
 
 #endif

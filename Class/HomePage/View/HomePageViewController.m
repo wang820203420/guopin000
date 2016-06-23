@@ -19,8 +19,8 @@
 #import "RankingViewController.h"//店铺排行
 #import "PropretyViewController.h"//财务报表
 #import "LossRankViewController.h"//损耗排行
-#import "CheckGoodsViewController.h"//门店盘点
 #import "TransferViewController.h"//门店调货
+#import "StockCheckViewController.h"//门店盘点
 #import "MoreInfoViewController.h"//更多信息
 #import "AFHTTPClientV2.h"//下载
 #import "XMLReader.h"//去掉外围的xml
@@ -303,7 +303,7 @@
     }  else if (indexPath.item == 10)
     {
         
-        CheckGoodsViewController *CheckCtrl = [[CheckGoodsViewController alloc]init];
+        StockCheckViewController *CheckCtrl = [[StockCheckViewController alloc]init];
         [self.navigationController pushViewController:CheckCtrl animated:YES];
         
     }  else if (indexPath.item == 11)
