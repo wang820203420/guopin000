@@ -132,6 +132,8 @@
 		918127761D1BBC160084D8E9 /* StockCheckDetailTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127751D1BBC160084D8E9 /* StockCheckDetailTwoCell.m */; };
 		918127791D1BBC6F0084D8E9 /* StockCheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127781D1BBC6F0084D8E9 /* StockCheckModel.m */; };
 		9181277C1D1BBCBA0084D8E9 /* StockCheckDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9181277B1D1BBCBA0084D8E9 /* StockCheckDetailModel.m */; };
+		9181277E1D1D24970084D8E9 /* dhxx_icon@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 9181277D1D1D24970084D8E9 /* dhxx_icon@2X.png */; };
+		918127801D1D24CE0084D8E9 /* pdxx_icon@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 9181277F1D1D24CE0084D8E9 /* pdxx_icon@2X.png */; };
 		9192F3261C0D956100B80A40 /* sousuokuang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192F3251C0D956100B80A40 /* sousuokuang@2x.png */; };
 		9192F3281C11242300B80A40 /* logo_114x114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192F3271C11242300B80A40 /* logo_114x114@2x.png */; };
 		9195E6521B9695F30089DB7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9195E6511B9695F30089DB7F /* main.m */; };
@@ -502,6 +504,8 @@
 		918127781D1BBC6F0084D8E9 /* StockCheckModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckModel.m; path = StockCheck/StockCheckModel.m; sourceTree = "<group>"; };
 		9181277A1D1BBCBA0084D8E9 /* StockCheckDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckDetailModel.h; path = StockCheck/StockCheckDetailModel.h; sourceTree = "<group>"; };
 		9181277B1D1BBCBA0084D8E9 /* StockCheckDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckDetailModel.m; path = StockCheck/StockCheckDetailModel.m; sourceTree = "<group>"; };
+		9181277D1D1D24970084D8E9 /* dhxx_icon@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dhxx_icon@2X.png"; sourceTree = "<group>"; };
+		9181277F1D1D24CE0084D8E9 /* pdxx_icon@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdxx_icon@2X.png"; sourceTree = "<group>"; };
 		9192F3251C0D956100B80A40 /* sousuokuang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sousuokuang@2x.png"; sourceTree = "<group>"; };
 		9192F3271C11242300B80A40 /* logo_114x114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_114x114@2x.png"; sourceTree = "<group>"; };
 		9195E64C1B9695F30089DB7F /* 果品.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "果品.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1531,6 +1535,8 @@
 				9195E6E21B9D77570089DB7F /* bsxx_icon@2x.png */,
 				9195E6E31B9D77570089DB7F /* graph-chart-increasing@2x.png */,
 				9195E6E41B9D77570089DB7F /* jhxx_icon@2x.png */,
+				9181277F1D1D24CE0084D8E9 /* pdxx_icon@2X.png */,
+				9181277D1D1D24970084D8E9 /* dhxx_icon@2X.png */,
 				9195E6E51B9D77570089DB7F /* kccx_icon@2x.png */,
 				9195E6E61B9D77570089DB7F /* setting@2x.png */,
 				9195E6E71B9D77570089DB7F /* shph_icon@2x.png */,
@@ -1937,6 +1943,7 @@
 				915B06071C327E8D00D57CC2 /* cancel_28x28@2x.png in Resources */,
 				9195E6FC1B9D77570089DB7F /* xsxx_icon@2x.png in Resources */,
 				9195E7021B9D77570089DB7F /* hy_icon_normal@2x.png in Resources */,
+				9181277E1D1D24970084D8E9 /* dhxx_icon@2X.png in Resources */,
 				9192F3281C11242300B80A40 /* logo_114x114@2x.png in Resources */,
 				911FF4A21BA16A2D00B93020 /* lock_40x39_hover@2x.png in Resources */,
 				9195E6FA1B9D77570089DB7F /* shph_icon@2x.png in Resources */,
@@ -1991,6 +1998,7 @@
 				9195E6F71B9D77570089DB7F /* jhxx_icon@2x.png in Resources */,
 				91D2AA491BAFEC4400966446 /* clipboard-2@2x.png in Resources */,
 				91BB14B81BA7CCCC0035B47D /* 24x14_famhui@2x.png in Resources */,
+				918127801D1D24CE0084D8E9 /* pdxx_icon@2X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
