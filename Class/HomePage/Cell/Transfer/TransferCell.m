@@ -11,10 +11,10 @@
 
 @interface TransferCell ()
 
-@property(nonatomic,strong)UILabel *orderNo;        //调货单号
-@property(nonatomic,strong)UILabel *storeName;      //调货门店
-@property(nonatomic,strong)UILabel *targetStoreName;//收货门店
-@property(nonatomic,strong)UILabel *sendDate;       //订单时间
+@property (nonatomic,strong) UILabel *orderNo;        //调货单号
+@property (nonatomic,strong) UILabel *storeName;      //调货门店
+@property (nonatomic,strong) UILabel *targetStoreName;//收货门店
+@property (nonatomic,strong) UILabel *sendDate;       //订单时间
 
 @end
 

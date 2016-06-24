@@ -40,39 +40,44 @@
         
         //1.商品名称
         self.GoodsName = [[UILabel alloc]init];
-        self.GoodsName.frame = CGRectMake(13, 12, 150, 20);
-        self.GoodsName.font = [UIFont systemFontOfSize:15];
+        self.GoodsName.frame = CGRectMake(ScreenWidth/45, 0, 80, 20);
+        self.GoodsName.font = [UIFont systemFontOfSize:14];
+        self.GoodsName.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:self.GoodsName];
         
         //2.单箱重量
         self.BoxAmount = [[UILabel alloc]init];
-        self.BoxAmount.frame = CGRectMake(ScreenWidth/2.5, 12, 50, 20);
-        self.BoxAmount.font = [UIFont systemFontOfSize:15];
-        self.BoxAmount.textAlignment = NSTextAlignmentRight;
+        self.BoxAmount.frame = CGRectMake(ScreenWidth/5.915, 0, 80, 20);
+        self.BoxAmount.font = [UIFont systemFontOfSize:14];
+        self.BoxAmount.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.BoxAmount];
         
         //3.单箱皮重
         self.BoxPtare = [[UILabel alloc]init];
-        self.BoxPtare.frame = CGRectMake(ScreenWidth/1.75,12, 200, 20);
-        self.BoxPtare.font = [UIFont systemFontOfSize:15];
+        self.BoxPtare.frame = CGRectMake(ScreenWidth/3.03, 0, 80, 20);
+        self.BoxPtare.font = [UIFont systemFontOfSize:14];
+        self.BoxPtare.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.BoxPtare];
     
         //4.调货箱数
         self.SendBox = [[UILabel alloc]init];
-        self.SendBox.frame = CGRectMake(ScreenWidth/1.47,12, 200, 20);
-        self.SendBox.font = [UIFont systemFontOfSize:15];
+        self.SendBox.frame = CGRectMake(ScreenWidth/2.1, 0, 80, 20);
+        self.SendBox.font = [UIFont systemFontOfSize:14];
+        self.SendBox.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.SendBox];
         
         //5.商品单位
         self.UnitName = [[UILabel alloc]init];
-        self.UnitName.frame = CGRectMake(ScreenWidth/1.1,12, 200, 20);
-        self.UnitName.font = [UIFont systemFontOfSize:15];
+        self.UnitName.frame = CGRectMake(ScreenWidth/1.61, 0, 80, 20);
+        self.UnitName.font = [UIFont systemFontOfSize:14];
+        self.UnitName.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.UnitName];
         
         //6.总数量
         self.SendNumber = [[UILabel alloc]init];
-        self.SendNumber.frame = CGRectMake(ScreenWidth/1.1,12, 200, 20);
-        self.SendNumber.font = [UIFont systemFontOfSize:15];
+        self.SendNumber.frame = CGRectMake(ScreenWidth/1.25, 0, 80, 20);
+        self.SendNumber.font = [UIFont systemFontOfSize:14];
+        self.SendNumber.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.SendNumber];
     }
     

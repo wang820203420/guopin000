@@ -119,14 +119,19 @@
 		915B094D1C3E0BE000D57CC2 /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 915B094C1C3E0BE000D57CC2 /* AreaModel.m */; };
 		91667C021BD4E8B200401B38 /* LossInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91667C011BD4E8B200401B38 /* LossInfoModel.m */; };
 		91667C071BD4EB4500401B38 /* LossInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91667C061BD4EB4500401B38 /* LossInfoCell.m */; };
-		918127461D17CCC60084D8E9 /* CheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127451D17CCC60084D8E9 /* CheckModel.m */; };
 		918127491D17CCF50084D8E9 /* TransferModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127481D17CCF50084D8E9 /* TransferModel.m */; };
 		9181274E1D18E62B0084D8E9 /* TransferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9181274D1D18E62B0084D8E9 /* TransferCell.m */; };
-		918127511D18E6430084D8E9 /* CheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127501D18E6430084D8E9 /* CheckCell.m */; };
 		918127541D190B700084D8E9 /* TransferDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127531D190B700084D8E9 /* TransferDetailCell.m */; };
 		918127571D199BFC0084D8E9 /* TransferDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127561D199BFC0084D8E9 /* TransferDetailViewController.m */; };
 		9181275A1D199E230084D8E9 /* TransferDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127591D199E230084D8E9 /* TransferDetailModel.m */; };
 		9181275D1D1A15410084D8E9 /* TransferDetailTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9181275C1D1A15410084D8E9 /* TransferDetailTwoCell.m */; };
+		918127661D1BB9780084D8E9 /* StockCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127651D1BB9780084D8E9 /* StockCheckViewController.m */; };
+		918127691D1BB99A0084D8E9 /* StockCheckDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127681D1BB99A0084D8E9 /* StockCheckDetailViewController.m */; };
+		918127701D1BBB9E0084D8E9 /* StockCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9181276F1D1BBB9E0084D8E9 /* StockCheckCell.m */; };
+		918127731D1BBBDF0084D8E9 /* StockCheckDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127721D1BBBDF0084D8E9 /* StockCheckDetailCell.m */; };
+		918127761D1BBC160084D8E9 /* StockCheckDetailTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127751D1BBC160084D8E9 /* StockCheckDetailTwoCell.m */; };
+		918127791D1BBC6F0084D8E9 /* StockCheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 918127781D1BBC6F0084D8E9 /* StockCheckModel.m */; };
+		9181277C1D1BBCBA0084D8E9 /* StockCheckDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9181277B1D1BBCBA0084D8E9 /* StockCheckDetailModel.m */; };
 		9192F3261C0D956100B80A40 /* sousuokuang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192F3251C0D956100B80A40 /* sousuokuang@2x.png */; };
 		9192F3281C11242300B80A40 /* logo_114x114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192F3271C11242300B80A40 /* logo_114x114@2x.png */; };
 		9195E6521B9695F30089DB7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9195E6511B9695F30089DB7F /* main.m */; };
@@ -334,7 +339,6 @@
 		911D584A1D0D12C6001C4F8B /* MoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreInfoViewController.m; path = MoreInfo/MoreInfoViewController.m; sourceTree = "<group>"; };
 		911D584F1D0D3CF0001C4F8B /* TransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferViewController.h; path = Transfer/TransferViewController.h; sourceTree = "<group>"; };
 		911D58501D0D3CF0001C4F8B /* TransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferViewController.m; path = Transfer/TransferViewController.m; sourceTree = "<group>"; };
-		911D58521D0D3D42001C4F8B /* CheckGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckGoodsViewController.h; path = Check/CheckGoodsViewController.h; sourceTree = "<group>"; };
 		911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckGoodsViewController.m; path = Check/CheckGoodsViewController.m; sourceTree = "<group>"; };
 		911FF4961BA16A2D00B93020 /* cancel_28x28@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel_28x28@2x.png"; sourceTree = "<group>"; };
 		911FF4971BA16A2D00B93020 /* greenbuttom_670x90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenbuttom_670x90@2x.png"; sourceTree = "<group>"; };
@@ -472,14 +476,10 @@
 		91667C011BD4E8B200401B38 /* LossInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LossInfoModel.m; sourceTree = "<group>"; };
 		91667C051BD4EB4500401B38 /* LossInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LossInfoCell.h; sourceTree = "<group>"; };
 		91667C061BD4EB4500401B38 /* LossInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LossInfoCell.m; sourceTree = "<group>"; };
-		918127441D17CCC60084D8E9 /* CheckModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckModel.h; path = Check/CheckModel.h; sourceTree = "<group>"; };
-		918127451D17CCC60084D8E9 /* CheckModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckModel.m; path = Check/CheckModel.m; sourceTree = "<group>"; };
 		918127471D17CCF50084D8E9 /* TransferModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferModel.h; path = Transfer/TransferModel.h; sourceTree = "<group>"; };
 		918127481D17CCF50084D8E9 /* TransferModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferModel.m; path = Transfer/TransferModel.m; sourceTree = "<group>"; };
 		9181274C1D18E62B0084D8E9 /* TransferCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferCell.h; path = Transfer/TransferCell.h; sourceTree = "<group>"; };
 		9181274D1D18E62B0084D8E9 /* TransferCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferCell.m; path = Transfer/TransferCell.m; sourceTree = "<group>"; };
-		9181274F1D18E6430084D8E9 /* CheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCell.h; sourceTree = "<group>"; };
-		918127501D18E6430084D8E9 /* CheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCell.m; sourceTree = "<group>"; };
 		918127521D190B700084D8E9 /* TransferDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferDetailCell.h; path = Transfer/TransferDetailCell.h; sourceTree = "<group>"; };
 		918127531D190B700084D8E9 /* TransferDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferDetailCell.m; path = Transfer/TransferDetailCell.m; sourceTree = "<group>"; };
 		918127551D199BFC0084D8E9 /* TransferDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferDetailViewController.h; path = Transfer/TransferDetailViewController.h; sourceTree = "<group>"; };
@@ -488,6 +488,20 @@
 		918127591D199E230084D8E9 /* TransferDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferDetailModel.m; path = Transfer/TransferDetailModel.m; sourceTree = "<group>"; };
 		9181275B1D1A15410084D8E9 /* TransferDetailTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransferDetailTwoCell.h; path = Transfer/TransferDetailTwoCell.h; sourceTree = "<group>"; };
 		9181275C1D1A15410084D8E9 /* TransferDetailTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransferDetailTwoCell.m; path = Transfer/TransferDetailTwoCell.m; sourceTree = "<group>"; };
+		918127641D1BB9780084D8E9 /* StockCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckViewController.h; path = StockCheck/StockCheckViewController.h; sourceTree = "<group>"; };
+		918127651D1BB9780084D8E9 /* StockCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckViewController.m; path = StockCheck/StockCheckViewController.m; sourceTree = "<group>"; };
+		918127671D1BB99A0084D8E9 /* StockCheckDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckDetailViewController.h; path = StockCheck/StockCheckDetailViewController.h; sourceTree = "<group>"; };
+		918127681D1BB99A0084D8E9 /* StockCheckDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckDetailViewController.m; path = StockCheck/StockCheckDetailViewController.m; sourceTree = "<group>"; };
+		9181276E1D1BBB9E0084D8E9 /* StockCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckCell.h; path = StockCheck/StockCheckCell.h; sourceTree = "<group>"; };
+		9181276F1D1BBB9E0084D8E9 /* StockCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckCell.m; path = StockCheck/StockCheckCell.m; sourceTree = "<group>"; };
+		918127711D1BBBDF0084D8E9 /* StockCheckDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckDetailCell.h; path = StockCheck/StockCheckDetailCell.h; sourceTree = "<group>"; };
+		918127721D1BBBDF0084D8E9 /* StockCheckDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckDetailCell.m; path = StockCheck/StockCheckDetailCell.m; sourceTree = "<group>"; };
+		918127741D1BBC160084D8E9 /* StockCheckDetailTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckDetailTwoCell.h; path = StockCheck/StockCheckDetailTwoCell.h; sourceTree = "<group>"; };
+		918127751D1BBC160084D8E9 /* StockCheckDetailTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckDetailTwoCell.m; path = StockCheck/StockCheckDetailTwoCell.m; sourceTree = "<group>"; };
+		918127771D1BBC6F0084D8E9 /* StockCheckModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckModel.h; path = StockCheck/StockCheckModel.h; sourceTree = "<group>"; };
+		918127781D1BBC6F0084D8E9 /* StockCheckModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckModel.m; path = StockCheck/StockCheckModel.m; sourceTree = "<group>"; };
+		9181277A1D1BBCBA0084D8E9 /* StockCheckDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockCheckDetailModel.h; path = StockCheck/StockCheckDetailModel.h; sourceTree = "<group>"; };
+		9181277B1D1BBCBA0084D8E9 /* StockCheckDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockCheckDetailModel.m; path = StockCheck/StockCheckDetailModel.m; sourceTree = "<group>"; };
 		9192F3251C0D956100B80A40 /* sousuokuang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sousuokuang@2x.png"; sourceTree = "<group>"; };
 		9192F3271C11242300B80A40 /* logo_114x114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_114x114@2x.png"; sourceTree = "<group>"; };
 		9195E64C1B9695F30089DB7F /* 果品.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "果品.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -865,7 +879,6 @@
 		911D584E1D0D2C68001C4F8B /* Check */ = {
 			isa = PBXGroup;
 			children = (
-				911D58521D0D3D42001C4F8B /* CheckGoodsViewController.h */,
 				911D58531D0D3D42001C4F8B /* CheckGoodsViewController.m */,
 			);
 			name = Check;
@@ -1110,15 +1123,6 @@
 			name = Transfer;
 			sourceTree = "<group>";
 		};
-		918127431D17CBCC0084D8E9 /* Check */ = {
-			isa = PBXGroup;
-			children = (
-				918127441D17CCC60084D8E9 /* CheckModel.h */,
-				918127451D17CCC60084D8E9 /* CheckModel.m */,
-			);
-			name = Check;
-			sourceTree = "<group>";
-		};
 		9181274A1D184AC10084D8E9 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1132,13 +1136,39 @@
 			name = Transfer;
 			sourceTree = "<group>";
 		};
-		9181274B1D184ADE0084D8E9 /* Check */ = {
+		918127611D1BB7310084D8E9 /* StockCheck */ = {
 			isa = PBXGroup;
 			children = (
-				9181274F1D18E6430084D8E9 /* CheckCell.h */,
-				918127501D18E6430084D8E9 /* CheckCell.m */,
+				918127771D1BBC6F0084D8E9 /* StockCheckModel.h */,
+				918127781D1BBC6F0084D8E9 /* StockCheckModel.m */,
+				9181277A1D1BBCBA0084D8E9 /* StockCheckDetailModel.h */,
+				9181277B1D1BBCBA0084D8E9 /* StockCheckDetailModel.m */,
 			);
-			name = Check;
+			name = StockCheck;
+			sourceTree = "<group>";
+		};
+		918127631D1BB7A20084D8E9 /* StockCheck */ = {
+			isa = PBXGroup;
+			children = (
+				918127641D1BB9780084D8E9 /* StockCheckViewController.h */,
+				918127651D1BB9780084D8E9 /* StockCheckViewController.m */,
+				918127671D1BB99A0084D8E9 /* StockCheckDetailViewController.h */,
+				918127681D1BB99A0084D8E9 /* StockCheckDetailViewController.m */,
+			);
+			name = StockCheck;
+			sourceTree = "<group>";
+		};
+		9181276D1D1BBB5A0084D8E9 /* StockCheck */ = {
+			isa = PBXGroup;
+			children = (
+				9181276E1D1BBB9E0084D8E9 /* StockCheckCell.h */,
+				9181276F1D1BBB9E0084D8E9 /* StockCheckCell.m */,
+				918127711D1BBBDF0084D8E9 /* StockCheckDetailCell.h */,
+				918127721D1BBBDF0084D8E9 /* StockCheckDetailCell.m */,
+				918127741D1BBC160084D8E9 /* StockCheckDetailTwoCell.h */,
+				918127751D1BBC160084D8E9 /* StockCheckDetailTwoCell.m */,
+			);
+			name = StockCheck;
 			sourceTree = "<group>";
 		};
 		9195E6431B9695F30089DB7F = {
@@ -1267,7 +1297,7 @@
 			children = (
 				9196A86C1BCE5E7E00EE008F /* HomeAmountView.h */,
 				9196A86D1BCE5E7E00EE008F /* HomeAmountView.m */,
-				9181274B1D184ADE0084D8E9 /* Check */,
+				9181276D1D1BBB5A0084D8E9 /* StockCheck */,
 				9181274A1D184AC10084D8E9 /* Transfer */,
 				911D49731BE317CA005E3D62 /* AllStore */,
 				91E0DD831BD221410033B3B2 /* SalesInfo */,
@@ -1286,7 +1316,7 @@
 			children = (
 				9196A8691BCE49F700EE008F /* HomePageModel.h */,
 				9196A86A1BCE49F700EE008F /* HomePageModel.m */,
-				918127431D17CBCC0084D8E9 /* Check */,
+				918127611D1BB7310084D8E9 /* StockCheck */,
 				918127421D17CBC60084D8E9 /* Transfer */,
 				911D496F1BE310DD005E3D62 /* AllStore */,
 				91E0DD791BD220FA0033B3B2 /* SalesInfo */,
@@ -1305,6 +1335,7 @@
 			isa = PBXGroup;
 			children = (
 				911D584E1D0D2C68001C4F8B /* Check */,
+				918127631D1BB7A20084D8E9 /* StockCheck */,
 				911D584D1D0D2C5C001C4F8B /* Transfer */,
 				911D58451D0D0F80001C4F8B /* MoreInfo */,
 				91D2AA5D1BBBD82900966446 /* loss */,
@@ -2031,7 +2062,6 @@
 				915B09411C3CE24C00D57CC2 /* SBJson4StreamTokeniser.m in Sources */,
 				9142431D1BD61EFE00A80BB1 /* ReplenishStCell.m in Sources */,
 				91CBEFF31BFD6FF7003AF089 /* StockDetModel.m in Sources */,
-				918127511D18E6430084D8E9 /* CheckCell.m in Sources */,
 				588A75881C0AFE3E00F440BD /* ReplCreatCell.m in Sources */,
 				91BCA6C41BE0705200414CDA /* SalesMoneyView.m in Sources */,
 				911FF4AA1BA17ECE00B93020 /* ChangeLeftBtn.m in Sources */,
@@ -2040,13 +2070,13 @@
 				9195E6D11B96E0FC0089DB7F /* MyUtil.m in Sources */,
 				911485C41BABECC400640ABD /* RepSouchViewController.m in Sources */,
 				911485D51BAC119500640ABD /* ToDetailViewController.m in Sources */,
-				918127461D17CCC60084D8E9 /* CheckModel.m in Sources */,
 				9142434F1BD633CF00A80BB1 /* MJRefreshHeader.m in Sources */,
 				91E0DD811BD220FA0033B3B2 /* SalesListDetailModel.m in Sources */,
 				9142434B1BD633CF00A80BB1 /* MJRefreshAutoFooter.m in Sources */,
 				911D58541D0D3D42001C4F8B /* CheckGoodsViewController.m in Sources */,
 				9142434C1BD633CF00A80BB1 /* MJRefreshBackFooter.m in Sources */,
 				911D584B1D0D12C6001C4F8B /* MoreInfoViewController.m in Sources */,
+				918127691D1BB99A0084D8E9 /* StockCheckDetailViewController.m in Sources */,
 				915B09401C3CE24C00D57CC2 /* SBJson4StreamParserState.m in Sources */,
 				91BCA6C11BE06FA900414CDA /* SalesMoneyModel.m in Sources */,
 				911485C81BABF71000640ABD /* LossViewController.m in Sources */,
@@ -2057,6 +2087,7 @@
 				9142435B1BD633CF00A80BB1 /* UIScrollView+MJExtension.m in Sources */,
 				914243581BD633CF00A80BB1 /* MJRefreshStateHeader.m in Sources */,
 				588A75851C0AFD3800F440BD /* ReplCreatModel.m in Sources */,
+				918127731D1BBBDF0084D8E9 /* StockCheckDetailCell.m in Sources */,
 				91BB14A11BA6AB7F0035B47D /* SalesViewController.m in Sources */,
 				915B093F1C3CE24C00D57CC2 /* SBJson4StreamParser.m in Sources */,
 				9142434E1BD633CF00A80BB1 /* MJRefreshFooter.m in Sources */,
@@ -2072,6 +2103,7 @@
 				911485BE1BABBA4900640ABD /* ReplenishViewController.m in Sources */,
 				914243601BD7426A00A80BB1 /* ToGoodsDetModel.m in Sources */,
 				915B06211C3B5C1D00D57CC2 /* UnitViewController.m in Sources */,
+				9181277C1D1BBCBA0084D8E9 /* StockCheckDetailModel.m in Sources */,
 				911485C11BABEC0000640ABD /* RepDetailsViewController.m in Sources */,
 				911D49761BE317E8005E3D62 /* AllStoreCell.m in Sources */,
 				914243661BD76CCE00A80BB1 /* ToGoodsDetailModel.m in Sources */,
@@ -2109,8 +2141,10 @@
 				91E0DD941BD229A10033B3B2 /* StockshCell.m in Sources */,
 				91C2C5661BF0309900B39C69 /* CacheManager.m in Sources */,
 				915B06181C34DA1900D57CC2 /* GoodsClassModel.m in Sources */,
+				918127791D1BBC6F0084D8E9 /* StockCheckModel.m in Sources */,
 				91BCA6A91BDDD7D500414CDA /* GoodsMngDetModel.m in Sources */,
 				91D2AA801BCDFEE300966446 /* AFURLSessionManager.m in Sources */,
+				918127761D1BBC160084D8E9 /* StockCheckDetailTwoCell.m in Sources */,
 				9142434D1BD633CF00A80BB1 /* MJRefreshComponent.m in Sources */,
 				91E0DD801BD220FA0033B3B2 /* SalesInformationModel.m in Sources */,
 				915B09471C3DFA1900D57CC2 /* ProvincesModel.m in Sources */,
@@ -2124,10 +2158,12 @@
 				91D2AA7C1BCDFEE300966446 /* AFSecurityPolicy.m in Sources */,
 				91BB14C41BA812590035B47D /* ChangeBtn.m in Sources */,
 				9195E6B81B96A9220089DB7F /* ShopViewController.m in Sources */,
+				918127701D1BBB9E0084D8E9 /* StockCheckCell.m in Sources */,
 				914243571BD633CF00A80BB1 /* MJRefreshNormalHeader.m in Sources */,
 				915B09421C3CE24C00D57CC2 /* SBJson4StreamWriter.m in Sources */,
 				91667C071BD4EB4500401B38 /* LossInfoCell.m in Sources */,
 				910B016D1B9EE11C00049191 /* LogViewController.m in Sources */,
+				918127661D1BB9780084D8E9 /* StockCheckViewController.m in Sources */,
 				914243111BD5E64C00A80BB1 /* GoodsMngModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
