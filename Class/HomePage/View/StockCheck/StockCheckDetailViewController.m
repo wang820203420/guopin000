@@ -1,32 +1,30 @@
 //
-//  TransferDetailViewController.m
+//  StockCheckDetailViewController.m
 //  guoping
 //
-//  Created by zhisu on 16/6/21.
+//  Created by zhisu on 16/6/23.
 //  Copyright © 2016年 zhisu. All rights reserved.
 //
 
-#import "TransferDetailViewController.h"
+#import "StockCheckDetailViewController.h"
 #import "MainViewController.h"
-#import "TransferModel.h"
-#import "TransferDetailModel.h"
-#import "TransferDetailCell.h"
-#import "TransferDetailTwoCell.h"
-
-@interface TransferDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
+#import "StockCheckModel.h"
+#import "StockCheckDetailModel.h"
+#import "StockCheckDetailCell.h"
+#import "StockCheckDetailTwoCell.h"
+@interface StockCheckDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *mainTableView;         //mainTableView
     
     //请求参数
-    NSString *orderId;                  //调货单号ID
+    NSString *stockNo;                  //调货单号ID
 }
 
 @property(nonatomic,retain) NSMutableArray *dataArray;
 
-
 @end
 
-@implementation TransferDetailViewController
+@implementation StockCheckDetailViewController
 - (NSMutableArray *)dataArray
 {
     if (_dataArray == nil) {
@@ -35,22 +33,21 @@
     return _dataArray;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self createNav];
     [self addNavButton:CGRectMake(-10, 25, 60, 30) imageName:@"back_icon@2x" target:self action:@selector(backAction:)];
-    [self addNavLabel:CGRectMake(ScreenWidth/2.737, 25, 100, 30) font:[UIFont systemFontOfSize:20] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter text:@"调货明细"];
+    [self addNavLabel:CGRectMake(ScreenWidth/2.737, 25, 100, 30) font:[UIFont systemFontOfSize:20] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter text:@"盘点明细"];
     
-    
-    orderId = _cellModel.OrderId;
+    stockNo = _cellModel.StockNo;
     [self download];
     [self createTableview];
-
 }
-
 #pragma mark __________________________创建UI_____________________________
 - (void)createTableview
 {
@@ -59,7 +56,6 @@
     mainTableView.delegate = self;
     mainTableView.showsVerticalScrollIndicator = NO;
     mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //mainTableView.separatorStyle = UITableViewCellAccessoryNone;
     [self.view addSubview:mainTableView];
 }
 
@@ -74,7 +70,7 @@
     if (section == 0) {
         return 1;
     } else {
-    return self.dataArray.count;
+        return self.dataArray.count;
     }
 }
 
@@ -84,14 +80,14 @@
     static NSString *detailTwoCellID = @"detailTwoCellID";
     
     if (indexPath.section == 0) {
-        TransferDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCellID];
+        StockCheckDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCellID];
         
         if (cell == nil) {
-            cell = [[TransferDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:detailCellID];
+            cell = [[StockCheckDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:detailCellID];
         }
         
         //添加线条
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             CGRect frameLowline = CGRectMake(0, 50 * i - 0.5, ScreenWidth, 0.5);
             UIImageView *Lowline = [MyUtil createIamgeViewFrame:frameLowline  imageName:@"375x1@2x"];
             [cell addSubview:Lowline];
@@ -103,19 +99,18 @@
         
     } else {
         
-        TransferDetailTwoCell *twoCell = [tableView dequeueReusableCellWithIdentifier:detailTwoCellID];
+        StockCheckDetailTwoCell *twoCell = [tableView dequeueReusableCellWithIdentifier:detailTwoCellID];
         
         if (twoCell == nil) {
-            twoCell = [[TransferDetailTwoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:detailTwoCellID];
+            twoCell = [[StockCheckDetailTwoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:detailTwoCellID];
         }
         
-        TransferDetailModel *cellModel = self.dataArray[indexPath.row];
+        StockCheckDetailModel *cellModel = self.dataArray[indexPath.row];
         twoCell.cellModel =cellModel;
         
         return twoCell;
     }
 }
-
 
 #pragma mark __________________________UITableViewDelegate_____________________________
 
@@ -132,7 +127,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 250;
+        return 200;
     } else {
         return 30;
     }
@@ -147,7 +142,7 @@
             UIView *bgView= [[UIView alloc] init];
             bgView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1];
             
-            UILabel *label = [MyUtil createLabelFrame:CGRectMake(13, 10, 60, 15) title:@"调货信息" textAlignment:NSTextAlignmentCenter];
+            UILabel *label = [MyUtil createLabelFrame:CGRectMake(13, 10, 60, 15) title:@"盘点信息" textAlignment:NSTextAlignmentCenter];
             label.textColor = [UIColor colorWithRed:163.0/255.0 green:163.0/255.0 blue:163.0/255.0 alpha:1];
             label.font = [UIFont systemFontOfSize:14];
             [bgView addSubview:label];
@@ -168,37 +163,31 @@
             label.font = [UIFont systemFontOfSize:13];
             [bgView addSubview:label];
             
-            //2.单箱重量
-            UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/5.615, 15, 60, 10) title:@"单箱重量" textAlignment:NSTextAlignmentCenter];
+            //2.盘点箱数
+            UILabel *label1 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/4.55, 15, 60, 10) title:@"盘点箱数" textAlignment:NSTextAlignmentCenter];
             label1.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
             label1.font = [UIFont systemFontOfSize:13];
             [bgView addSubview:label1];
             
-            //3.单箱皮重
-            UILabel *label2 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/2.93, 15, 60, 10) title:@"单箱皮重" textAlignment:NSTextAlignmentCenter];
+            //3.盘点重量
+            UILabel *label2 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/2.4, 15, 60, 10) title:@"盘点重量" textAlignment:NSTextAlignmentCenter];
             label2.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
             label2.font = [UIFont systemFontOfSize:13];
             [bgView addSubview:label2];
             
-            //4.调货箱数
-            UILabel *label3 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/1.99, 15, 60, 10) title:@"调货箱数" textAlignment:NSTextAlignmentCenter];
+            //4.商品单位
+            UILabel *label3 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/1.6, 15, 60, 10) title:@"商品单位" textAlignment:NSTextAlignmentCenter];
             label3.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
             label3.font = [UIFont systemFontOfSize:13];
             [bgView addSubview:label3];
             
-            //5.商品单位
-            UILabel *label4 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/1.51, 15, 60, 10) title:@"商品单位" textAlignment:NSTextAlignmentCenter];
+            //5.库存差异
+            UILabel *label4 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/1.22, 15, 60, 10) title:@"库存差异" textAlignment:NSTextAlignmentCenter];
             label4.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
             label4.font = [UIFont systemFontOfSize:13];
             [bgView addSubview:label4];
             
-            //6.总数量
-            UILabel *label5 = [MyUtil createLabelFrame:CGRectMake(ScreenWidth/1.22, 15, 60, 10) title:@"总计数量" textAlignment:NSTextAlignmentCenter];
-            label5.textColor = [UIColor colorWithRed:122.0/255.0 green:122.0/255.0 blue:122.0/255.0 alpha:1];
-            label5.font = [UIFont systemFontOfSize:13];
-            [bgView addSubview:label5];
-            
-            //7.补全下划线
+            //6.补全下划线
             UIImageView *Lowimage = [MyUtil createIamgeViewFrame:CGRectMake(0, 0, ScreenWidth, 0.5) imageName:@"375x1@2x"];
             [bgView addSubview:Lowimage];
             
@@ -229,14 +218,10 @@
     }
 }
 
-
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];// 取消选中状态
 }
-
-
 
 #pragma mark __________________________点击事件_____________________________
 - (void)backAction:(UIButton *)btn
@@ -245,42 +230,42 @@
 }
 
 #pragma mark __________________________下载_____________________________
-
 - (void)download
 /*
  *
- *    接口样例:
  *
+ *   接口样例:
  {
- "GoodsName": "皇帝蕉",
- "UnitName": "kg",
- "GUID": "7dfe6548b2474263b1fe196a8d2111a2",
- "OrderID": "eb7b8d5c3bd44f9a98fb021df71a1e5a",
- "GoodsID": "85a6139d3a904caeb07f16c0ed8b7a32",
- "BoxAmount": 20.000,
- "BoxPtare": 1.000,
- "SendBox": 15.0,
- "SendNumber": 285.000,
- "DisplayNO": 1,
- "EnterpriseID": "05397e04317441009caa9e890947cc70",
- "StoreID": "0d6a1411d71b4643bdc5c13c1e8af117",
- "UpdateUser": "ec828d50d9a24507aef40a3fafb4b83c",
- "UpdateTime": "2016-06-17 16:08:23",
- "CreateUser": "ec828d50d9a24507aef40a3fafb4b83c",
- "CreateTime": "2016-06-17 11:42:02",
- "IsDelete": 0,
- "SourceID": "cfa81059587743a3b6b0dcbbf67ac43f",
- "UploadCreateTime": "2016-06-17 11:42:03",
- "UploadUpdateTime": "2016-06-17 16:07:06"
+     "GoodsName": "进口半蕉",
+     "UnitName": "kg",
+     "GUID": "70ab38e2152c4b73b1507a7c32ff3666",
+     "StockNo": "03160429001",
+     "GoodsID": "e3349f17e8944605b8b620827c757892",
+     "BoxNum": 20.00,
+     "BoxAmount": 45.00,
+     "BoxPtare": 0.00,
+     "TotalAmount": 900.00,
+     "CurrentInventory": 1000.00,
+     "DiffAmount": -100.00,
+     "StoreID": "0d6a1411d71b4643bdc5c13c1e8af117",
+     "EnterpriseID": "05397e04317441009caa9e890947cc70",
+     "UpdateUser": "",
+     "UpdateTime": null,
+     "CreateUser": "ec828d50d9a24507aef40a3fafb4b83c",
+     "CreateTime": "2016-04-29 11:44:02",
+     "IsDelete": 0,
+     "SourceID": "cfa81059587743a3b6b0dcbbf67ac43f",
+     "UploadCreateTime": "2016-04-29 11:44:01",
+     "UploadUpdateTime": null
  }
  *
  *
  *
  */
 {
-    NSString *str = [NSString stringWithFormat:@GetTransferDetailInfoUrl];
+    NSString *str = [NSString stringWithFormat:@GetStockcheckDetailInfoUrl];
     
-    NSDictionary * params = @{@"orderId":orderId,@"code":@"gy7412589630"};
+    NSDictionary * params = @{@"stockNo":stockNo,@"code":@"gy7412589630"};
     
     [AFHTTPClientV2 requestWithBaseURLStr:str
                                    params:params
@@ -320,7 +305,7 @@
                  NSArray *arr = [subDict1 objectForKey:@"Data"];
                  for (NSDictionary *dict in arr) {
                      NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
-                     TransferDetailModel *model = [[[TransferDetailModel alloc]init]initWithDictionary:sssDict];
+                     StockCheckDetailModel *model = [[[StockCheckDetailModel alloc]init]initWithDictionary:sssDict];
                      [self.dataArray addObject:model];
                  }
                  //刷新数据返回主线程
@@ -335,8 +320,6 @@
          NSLog(@"%@",error);
      }];
 }
-
-
 
 //推出页面的时候让tababr
 -(void)viewWillAppear:(BOOL)animated
@@ -362,7 +345,6 @@
     [tabCtrl hideTabBar];
     
 }
-
 
 
 

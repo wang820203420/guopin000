@@ -6,7 +6,9 @@
 //  Copyright © 2016年 zhisu. All rights reserved.
 //
 
-#import "CheckGoodsViewController.h"
+
+#if 0
+
 #import "MainViewController.h"
 #import "ChangeBtn.h"
 
@@ -985,6 +987,7 @@
 
 
 
-
 @end
+
+#endif
 

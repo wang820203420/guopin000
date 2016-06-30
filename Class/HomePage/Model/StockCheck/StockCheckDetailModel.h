@@ -10,11 +10,11 @@
 
 @interface StockCheckDetailModel : NSObject
 
-@property (nonatomic,strong) NSString *GoodsName;    //商品名称
-@property (nonatomic,strong) NSString *UnitName;     //商品单位
-@property (nonatomic,strong) NSNumber *BoxNum;       //盘点箱数
-@property (nonatomic,strong) NSNumber *TotalAmount;  //盘点重量
-@property (nonatomic,strong) NSNumber *DiffAmount;   //库存差异
+@property (nonatomic, strong) NSString *GoodsName;    //商品名称
+@property (nonatomic, strong) NSString *UnitName;     //商品单位
+@property (nonatomic, strong) NSNumber *BoxNum;       //盘点箱数
+@property (nonatomic, strong) NSNumber *TotalAmount;  //盘点重量
+@property (nonatomic, strong) NSNumber *DiffAmount;   //库存差异
 
 
 //创建cell模型的同时设置模型数据
