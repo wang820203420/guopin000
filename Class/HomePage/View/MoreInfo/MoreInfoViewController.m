@@ -22,9 +22,8 @@
     
     
     [self createNav];
-    [self createbtn];
+    [self createbtn];//正常状态下显示出来的的喇叭
     [self addNavButton:CGRectMake(-10, 25, 60, 30) imageName:@"back_icon@2x" target:self action:@selector(backAction:)];
-    
     
     
     [self addNavLabel:CGRectMake(ScreenWidth/2.737, 25, 100, 30) font:[UIFont systemFontOfSize:20] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter text:@"更多信息"];
@@ -98,6 +97,9 @@
     
     
 }
+
+
+
 //推出页面的时候让tababr
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -122,9 +124,4 @@
     [tabCtrl showTabBar];
     
 }
-
-
-
-
-
 @end

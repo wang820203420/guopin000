@@ -37,33 +37,37 @@
         
         //1.商品名称
         self.goodsName = [[UILabel alloc]init];
-        self.goodsName.frame = CGRectMake(13, 12, 150, 20);
-        self.goodsName.font = [UIFont systemFontOfSize:15];
+        self.goodsName.frame = CGRectMake(ScreenWidth/45, 0, 150, 20);
+        self.goodsName.font = [UIFont systemFontOfSize:14];
+        self.goodsName.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:self.goodsName];
         
         //2.盘点箱数
         self.boxNum = [[UILabel alloc]init];
-        self.boxNum.frame = CGRectMake(ScreenWidth/2.5, 12, 50, 20);
-        self.boxNum.font = [UIFont systemFontOfSize:15];
-        self.boxNum.textAlignment = NSTextAlignmentRight;
+        self.boxNum.frame = CGRectMake(ScreenWidth/4.4, 0, 50, 20);
+        self.boxNum.font = [UIFont systemFontOfSize:14];
+        self.boxNum.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.boxNum];
         
         //3.盘点重量
         self.totalAmount = [[UILabel alloc]init];
-        self.totalAmount.frame = CGRectMake(ScreenWidth/1.75,12, 200, 20);
-        self.totalAmount.font = [UIFont systemFontOfSize:15];
+        self.totalAmount.frame = CGRectMake(ScreenWidth/4.25, 0, 200, 20);
+        self.totalAmount.font = [UIFont systemFontOfSize:14];
+        self.totalAmount.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.totalAmount];
         
         //4.商品单位
         self.unitName = [[UILabel alloc]init];
-        self.unitName.frame = CGRectMake(ScreenWidth/1.47,12, 200, 20);
-        self.unitName.font = [UIFont systemFontOfSize:15];
+        self.unitName.frame = CGRectMake(ScreenWidth/2.35, 0, 200, 20);
+        self.unitName.font = [UIFont systemFontOfSize:14];
+        self.unitName.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.unitName];
         
         //5.库存差异
         self.diffAmount = [[UILabel alloc]init];
-        self.diffAmount.frame = CGRectMake(ScreenWidth/1.1,12, 200, 20);
-        self.diffAmount.font = [UIFont systemFontOfSize:15];
+        self.diffAmount.frame = CGRectMake(ScreenWidth/1.6, 0, 200, 20);
+        self.diffAmount.font = [UIFont systemFontOfSize:14];
+        self.diffAmount.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.diffAmount];
     }
     
