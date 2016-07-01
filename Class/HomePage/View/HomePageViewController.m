@@ -505,7 +505,7 @@
     {
         
         
-        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"shph_icon@2x"];
+        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"dhxx_icon@2x"];
         [cell addSubview:view];
         
         
@@ -526,7 +526,7 @@
     {
         
         
-        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"shph_icon@2x"];
+        UIImageView *view= [MyUtil createIamgeViewFrame:CGRectMake(ScreenWidth/8, ScreenWidth/9.375, ScreenWidth/13, ScreenHeight/19) imageName:@"pdxx_icon@2x"];
         [cell addSubview:view];
         
         
