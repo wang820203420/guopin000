@@ -48,8 +48,6 @@
 @end
 
 @implementation TransferViewController
-
-
 #pragma mark __________________________懒加载_____________________________
 - (NSMutableArray *)dataArray
 {
@@ -91,6 +89,7 @@
     //2.下载数据
     [self downloadStore];
 }
+
 
 #pragma mark __________________________创建UI_____________________________
 - (void)configureUI
@@ -166,17 +165,16 @@
     rightPopoverTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 250) style:UITableViewStylePlain];
     rightPopoverTableView.dataSource = self;
     rightPopoverTableView.delegate = self;
-
+    rightPopoverTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [truncationView addSubview:rightPopoverTableView];
 }
-
 
 - (void)createChangeBtn
 {
     //1.左边下拉按钮
     leftBtn = [ChangeBtn buttonWithType:UIButtonTypeCustom];//注意：该语句是创建了一个新的Btn相当于alloc和init
     leftBtn.frame = CGRectMake(ScreenWidth/12.5, 10, ScreenWidth/3, 30);
-    [leftBtn setTitle:@"我的店" forState:UIControlStateNormal];
+    [leftBtn setTitle:@"大华店Model" forState:UIControlStateNormal];
     leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorWithRed:73.0/255.0 green:150.0/255.0 blue:61.0/255.0 alpha:1] forState:UIControlStateSelected];
@@ -187,10 +185,11 @@
     
     [leftBtn addTarget:self action:@selector(openView:) forControlEvents:UIControlEventTouchUpInside];
 
+    
     //2.右边下拉按钮
     rightBtn = [ChangeBtn buttonWithType:UIButtonTypeCustom];//注意：该语句是创建了一个新的Btn相当于alloc和init
     rightBtn.frame = CGRectMake(ScreenWidth * 0.58, 10, ScreenWidth/3, 30);
-    [rightBtn setTitle:@"今日" forState:UIControlStateNormal];
+    [rightBtn setTitle:@"本月Model" forState:UIControlStateNormal];
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [rightBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWithRed:73.0/255.0 green:150.0/255.0 blue:61.0/255.0 alpha:1] forState:UIControlStateSelected];
@@ -280,24 +279,17 @@
 
 
 #pragma mark __________________________UITableViewDelegate_____________________________
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    if (mainTableView == tableView) {
-//        return 45;
-//    } else {
-//        return 0;
-//    }
-//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (tableView == mainTableView) {
+        
         TransferDetailViewController *transfer = [[TransferDetailViewController alloc] init];
         TransferModel *model = self.dataArray[indexPath.row];
-        
         transfer.cellModel = model;
         [self.navigationController pushViewController:transfer animated:YES];
+        
     } else if (tableView == leftPopoverTableView) {
         AllStoreModel *model = self.storeDataArray[indexPath.row];
         
@@ -319,6 +311,8 @@
     }
     
 }
+
+
 #pragma mark __________________________UIScrollViewDelegate_____________________________
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -330,7 +324,6 @@
 {
     //2.记录拖拽完成的值（完成拖拽，手指离开屏幕，继续滚动）
     oldContentOffsetY = scrollView.contentOffset.y;
-    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -366,7 +359,6 @@
         }
     }
 }
-
 
 
 #pragma mark __________________________点击事件_____________________________
@@ -470,21 +462,6 @@
     }
     
 }
-/**
- *点击cell修改cell的数据源的方法:
- 1.设置一个单击触发事件（原因是数据源方法先于代理点击事件方法触发，所有要点击修改就要回调数据源方法）
- 2.用一个响应机制监听触发事件（例：if ([_tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) { statements ｝）
- */
-//- (void)btnActionForUserSetting:(id) sender {
-//    
-//    NSIndexPath *indexPath = [_tableview indexPathForSelectedRow];
-//    
-//    UITableViewCell *cell = [_tableview cellForRowAtIndexPath:indexPath];
-//    cell.textLabel.text = @"abc";
-//    [_tableview reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-//}
-
-
 
 
 #pragma mark __________________________监控触发事件_____________________________
