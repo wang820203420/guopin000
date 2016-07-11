@@ -16,7 +16,6 @@
 #import "StockCheckCell.h"
 
 @interface StockCheckViewController ()<UITableViewDataSource, UITableViewDelegate>
-
 {
     UITableView *mainTableView;         //mainTableView
     UIView *popoverView;                //控制上面的选择栏的隐现
@@ -24,7 +23,9 @@
     UITableView *leftPopoverTableView;  //左侧弹出的tableview
     UITableView *rightPopoverTableView; //右侧弹出的tableview
     
-    ChangeBtn *dropdownBtn;             //点击弹出选择view
+    ChangeBtn *leftBtn;                 //点击弹出选择view
+    ChangeBtn *rightBtn;                //点击弹出选择view
+
     MBProgressHUD *HUD;                 //菊花
     
     NSString *storeName;                //店铺名
@@ -47,6 +48,7 @@
 @end
 
 @implementation StockCheckViewController
+#pragma mark __________________________懒加载_____________________________
 - (NSMutableArray *)dataArray
 {
     if (_dataArray == nil) {
@@ -63,6 +65,7 @@
     return _storeDataArray;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -73,7 +76,6 @@
     [self addNavLabel:CGRectMake(ScreenWidth/2.737, 25, 100, 30) font:[UIFont systemFontOfSize:20] textColor:[UIColor whiteColor] textAlignment:NSTextAlignmentCenter text:@"门店盘点"];
     
     [self configureData];
-
 }
 
 - (void)configureData
@@ -86,9 +88,29 @@
     
     //2.下载数据
     [self downloadStore];
+}
+
+
+#pragma mark __________________________创建UI_____________________________
+- (void)configureUI
+{
+    [self createTableview];
+    [self createPopoverTableview];
+}
+
+- (void)createTableview
+{
+    //1.创建mainTableView
+    mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-64) style:UITableViewStylePlain];
+    mainTableView.dataSource = self;
+    mainTableView.delegate = self;
+    mainTableView.showsVerticalScrollIndicator = NO;
+    mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    mainTableView.rowHeight = 95;
+    mainTableView.contentInset = UIEdgeInsetsMake(45, 0, 0, 0);
+    [self.view addSubview:mainTableView];
     
-    //3.上拉加载，下拉刷新
-    
+    //2.上拉加载，下拉刷新
     //a.上拉加载
     mainTableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
@@ -104,29 +126,11 @@
     mainTableView.header = header;
 }
 
-#pragma mark __________________________创建UI_____________________________
-- (void)configureUI
-{
-    [self createTableview];
-    [self createPopoverTableview];
-}
-
-- (void)createTableview
-{
-    mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-64) style:UITableViewStylePlain];
-    mainTableView.dataSource = self;
-    mainTableView.delegate = self;
-    mainTableView.showsVerticalScrollIndicator = NO;
-    mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    mainTableView.rowHeight = 95;
-    mainTableView.contentInset = UIEdgeInsetsMake(45, 0, 0, 0);
-    [self.view addSubview:mainTableView];
-}
-
 - (void)createPopoverTableview
 {
     //1.创建一个popoverView
     popoverView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 45)];
+    popoverView.backgroundColor = [UIColor colorWithRed:247.0/256.0 green:247.0/256.0 blue:247.0/256.0 alpha:1];
     [self.view addSubview:popoverView];
     
     //2.创建下拉按钮changeBtn
@@ -141,14 +145,14 @@
     lineBtn.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:199.0/255.0 blue:204.0/255.0 alpha:1];
     [popoverView addSubview:lineBtn];
     //下面线条
-    UIImageView *lowLine = [MyUtil createIamgeViewFrame:CGRectMake(0, 45, ScreenWidth, 0.5) imageName:@"375x1@2x"];
+    UIImageView *lowLine = [MyUtil createIamgeViewFrame:CGRectMake(0, 44.5, ScreenWidth, 0.5) imageName:@"375x1@2x"];
     [popoverView addSubview:lowLine];
     
     //4.创建用来截取子视图的truncation view
-    truncationView = [[UIView alloc] initWithFrame:CGRectMake(0, 45, ScreenWidth, 0)];
+    truncationView = [[UIView alloc] initWithFrame:CGRectMake(0, 64+45, ScreenWidth, 0)];
     truncationView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
     truncationView.clipsToBounds = YES;//截断
-    [popoverView addSubview:truncationView];
+    [self.view addSubview:truncationView];
     
     //5.创建左边的leftPopoverTableview
     leftPopoverTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 250) style:UITableViewStylePlain];
@@ -167,23 +171,36 @@
 
 - (void)createChangeBtn
 {
-    //NSArray *titles = @[store,date];
-    NSArray *titles = @[@"wode di",@"今日"];
-    for (int i = 0; i < titles.count; i++) {
-        dropdownBtn = [ChangeBtn buttonWithType:UIButtonTypeCustom];//注意：该语句是创建了一个新的Btn相当于alloc和init
-        dropdownBtn.frame = CGRectMake((ScreenWidth/2)*(i%2)+ScreenWidth/12.5, 10, ScreenWidth/3, 30);
-        [dropdownBtn setTitle:titles[i] forState:UIControlStateNormal];
-        dropdownBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [dropdownBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [dropdownBtn setTitleColor:[UIColor colorWithRed:73.0/255.0 green:150.0/255.0 blue:61.0/255.0 alpha:1] forState:UIControlStateSelected];
-        [dropdownBtn setImage:[UIImage imageNamed:@"24x14_xiala@2x"] forState:UIControlStateNormal];
-        [popoverView addSubview:dropdownBtn];
-        
-        [dropdownBtn addTarget:self action:@selector(openView:) forControlEvents:UIControlEventTouchUpInside];
-        
-        dropdownBtn.tag = i;
-    }
+    //1.左边下拉按钮
+    leftBtn = [ChangeBtn buttonWithType:UIButtonTypeCustom];//注意：该语句是创建了一个新的Btn相当于alloc和init
+    leftBtn.frame = CGRectMake(ScreenWidth/12.5, 10, ScreenWidth/3, 30);
+    [leftBtn setTitle:@"大华店Model" forState:UIControlStateNormal];
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor colorWithRed:73.0/255.0 green:150.0/255.0 blue:61.0/255.0 alpha:1] forState:UIControlStateSelected];
+    [leftBtn setImage:[UIImage imageNamed:@"24x14_xiala@2x"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"24x14_famhui@2x"] forState:UIControlStateSelected];
+    
+    [popoverView addSubview:leftBtn];
+    
+    [leftBtn addTarget:self action:@selector(openView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //2.右边下拉按钮
+    rightBtn = [ChangeBtn buttonWithType:UIButtonTypeCustom];//注意：该语句是创建了一个新的Btn相当于alloc和init
+    rightBtn.frame = CGRectMake(ScreenWidth * 0.58, 10, ScreenWidth/3, 30);
+    [rightBtn setTitle:@"本月Model" forState:UIControlStateNormal];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [rightBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor colorWithRed:73.0/255.0 green:150.0/255.0 blue:61.0/255.0 alpha:1] forState:UIControlStateSelected];
+    [rightBtn setImage:[UIImage imageNamed:@"24x14_xiala@2x"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"24x14_famhui@2x"] forState:UIControlStateSelected];
+    
+    [popoverView addSubview:rightBtn];
+    
+    [rightBtn addTarget:self action:@selector(openView:) forControlEvents:UIControlEventTouchUpInside];
 }
+
 
 #pragma mark __________________________UITableViewDataSource_____________________________
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -260,31 +277,41 @@
     }
 }
 
+
 #pragma mark __________________________UITableViewDelegate_____________________________
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    if (mainTableView == tableView) {
-//        return 45;
-//    } else {
-//        return 0;
-//    }
-//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (mainTableView == tableView) {
+        
         StockCheckDetailViewController *stockCheck = [[StockCheckDetailViewController alloc] init];
         StockCheckModel *model = self.dataArray[indexPath.row];
         stockCheck.cellModel = model;
         [self.navigationController pushViewController:stockCheck animated:YES];
+        
     } else if (leftPopoverTableView == tableView) {
+        AllStoreModel *model = self.storeDataArray[indexPath.row];
+        
+        storeName = model.StoreName;
+        storeId = model.GUID;
+        
+        [leftBtn setTitle:storeName forState:UIControlStateNormal];
+        
+        [self download];
+        [self openView:leftBtn];
         
     } else if (rightPopoverTableView == tableView) {
         
+        NSArray *arr = @[@"今日",@"本周",@"本月"];
+        [rightBtn setTitle:arr[indexPath.row] forState:UIControlStateNormal];
+        dateType = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+        [self download];
+        [self openView:rightBtn];
     }
     
 }
+
 
 #pragma mark __________________________UIScrollViewDelegate_____________________________
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -297,7 +324,6 @@
 {
     //2.记录拖拽完成的值（完成拖拽，手指离开屏幕，继续滚动）
     oldContentOffsetY = scrollView.contentOffset.y;
-    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -335,10 +361,6 @@
 }
 
 
-
-
-
-
 #pragma mark __________________________点击事件_____________________________
 - (void)backAction:(UIButton *)btn
 {
@@ -347,69 +369,99 @@
 
 - (void)openView:(ChangeBtn *)btn
 {
-    //1.点击Btn初始化所有btn状态并设置当前btn,关闭mainTableView滚动
-    for (ChangeBtn *dropdown in [popoverView subviews]) {
-        if ([dropdown isKindOfClass:[ChangeBtn class]]) {
-            dropdown.selected = NO;
-        }
-    }
-    btn.selected = YES;
+    //1.关闭mainTableView关闭滚动
     mainTableView.scrollEnabled = NO;
-    //2.通过改变truncationView.frame来控制popoverTableView是否显示出来
-    CGRect frame = truncationView.frame;
-    //3.判断点击的是哪一个btn按需显示对应的view
-    switch (btn.tag) {
-        case 0:
-        {
-            if (frame.size.height == 0) {
-                leftPopoverTableView.hidden = NO;
-                rightPopoverTableView.hidden = YES;
+    //2.判断点击的是那一个Button
+    if (btn == leftBtn) {
+        
+        //a.通过改变truncationView.frame来控制popoverTableView是否显示出来
+        if (truncationView.frame.size.height == 0) {
+            //b.初始化状态
+            leftBtn.selected = YES;
+            leftPopoverTableView.hidden = NO;
+            rightPopoverTableView.hidden = YES;
+            //c.Animation修改frame
+            [UIView animateWithDuration:0.35f animations:^{
+                CGRect frame = truncationView.frame;
                 frame.size.height += ScreenHeight-64-45;
-            } else if (!rightPopoverTableView.hidden) {
-                leftPopoverTableView.hidden = NO;
+                truncationView.frame = frame;
+            }];
+            
+        } else if (rightBtn.selected) {
+            [UIView animateWithDuration:0.35f animations:^{
+                CGRect frame = truncationView.frame;
+                frame.size.height -= ScreenHeight-64-45;
+                truncationView.frame = frame;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.65f animations:^{
+                    CGRect frame = truncationView.frame;
+                    frame.size.height += ScreenHeight-64-45;
+                    truncationView.frame = frame;
+                }];
+                
+                rightBtn.selected = NO;
                 rightPopoverTableView.hidden = YES;
-                frame = frame;
-            } else {
-                frame.size.height -= ScreenHeight-64-45;
-                mainTableView.scrollEnabled = YES;
-            }
-        }
-            break;
+                leftBtn.selected = YES;
+                leftPopoverTableView.hidden = NO;
+            }];
             
-        case 1:
-        {
-            if (frame.size.height == 0) {
-                leftPopoverTableView.hidden = YES;
-                rightPopoverTableView.hidden = NO;
-                frame.size.height += ScreenHeight-64-45;
-            } else if (!leftPopoverTableView.hidden) {
-                leftPopoverTableView.hidden = YES;
-                rightPopoverTableView.hidden = NO;
-                frame = frame;
-            } else {
-                frame.size.height -= ScreenHeight-64-45;
-                mainTableView.scrollEnabled = YES;
-            }
-        }
-            break;
+        } else {
+            leftBtn.selected = NO;
             
-        default:
-            break;
-    }
-    //4.添加动画效果
-    if (frame.size.height) {
-        [UIView animateWithDuration:0.35f animations:^{
-            truncationView.frame = frame;
-            [btn setImage:[UIImage imageNamed:@"24x14_famhui@2x"] forState:UIControlStateSelected];
-        }];
+            [UIView animateWithDuration:0.65f animations:^{
+                CGRect frame = truncationView.frame;
+                frame.size.height -= ScreenHeight-64-45;
+                truncationView.frame = frame;
+            }];
+            
+            mainTableView.scrollEnabled = YES;
+        }
+        
     } else {
-        [UIView animateWithDuration:0.65f animations:^{
-            truncationView.frame = frame;
-            [btn setImage:[UIImage imageNamed:@"24x14_xiala@2x"] forState:UIControlStateSelected];
-        }];
+        
+        //a.通过改变truncationView.frame来控制popoverTableView是否显示出来
+        if (truncationView.frame.size.height == 0) {
+            //b.初始化状态
+            rightBtn.selected = YES;
+            rightPopoverTableView.hidden = NO;
+            //c.Animation修改frame
+            [UIView animateWithDuration:0.35f animations:^{
+                CGRect frame = truncationView.frame;
+                frame.size.height += ScreenHeight-64-45;
+                truncationView.frame = frame;
+            }];
+        } else if (leftBtn.selected) {
+            [UIView animateWithDuration:0.35f animations:^{
+                CGRect frame = truncationView.frame;
+                frame.size.height -= ScreenHeight-64-45;
+                truncationView.frame = frame;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.65f animations:^{
+                    CGRect frame = truncationView.frame;
+                    frame.size.height += ScreenHeight-64-45;
+                    truncationView.frame = frame;
+                }];
+                
+                leftBtn.selected = NO;
+                rightBtn.selected = YES;
+                leftPopoverTableView.hidden = YES;
+                rightPopoverTableView.hidden = NO;
+            }];
+            
+        } else {
+            rightBtn.selected = NO;
+            
+            [UIView animateWithDuration:0.65f animations:^{
+                CGRect frame = truncationView.frame;
+                frame.size.height -= ScreenHeight-64-45;
+                truncationView.frame = frame;
+            }];
+            
+            mainTableView.scrollEnabled = YES;
+        }
     }
+    
 }
-
 
 
 #pragma mark __________________________监控触发事件_____________________________
@@ -442,10 +494,7 @@
 }
 
 
-
-
 #pragma mark __________________________下载_____________________________
-
 - (void)downloadStore
 /**
  *
@@ -565,7 +614,6 @@
                  NSArray *arr1 = [subDict1 objectForKey:@"Data"];
                  
                  [self.dataArray removeAllObjects];//每次添加数据前清空所有对象，不然会造成重复数据
-                 
                  for (NSDictionary *dict in arr1) {
                      NSDictionary *sssDict = [[NSDictionary alloc]initWithDictionary:dict];
                      StockCheckModel *model = [[[StockCheckModel alloc]init] initWithDictionary:sssDict];
@@ -585,7 +633,6 @@
          NSLog(@"%@",error);
      }];
 }
-
 
 - (void)download
 /*
